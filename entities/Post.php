@@ -76,4 +76,9 @@ class Post
 			$this->post_content = htmlspecialchars(nl2br($content));
 		}
 	}
+
+	public function setPost_creation_date($dateTime)
+	{
+		$this->post_creation_date = $dateTime;
+	}
 }
