@@ -60,4 +60,20 @@ class Post
 			$this->post_id = $id;
 		}
 	}
+
+	public function setPost_title($title)
+	{
+		if (is_string($title))
+		{
+			$this->post_title = $title;
+		}
+	}
+
+	public function setPost_content($content)
+	{
+		if (is_string($content))
+		{
+			$this->post_content = htmlspecialchars(nl2br($content));
+		}
+	}
 }
