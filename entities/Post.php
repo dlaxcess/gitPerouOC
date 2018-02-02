@@ -81,4 +81,12 @@ class Post
 	{
 		$this->post_creation_date = $dateTime;
 	}
+
+	public function setPost_author($author)
+	{
+		if (is_string($author))
+		{
+			$this->post_author = htmlspecialchars(nl2br($author));
+		}
+	}
 }
