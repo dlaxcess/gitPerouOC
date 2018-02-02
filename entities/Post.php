@@ -15,6 +15,29 @@ class Post
 
 	public function hydratate(array $donnees)
 	{
-		
+		foreach ($donnees as $key => $value)
+		{
+			$method = 'set' . ucfirst($key);
+			if (method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+		}
+	}
+
+// GETTERS
+	public function post_id()
+	{
+		return $this->post_id;
+	}
+
+// SETTERS
+	public function setPost_id($id)
+	{
+		$id = intval($id);
+		if ($id > 0)
+		{
+			$this->post_id = $id;
+		}
 	}
 }
