@@ -31,6 +31,26 @@ class Post
 		return $this->post_id;
 	}
 
+	public function post_title()
+	{
+		return $this->post_title;
+	}
+
+	public function post_content()
+	{
+		return $this->post_content;
+	}
+
+	public function post_creation_date()
+	{
+		return $this->post_creation_date;
+	}
+
+	public function post_author()
+	{
+		return $this->post_author;
+	}
+
 // SETTERS
 	public function setPost_id($id)
 	{
