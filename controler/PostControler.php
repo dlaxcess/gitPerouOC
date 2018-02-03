@@ -10,7 +10,7 @@ require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 require_once('view/frontend/View.php');
 
-class PostController
+class PostControler
 {
 	private $_billet;
 	private $_comments;
