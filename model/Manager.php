@@ -27,22 +27,22 @@ abstract Class Manager
   {
     if ($params == null)
     {
-      $resultat = $this->getBdd()->query($sql);    // exÃ©cution directe
+      $resultat = $this->getBdd()->query($sql);    // exécution directe
     }
     else 
     {
-      $resultat = $this->getBdd()->prepare($sql);  // requÃªte prÃ©parÃ©e
+      $resultat = $this->getBdd()->prepare($sql);  // requête préparée
       $resultat->execute($params);
     }
     return $resultat;
   }
 
-  // Renvoie un objet de connexion Ã  la BD en initialisant la connexion au besoin
+  // Renvoie un objet de connexion à la BD en initialisant la connexion au besoin
   protected function getBdd()
   {
     if ($this->bdd == null)
     {
-      // CrÃ©ation de la connexion
+      // Création de la connexion
       $this->bdd = new \PDO('mysql:host=localhost;dbname=mvc;charset=utf8', 'root', '', array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
     }
     return $this->bdd;
