@@ -2,14 +2,12 @@
 
 namespace perou\blog\model;
 
-use \perou\blog\model\ListPost;
-use \perou\blog\model\Post;
+use \perou\blog\model\PostControler;
 use \perou\blog\model\AddComment;
 use \perou\blog\model\ModifyComment;
 use perou\blog\model\View;
 
-require_once('controler/ListPost.php');
-require_once('controler/Post.php');
+require_once('controler/PostControler.php');
 require_once('controler/AddComment.php');
 require_once('controler/ModifyComment.php');
 require_once('view/frontend/View.php');
@@ -23,8 +21,8 @@ class Router
 
 	public function __construct()
 	{
-		$this->_listPostCtrl = new ListPost();
-		$this->_postCtrl = new Post();
+		$this->_listPostCtrl = new PostControler();
+		$this->_postCtrl = new PostControler();
 		$this->_commentPostCtrl = new AddComment();
 		$this->__modifCommentCtrl = new ModifyComment();
 
@@ -42,7 +40,7 @@ class Router
 						$this->_postCtrl->post();
 					}
 					else{
-						throw new \Exception('Pas d\'identifiant d\'article envoyÃ©');
+						throw new \Exception('Pas d\'identifiant d\'article envoyé');
 						
 					}
 				}
@@ -57,7 +55,7 @@ class Router
 						}
 					}
 					else {
-						throw new \Exception('Pas d\'id d\' article envoyÃ©');
+						throw new \Exception('Pas d\'id d\' article envoyé');
 						
 					}
 				}
