@@ -3,25 +3,25 @@
         <p>Derniers billets du blog :</p>
 
 <?php
-while ($data = $posts->fetch())
+foreach ( $posts as $data)
 {
 ?>
     <div class="news">
         <h3>
             <?= $data->post_title() ?>
-            <em>le <?= $data['post_creation_date_fr'] ?></em>
+            <em>le <?= $data->post_creation_date() ?></em>
         </h3>
         
         <p>
-            <?= nl2br(htmlspecialchars($data['post_content'])) ?>
+            <?= $data->post_content() ?>
             <br />
-            <strong><?= htmlspecialchars($data['post_author']) ?></strong>
+            <strong><?= $data->post_author() ?></strong>
             <br />
-            <em><a href="index.php?action=post&post_id=<?= $data['post_id'] ?>">Commentaires</a></em>
+            <em><a href="index.php?action=post&post_id=<?= $data->post_id() ?>">Commentaires</a></em>
         </p>
     </div>
 <?php
 }
-$posts->closeCursor();
+
 ?>
    

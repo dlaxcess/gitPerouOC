@@ -1,5 +1,7 @@
 <?php
 
+namespace perou\blog\entities;
+
 class Post
 {
     protected $post_id,

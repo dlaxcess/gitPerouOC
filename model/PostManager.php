@@ -15,8 +15,10 @@
 namespace perou\blog\model;
 
 use \perou\blog\model\Manager;
+use \perou\blog\entities\Post;
 
 require_once("model/Manager.php");
+require_once("entities/Post.php");
 
 Class PostManager extends Manager
 {
@@ -27,7 +29,7 @@ Class PostManager extends Manager
         $req = $this->executerRequete($sql);
         /*$req = $db->query('SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_creation_date_fr FROM posts ORDER BY post_creation_date DESC LIMIT 0, 5');*/
        $postsTab = array();
-        while ($newPostDatas = $req->fetch(PDO::FETCH_ASSOC))
+        while ($newPostDatas = $req->fetch(\PDO::FETCH_ASSOC))
         {
             $postsTab[] = new Post($newPostDatas);
         }
