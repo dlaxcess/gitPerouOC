@@ -22,19 +22,19 @@ class PostControler
         $this->_billet = new PostManager;
         $this->_comments = new CommentManager;
     }
-
-    public function post()
-    {
-        $billet = $this->_billet->getPost($_GET['post_id']);
-        $comments = $this->_comments->getComments($_GET['post_id']);
-        $affichePost = new View('post');
-        $affichePost->generer(array('post' => $billet, 'comments' => $comments));
-    }
     
     public function listPosts()
     {
         $billets = $this->_billets->getPosts();
         $affichePosts = new View('listPosts');
         $affichePosts->generer(array('posts' => $billets));
+    }
+    
+     public function post()
+    {
+        $billet = $this->_billet->getPost($_GET['post_id']);
+        $comments = $this->_comments->getComments($_GET['post_id']);
+        $affichePost = new View('post');
+        $affichePost->generer(array('post' => $billet, 'comments' => $comments));
     }
 }
