@@ -1,32 +1,20 @@
 <?php
 
-namespace perou\blog\model;
+namespace perou\blog\controler;
 
-use \perou\blog\model\PostControler;
-use \perou\blog\model\AddComment;
-use \perou\blog\model\ModifyComment;
-use perou\blog\model\View;
-use perou\blog\controler\CommentControler;
+use perou\blog\controler\frontend\FrontendControler;
+use perou\blog\view\frontend\View;
 
-require_once('controler/PostControler.php');
-require_once('controler/CommentControler.php');
-require_once('controler/AddComment.php');
-require_once('controler/ModifyComment.php');
+require_once('controler/FrontendControler.php');
 require_once('view/frontend/View.php');
 
 class Router
 {
-    private $_listPostCtrl;
-    private $_postCtrl;
-    private $_commentPostCtrl;
-    private $_modifCommentCtrl;
+    private $_router;
 
     public function __construct()
     {
-        $this->_listPostCtrl = new PostControler();
-        $this->_postCtrl = new PostControler();
-        $this->_commentPostCtrl = new CommentControler();
-        $this->__modifCommentCtrl = new CommentControler();
+        $this->_router = new FrontendControler();
     }
 
     public function routerRequete()
@@ -37,13 +25,13 @@ class Router
                 {
                     if ($_GET['action'] == 'listPosts')
                     {
-                        $this->_listPostCtrl->listPosts();
+                        $this->_router->listPosts();
                     }
                     elseif ($_GET['action'] == 'post')
                     {
                         if (isset($_GET['post_id']) AND $_GET['post_id'] > 0)
                         {
-                            $this->_postCtrl->post();
+                            $this->_router->post();
                         }
                         else
                         {
@@ -56,7 +44,7 @@ class Router
                         {
                             if (!empty($_POST['comment_author']) AND !empty($_POST['comment']))
                             {
-                                $this->_commentPostCtrl->addComment($_GET['post_id'], $_POST['comment_author'], $_POST['comment']);
+                                $this->_router->addComment($_GET['post_id'], $_POST['comment_author'], $_POST['comment']);
                             }
                             else
                             {
@@ -74,11 +62,11 @@ class Router
                         {
                             if (isset($_POST['new_comment']))
                             {
-                                $this->__modifCommentCtrl->modifyComment($_GET['post_id'], $_GET['comment_id'], $_POST['new_comment']);
+                                $this->_router->modifyComment($_GET['post_id'], $_GET['comment_id'], $_POST['new_comment']);
                             }
                             else
                             {
-                                $this->__modifCommentCtrl->enterNewComment($_GET['post_id'], $_GET['comment_id']);
+                                $this->_router->enterNewComment($_GET['post_id'], $_GET['comment_id']);
                             }
                         }
                         else
@@ -89,7 +77,7 @@ class Router
                 }
                 else
                 {
-                    $this->_listPostCtrl->listPosts();
+                    $this->_router->listPosts();
                 }
         } catch (\Exception $e) {
                 $errorMessage = 'Erreur : ' . $e->getMessage();

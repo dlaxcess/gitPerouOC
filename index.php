@@ -1,8 +1,8 @@
 <?php
 
-use \perou\blog\model\Router;
+use \perou\blog\controler\Router;
 
-require_once('controler/router.php');
+require_once('controler/Router.php');
 
 $routeur = new Router;
 $routeur->routerRequete();

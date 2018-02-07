@@ -1,6 +1,6 @@
 <?php
 
-namespace perou\blog\model;
+namespace perou\blog\view\frontend;
 
 class View
 {
