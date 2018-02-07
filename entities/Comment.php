@@ -89,7 +89,7 @@ class Comment
 
     public function setComment($comment)
     {
-        if (is_string($content))
+        if (is_string($comment))
         {
             $this->comment = htmlspecialchars(nl2br($comment));
         }

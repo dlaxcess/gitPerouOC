@@ -6,8 +6,10 @@ use \perou\blog\model\PostControler;
 use \perou\blog\model\AddComment;
 use \perou\blog\model\ModifyComment;
 use perou\blog\model\View;
+use perou\blog\controler\CommentControler;
 
 require_once('controler/PostControler.php');
+require_once('controler/CommentControler.php');
 require_once('controler/AddComment.php');
 require_once('controler/ModifyComment.php');
 require_once('view/frontend/View.php');

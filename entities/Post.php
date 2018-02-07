@@ -89,7 +89,7 @@ class Post
     {
         if (is_string($author))
         {
-            $this->post_author = htmlspecialchars(nl2br($author));
+            $this->post_author = htmlspecialchars($author);
         }
     }
 }

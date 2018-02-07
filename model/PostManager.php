@@ -24,7 +24,7 @@ Class PostManager extends Manager
 {
     public function getPosts()
     {
-        $sql = 'SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_creation_date_fr FROM posts ORDER BY post_creation_date DESC LIMIT 0, 5';
+        $sql = 'SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%d/%m/%Y &agrave; %Hh%imin%ss\') AS post_creation_date FROM posts ORDER BY post_creation_date DESC LIMIT 0, 5';
         $req = $this->executerRequete($sql);
         
        $postsTab = array();
@@ -37,7 +37,7 @@ Class PostManager extends Manager
 
     public function getPost($postId)
     {
-            $sql = 'SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS post_creation_date_fr FROM posts WHERE post_id = ?';
+            $sql = 'SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%d/%m/%Y &agrave; %Hh%imin%ss\') AS post_creation_date FROM posts WHERE post_id = ?';
             $req = $this->executerRequete($sql, array($postId));
             $billet = new Post($req->fetch(\PDO::FETCH_ASSOC));
 

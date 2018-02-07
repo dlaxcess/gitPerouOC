@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace perou\blog\model;
+namespace perou\blog\controler;
 
 use perou\blog\model\CommentManager;
 use perou\blog\model\PostManager;
@@ -16,7 +16,7 @@ require_once('model/CommentManager.php');
 require_once('model/PostManager.php');
 require_once('view/frontend/View.php');
 
-class ModifyComment
+class CommentControler
 {
     private $_newComment;
     private $_modifComment;

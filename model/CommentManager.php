@@ -17,21 +17,28 @@
 namespace perou\blog\model;
 
 use \perou\blog\model\Manager;
+use \perou\blog\entities\Comment;
 
 /*require_once("model/Manager.php");*/
+require_once("entities/Comment.php");
 
 Class CommentManager extends Manager
 {
     public function getComments($postId)
     {
-        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
+        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
         $comments = $this->executerRequete($sql, array($postId));
-
-        return $comments;
+        $commentsTab = array();
+        while ($commentData = $comments->fetch(\PDO::FETCH_ASSOC))
+        {
+            $commentsTab[] = new Comment($commentData);
+        }
+        return $commentsTab;
     }
 
     public function postComment($post_id, $comment_author, $comment_c)
     {
+        
         $sql = 'INSERT INTO comments(post_id, comment_author, comment, comment_date) VALUES(:id, :author, :comment, NOW())';
         $affectedLines = $this->executerRequete($sql, array('id' => $post_id,
                                                                                                     'author' => htmlspecialchars($comment_author),
