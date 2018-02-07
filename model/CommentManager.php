@@ -36,13 +36,12 @@ Class CommentManager extends Manager
         return $commentsTab;
     }
 
-    public function postComment($post_id, $comment_author, $comment_c)
+    public function postComment($post_id, $comment_author, $comment)
     {
-        
         $sql = 'INSERT INTO comments(post_id, comment_author, comment, comment_date) VALUES(:id, :author, :comment, NOW())';
         $affectedLines = $this->executerRequete($sql, array('id' => $post_id,
                                                                                                     'author' => htmlspecialchars($comment_author),
-                                                                                                    'comment' => nl2br(htmlspecialchars($comment_c))
+                                                                                                    'comment' => nl2br(htmlspecialchars($comment))
                                                                                                     ));
 
         return $affectedLines;
@@ -50,9 +49,9 @@ Class CommentManager extends Manager
 
     public function getComment($comment_id)
     {
-        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE comment_id = ?';
+        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date FROM comments WHERE comment_id = ? ORDER BY comment_id DESC';
         $req = $this->executerRequete($sql, array($comment_id));
-        $comment = $req->fetch();
+        $comment = new Comment($req->fetch(\PDO::FETCH_ASSOC));
         $req->closeCursor();
 
         return $comment;

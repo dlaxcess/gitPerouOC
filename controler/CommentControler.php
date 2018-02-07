@@ -43,12 +43,24 @@ class CommentControler
             header('Location: index.php?action=post&post_id=' . $_GET['post_id']);
         }
     }
+    
+    public function enterNewComment($post_id, $comment_id)
+    {
+         if ( isset($post_id) && isset($comment_id) && $post_id > 0 && $comment_id > 0)
+        {
+            $toModifyComment = $this->_modifComment->getComment($comment_id);
+            $post = $this->_thePost->getPost($post_id);
+
+            $modifCommentView = new View('modifyComment');
+            $modifCommentView->generer(array('toModifyComment' => $toModifyComment, 'post' => $post));
+        }
+    }
 
     function modifyComment($post_id, $comment_id, $new_comment)
     {
         if (isset($new_comment))
         {
-            $affectedLines = $this->_modifComment->setComment($comment_id, htmlspecialchars($new_comment));
+            $affectedLines = $this->_modifComment->setComment($comment_id, $new_comment);
                
             if ($affectedLines === false)
             {
@@ -58,14 +70,6 @@ class CommentControler
             {
                 header('Location: index.php?action=post&post_id=' . $post_id);
             }
-        }
-        elseif (isset($comment_id))
-        {
-            $toModifyComment = $this->_modifComment->getComment($comment_id);
-            $post = $this->_thePost->getPost($post_id);
-
-            $modifCommentView = new View('modifyComment');
-            $modifCommentView->generer(array('toModifyComment' => $toModifyComment, 'post' => $post));
         }
     }
 }
