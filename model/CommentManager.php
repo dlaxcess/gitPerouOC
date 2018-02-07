@@ -49,7 +49,7 @@ Class CommentManager extends Manager
 
     public function getComment($comment_id)
     {
-        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date FROM comments WHERE comment_id = ? ORDER BY comment_id DESC';
+        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date FROM comments WHERE comment_id = ?';
         $req = $this->executerRequete($sql, array($comment_id));
         $comment = new Comment($req->fetch(\PDO::FETCH_ASSOC));
         $req->closeCursor();
