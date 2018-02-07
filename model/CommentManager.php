@@ -26,7 +26,7 @@ Class CommentManager extends Manager
 {
     public function getComments($postId)
     {
-        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
+        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
         $comments = $this->executerRequete($sql, array($postId));
         $commentsTab = array();
         while ($commentData = $comments->fetch(\PDO::FETCH_ASSOC))
@@ -36,12 +36,12 @@ Class CommentManager extends Manager
         return $commentsTab;
     }
 
-    public function postComment($post_id, $comment_author, $comment)
+    public function postComment(Comment $newComment)
     {
         $sql = 'INSERT INTO comments(post_id, comment_author, comment, comment_date) VALUES(:id, :author, :comment, NOW())';
-        $affectedLines = $this->executerRequete($sql, array('id' => $post_id,
-                                                                                                    'author' => htmlspecialchars($comment_author),
-                                                                                                    'comment' => nl2br(htmlspecialchars($comment))
+        $affectedLines = $this->executerRequete($sql, array('id' => $newComment->post_id(),
+                                                                                                    'author' => $newComment->comment_author(),
+                                                                                                    'comment' => $newComment->comment()
                                                                                                     ));
 
         return $affectedLines;
@@ -49,7 +49,7 @@ Class CommentManager extends Manager
 
     public function getComment($comment_id)
     {
-        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date FROM comments WHERE comment_id = ?';
+        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE comment_id = ?';
         $req = $this->executerRequete($sql, array($comment_id));
         $comment = new Comment($req->fetch(\PDO::FETCH_ASSOC));
         $req->closeCursor();
@@ -57,11 +57,11 @@ Class CommentManager extends Manager
         return $comment;
     }
 
-    public function setComment($comment_id, $new_comment)
+    public function setComment(Comment $newComment)
     {
         $sql = 'UPDATE comments SET comment = :new_comment, comment_date = NOW() WHERE comment_id = :id';
-        $affectedLines = $this->executerRequete($sql, array('new_comment' => $new_comment,
-                                                                                                    'id' => $comment_id
+        $affectedLines = $this->executerRequete($sql, array('new_comment' => $newComment->comment(),
+                                                                                                    'id' => $newComment->comment_id()
                                                                                                    ));
 
             return $affectedLines;

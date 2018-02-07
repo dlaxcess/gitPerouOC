@@ -95,7 +95,7 @@ class Comment
         }
     }
 
-    public function setComment_date($dateTime)
+    public function setComment_date_fr($dateTime)
     {
         $this->comment_date = $dateTime;
     }

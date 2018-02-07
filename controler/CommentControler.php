@@ -8,6 +8,7 @@
 
 namespace perou\blog\controler;
 
+use perou\blog\entities\Comment;
 use perou\blog\model\CommentManager;
 use perou\blog\model\PostManager;
 use perou\blog\model\View;
@@ -15,6 +16,7 @@ use perou\blog\model\View;
 require_once('model/CommentManager.php');
 require_once('model/PostManager.php');
 require_once('view/frontend/View.php');
+require_once 'entities\Comment.php';
 
 class CommentControler
 {
@@ -31,7 +33,8 @@ class CommentControler
     
     public function addComment($post_id, $comment_author, $comment)
     {
-        $affectedLines = $this->_newComment->postComment($post_id, $comment_author, $comment);
+        $newComment = new Comment(['post_id' => $post_id, 'comment_author' => $comment_author, 'comment' => $comment]);
+        $affectedLines = $this->_newComment->postComment($newComment);
 
         if ($affectedLines === false) 
         {
@@ -56,11 +59,12 @@ class CommentControler
         }
     }
 
-    function modifyComment($post_id, $comment_id, $new_comment)
+    function modifyComment($post_id, $comment_id, $new_content)
     {
-        if (isset($new_comment))
+        if (isset($new_content))
         {
-            $affectedLines = $this->_modifComment->setComment($comment_id, $new_comment);
+            $newComment = new Comment(['post_id' => $post_id, 'comment_id' => $comment_id, 'comment' => $new_content]);
+            $affectedLines = $this->_modifComment->setComment($newComment);
                
             if ($affectedLines === false)
             {
@@ -68,7 +72,7 @@ class CommentControler
             }
             else
             {
-                header('Location: index.php?action=post&post_id=' . $post_id);
+                header('Location: index.php?action=post&post_id=' . $newComment->post_id());
             }
         }
     }

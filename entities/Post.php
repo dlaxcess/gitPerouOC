@@ -80,7 +80,7 @@ class Post
         }
     }
 
-    public function setPost_creation_date($dateTime)
+    public function setPost_creation_date_fr($dateTime)
     {
         $this->post_creation_date = $dateTime;
     }
