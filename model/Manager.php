@@ -17,8 +17,6 @@
 
 namespace perou\blog\model;
 
-use \perou\blog\model\Manager;
-
 abstract Class Manager
 {
   private $bdd;
@@ -27,22 +25,22 @@ abstract Class Manager
   {
     if ($params == null)
     {
-      $resultat = $this->getBdd()->query($sql);    // exécution directe
+      $resultat = $this->getBdd()->query($sql);    // exï¿½cution directe
     }
     else 
     {
-      $resultat = $this->getBdd()->prepare($sql);  // requête préparée
+      $resultat = $this->getBdd()->prepare($sql);  // requï¿½te prï¿½parï¿½e
       $resultat->execute($params);
     }
     return $resultat;
   }
 
-  // Renvoie un objet de connexion à la BD en initialisant la connexion au besoin
+  // Renvoie un objet de connexion ï¿½ la BD en initialisant la connexion au besoin
   protected function getBdd()
   {
     if ($this->bdd == null)
     {
-      // Création de la connexion
+      // Crï¿½ation de la connexion
       $this->bdd = new \PDO('mysql:host=localhost;dbname=mvc;charset=utf8', 'root', '', array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
     }
     return $this->bdd;

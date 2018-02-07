@@ -18,7 +18,7 @@ require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 require_once('view/frontend/View.php');
 
-class PostControler
+class FrontendControler
 {
     private $_posts;
     private $_post;
@@ -58,7 +58,6 @@ class PostControler
         if ($affectedLines === false) 
         {
             throw new Exception('Le commentaire ne peut être posté.');
-
         }
         else
         {

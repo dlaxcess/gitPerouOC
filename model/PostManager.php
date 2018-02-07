@@ -39,8 +39,8 @@ Class PostManager extends Manager
     {
             $sql = 'SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%d/%m/%Y &agrave; %Hh%imin%ss\') AS post_creation_date_fr FROM posts WHERE post_id = ?';
             $req = $this->executerRequete($sql, array($postId));
-            $billet = new Post($req->fetch(\PDO::FETCH_ASSOC));
+            $post = new Post($req->fetch(\PDO::FETCH_ASSOC));
 
-        return $billet;
+        return $post;
     }
 }
