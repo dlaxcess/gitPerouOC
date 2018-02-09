@@ -19,7 +19,6 @@ namespace perou\blog\model;
 use \perou\blog\model\Manager;
 use \perou\blog\entities\Comment;
 
-/*require_once("model/Manager.php");*/
 require_once("entities/Comment.php");
 
 Class CommentManager extends Manager
@@ -29,10 +28,12 @@ Class CommentManager extends Manager
         $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
         $comments = $this->executerRequete($sql, array($postId));
         $commentsTab = array();
+        
         while ($commentData = $comments->fetch(\PDO::FETCH_ASSOC))
         {
             $commentsTab[] = new Comment($commentData);
         }
+        
         return $commentsTab;
     }
 
