@@ -8,15 +8,18 @@
 
 namespace perou\blog\controler\frontend;
 
+use perou\blog\entities\Autoloader;
 use \perou\blog\entities\Comment;
 use perou\blog\model\PostManager;
 use perou\blog\model\CommentManager;
 use perou\blog\view\frontend\View;
 
-require_once 'entities\Comment.php';
+require_once('entities/Autoloader.php');
+Autoloader::register();
+/*require_once 'entities\Comment.php';
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
-require_once('view/frontend/View.php');
+require_once('view/frontend/View.php');*/
 
 class FrontendControler
 {

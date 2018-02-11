@@ -14,11 +14,14 @@
 
 namespace perou\blog\model;
 
+use perou\blog\entities\Autoloader;
 use \perou\blog\model\Manager;
 use \perou\blog\entities\Post;
 
-require_once("model/Manager.php");
-require_once("entities/Post.php");
+require_once('entities/Autoloader.php');
+Autoloader::register();
+/*require_once("model/Manager.php");
+require_once("entities/Post.php");*/
 
 Class PostManager extends Manager
 {
