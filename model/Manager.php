@@ -17,9 +17,16 @@
 
 namespace perou\blog\model;
 
+use perou\blog\entities\Autoloader;
+use perou\blog\framework\Configuration;
+
+require_once('entities/Autoloader.php');
+Autoloader::register();
+require_once('framework/Configuration.php');
+
 abstract Class Manager
 {
-  private $bdd;
+  private static $_bdd;
 
   protected function executerRequete($sql, $params = null)
   {
@@ -36,27 +43,16 @@ abstract Class Manager
   }
 
   // Renvoie un objet de connexion � la BD en initialisant la connexion au besoin
-  protected function getBdd()
+  private static function getBdd()
   {
-    if ($this->bdd == null)
+    if (self::$_bdd == null)
     {
+        $dns = Configuration::get('dns');
+        $login = Configuration::get('login');
+        $mdp = Configuration::get('mdp');
       // Cr�ation de la connexion
-      $this->bdd = new \PDO('mysql:host=localhost;dbname=mvc;charset=utf8', 'root', '', array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
+        self::$_bdd = new \PDO($dns, $login, $mdp, array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
     }
-    return $this->bdd;
+    return self::$_bdd;
   }
-
 }
-
-
-
-
-
-/*
-	protected function dbConnect()
-	{
-	        $db = new \PDO('mysql:host=localhost;dbname=mvc;charset=utf8', 'root', '');
-
-	    return $db;
-	}
-}*/
