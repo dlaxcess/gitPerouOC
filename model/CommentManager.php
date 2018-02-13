@@ -16,13 +16,8 @@
 
 namespace perou\blog\model;
 
-use perou\blog\entities\Autoloader;
 use \perou\blog\model\Manager;
 use \perou\blog\entities\Comment;
-
-require_once('entities/Autoloader.php');
-Autoloader::register();
-/*require_once("entities/Comment.php");*/
 
 Class CommentManager extends Manager
 {

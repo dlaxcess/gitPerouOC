@@ -17,12 +17,7 @@
 
 namespace perou\blog\model;
 
-use perou\blog\entities\Autoloader;
 use perou\blog\framework\Configuration;
-
-require_once('entities/Autoloader.php');
-Autoloader::register();
-require_once('framework/Configuration.php');
 
 abstract Class Manager
 {
@@ -32,11 +27,11 @@ abstract Class Manager
   {
     if ($params == null)
     {
-      $resultat = $this->getBdd()->query($sql);    // ex�cution directe
+      $resultat = self::getBdd()->query($sql);    // ex�cution directe
     }
     else 
     {
-      $resultat = $this->getBdd()->prepare($sql);  // requ�te pr�par�e
+      $resultat = self::getBdd()->prepare($sql);  // requ�te pr�par�e
       $resultat->execute($params);
     }
     return $resultat;

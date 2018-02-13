@@ -2,14 +2,8 @@
 
 namespace perou\blog\controler;
 
-use perou\blog\entities\Autoloader;
 use perou\blog\controler\frontend\FrontendControler;
 use perou\blog\view\frontend\View;
-
-require_once('entities/Autoloader.php');
-Autoloader::register();
-/*require_once('controler/FrontendControler.php');
-require_once('view/frontend/View.php');*/
 
 class Router
 {
