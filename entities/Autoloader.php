@@ -22,6 +22,6 @@ abstract class Autoloader
     
     public static function register()
     {
-        spl_autoload_register('static::loadClass');
+        spl_autoload_register('self::loadClass');
     }
 }
