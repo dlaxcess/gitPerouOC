@@ -1,10 +1,10 @@
 <?php
 
 use perou\blog\entities\Autoloader;
-use perou\blog\controler\Router;
+use perou\blog\framework\Router;
 
 require_once('entities/Autoloader.php');
 Autoloader::register();
 
-$routeur = new Router;
-$routeur->routerRequete();
+$router = new Router;
+$router->routRequest();

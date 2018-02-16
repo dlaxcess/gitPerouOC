@@ -9,7 +9,12 @@
 namespace perou\blog\framework;
 
 use perou\blog\framework\Request;
+use perou\blog\controler\frontend\FrontendControler;
+use perou\blog\framework\Controler;
 use perou\blog\view\frontend\View;
+require_once 'controler/frontend/FrontendControler.php';
+require_once 'framework/Controler.php';
+
 /**
  * Description of Router
  *
@@ -30,40 +35,41 @@ class Router
         
         $controler->executeAction($action);
         }
-        catch (Exception $exc)
+        catch (Exception $exception)
             {
-            echo $exc->getTraceAsString();
+            echo $exception->getTraceAsString();
             }
     }
     
     public function createControler(Request $request)
     {
-        $controler = "home";
+        $controler = "Frontend";
         if ($request->existParameter('controler'))
         {
             $controler = $request->getParameter('controler');
             $controler = ucfirst(strtolower($controler));
         }
         //Name of controler file creation
+        $controlerClassNameNSpace = "perou\\blog\\controler\\frontend\\" . $controler . "Controler";
         $controlerClassName = $controler . "Controler";
-        $controlerFileName = "controler/" . $controlerClassName . ".php";
+        $controlerFileName = "controler/frontend/" . $controlerClassName . ".php";
         if (file_exists($controlerFileName))
         {  //instantiation of the request adapted controler
             //require ($controlerFileName);
-            $controler = new $controlerClassName();
+            $controler = new $controlerClassNameNSpace();
             $controler->setRequest($request);
             
             return $controler;
         }
         else
         {
-            throw new Exception("Fichier '$controlerFileName' introuvable");
+            throw new \Exception("Fichier '$controlerFileName' introuvable");
         }
     }
     
     private function createAction(Request $request)
     {
-        $action = "index";
+        $action = "listPosts";
         if ($request->existParameter('action'))
         {
             $action = $request->getParameter('action');

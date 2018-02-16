@@ -8,12 +8,13 @@
 
 namespace perou\blog\controler\frontend;
 
-use \perou\blog\entities\Comment;
+use perou\blog\framework\Controler;
+use perou\blog\entities\Comment;
 use perou\blog\model\PostManager;
 use perou\blog\model\CommentManager;
-use perou\blog\view\frontend\View;
+use perou\blog\view\View;
 
-class FrontendControler
+class FrontendControler extends Controler
 {
     private $_posts;
     private $_post;
@@ -30,11 +31,17 @@ class FrontendControler
         $this->_modifComment = new CommentManager();
     }
     
+    public function index()
+    {
+        echo 'index fonction par default!';
+    }
+
+
     public function listPosts()
     {
         $posts = $this->_posts->getPosts();
         $affichePosts = new View('listPosts');
-        $affichePosts->generer(array('posts' => $posts));
+        $affichePosts->generate(array('posts' => $posts));
     }
     
      public function post()
@@ -42,7 +49,7 @@ class FrontendControler
         $post = $this->_post->getPost($_GET['post_id']);
         $comments = $this->_comments->getComments($_GET['post_id']);
         $affichePost = new View('post');
-        $affichePost->generer(array('post' => $post, 'comments' => $comments));
+        $affichePost->generate(array('post' => $post, 'comments' => $comments));
     }
     
     public function addComment($post_id, $comment_author, $comment)
@@ -68,7 +75,7 @@ class FrontendControler
             $post = $this->_post->getPost($post_id);
 
             $modifCommentView = new View('modifyComment');
-            $modifCommentView->generer(array('toModifyComment' => $toModifyComment, 'post' => $post));
+            $modifCommentView->generate(array('toModifyComment' => $toModifyComment, 'post' => $post));
         }
     }
 

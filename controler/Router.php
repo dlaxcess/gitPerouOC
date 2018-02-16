@@ -79,7 +79,7 @@ class Router
         } catch (\Exception $e) {
                 $errorMessage = 'Erreur : ' . $e->getMessage();
                 $afficheError = new View('error');
-                $afficheError->generer(array('errorMessage' => $errorMessage));
+                $afficheError->generate(array('errorMessage' => $errorMessage));
         }
     }
 }
