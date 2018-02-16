@@ -17,7 +17,7 @@ foreach ( $posts as $data)
             <br />
             <strong><?= $data->post_author() ?></strong>
             <br />
-            <em><a href="index.php?action=post&post_id=<?= $data->post_id() ?>">Commentaires</a></em>
+            <em><a href="index.php?controler=frontend&action=post&post_id=<?= $data->post_id() ?>">Commentaires</a></em>
         </p>
     </div>
 <?php

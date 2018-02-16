@@ -16,17 +16,17 @@ namespace perou\blog\framework;
 class Request
 {
   // paramètres de la requête
-    private $parameters;
+    private $_parameters;
 
     public function __construct($parameters)
     {
-    $this->parameters = $parameters;
+    $this->_parameters = $parameters;
     }
 
   // Renvoie vrai si le paramètre existe dans la requête
     public function existParameter($name)
     {
-    return (isset($this->parameters[$name]) && $this->parameters[$name] != "");
+    return (isset($this->_parameters[$name]) && $this->_parameters[$name] != "");
     }
 
   // Renvoie la valeur du paramètre demandé
@@ -35,7 +35,7 @@ class Request
     {
         if ($this->existParameter($name))
         {
-            return $this->parametres[$name];
+            return $this->_parameters[$name];
         }
         else
         {

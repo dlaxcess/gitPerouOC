@@ -46,15 +46,15 @@ class FrontendControler extends Controler
     
      public function post()
     {
-        $post = $this->_post->getPost($_GET['post_id']);
-        $comments = $this->_comments->getComments($_GET['post_id']);
+        $post = $this->_post->getPost($this->request->getParameter('post_id'));
+        $comments = $this->_comments->getComments($this->request->getParameter('post_id'));
         $affichePost = new View('post');
         $affichePost->generate(array('post' => $post, 'comments' => $comments));
     }
     
-    public function addComment($post_id, $comment_author, $comment)
+    public function addComment()
     {
-        $newComment = new Comment(['post_id' => $post_id, 'comment_author' => $comment_author, 'comment' => $comment]);
+        $newComment = new Comment(['post_id' => $this->request->getParameter('post_id'), 'comment_author' => $this->request->getParameter('comment_author'), 'comment' => $this->request->getParameter('comment')]);
         $affectedLines = $this->_newComment->postComment($newComment);
 
         if ($affectedLines === false) 

@@ -21,7 +21,7 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
     <div>
         <h2>Commentaires</h2>
         <p>Ajoutez un commentaire :</p>
-        <form action="index.php?action=addComment&amp;post_id=<?= $post->post_id() ?>" method="post">
+        <form action="index.php?controler=frontend&action=addComment&amp;post_id=<?= $post->post_id() ?>" method="post">
             <label for="pseudo">Votre pseudo :</label><br />
             <input type="text" name="comment_author" id="pseudo"><br />
             <label for="comment">Commentaire</label><br />
