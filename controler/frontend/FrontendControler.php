@@ -67,10 +67,12 @@ class FrontendControler extends Controler
         }
     }
     
-    public function enterNewComment($post_id, $comment_id)
+    public function enterNewComment()
     {
+        $post_id = $this->request->getParameter('post_id');
+        $comment_id = $this->request->getParameter('comment_id');
          if ( isset($post_id) && isset($comment_id) && $post_id > 0 && $comment_id > 0)
-        {
+         {
             $toModifyComment = $this->_modifComment->getComment($comment_id);
             $post = $this->_post->getPost($post_id);
 
@@ -79,8 +81,12 @@ class FrontendControler extends Controler
         }
     }
 
-    function modifyComment($post_id, $comment_id, $new_content)
+    function modifyComment()
     {
+        $post_id = $this->request->getParameter('post_id');
+        $comment_id = $this->request->getParameter('comment_id');
+        $new_content = $this->request->getParameter('new_comment');
+        
         if (isset($new_content))
         {
             $newComment = new Comment(['post_id' => $post_id, 'comment_id' => $comment_id, 'comment' => $new_content]);
@@ -88,11 +94,11 @@ class FrontendControler extends Controler
                
             if ($affectedLines === false)
             {
-                throw new Exception('le commentaire ne peut être modifié');	
+                throw new \Exception('le commentaire ne peut être modifié');	
             }
             else
             {
-                header('Location: index.php?action=post&post_id=' . $newComment->post_id());
+                header('Location: index.php?controleur=frontend&action=post&post_id=' . $newComment->post_id());
             }
         }
     }

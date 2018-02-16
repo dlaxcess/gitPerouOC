@@ -32,12 +32,7 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
         <?php
         foreach ($comments AS $comment)
         {
-            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong>(<a href="index.php?action=modifyComment&comment_id=' . $comment->comment_id() . '&post_id=' . $post->post_id() . '">modifier</a>)<br />' . $comment->comment() . '</p>';
+            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong>(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&post_id=' . $post->post_id() . '">modifier</a>)<br />' . $comment->comment() . '</p>';
         }
-//        while ($comment = $comments->fetch())
-//        {
-//            echo '<p><strong>[' . $comment['comment_date_fr'] . '] ' . htmlspecialchars($comment['comment_author']) . ' : </strong>(<a href="index.php?action=modifyComment&comment_id=' . $comment['comment_id'] . '&post_id=' . $post->post_id() . '">modifier</a>)<br />' . nl2br(htmlspecialchars($comment['comment'])) . '</p>';
-//        }
-//        $comments->closeCursor();
         ?>
     </div>

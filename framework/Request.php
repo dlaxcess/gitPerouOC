@@ -39,7 +39,7 @@ class Request
         }
         else
         {
-             throw new Exception("Paramètre '$name' absent de la requête");
+             throw new \Exception("Paramètre '$name' absent de la requête");
         }
     }
 }
