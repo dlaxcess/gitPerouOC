@@ -12,7 +12,7 @@ use perou\blog\framework\Controler;
 use perou\blog\entities\Comment;
 use perou\blog\model\PostManager;
 use perou\blog\model\CommentManager;
-use perou\blog\view\View;
+use perou\blog\framework\View;
 
 class FrontendControler extends Controler
 {
@@ -40,16 +40,16 @@ class FrontendControler extends Controler
     public function listPosts()
     {
         $posts = $this->_posts->getPosts();
-        $affichePosts = new View('listPosts');
-        $affichePosts->generate(array('posts' => $posts));
+        $displayPosts = new View('listPosts');
+        $displayPosts->generate(array('posts' => $posts));
     }
     
      public function post()
     {
         $post = $this->_post->getPost($this->request->getParameter('post_id'));
         $comments = $this->_comments->getComments($this->request->getParameter('post_id'));
-        $affichePost = new View('post');
-        $affichePost->generate(array('post' => $post, 'comments' => $comments));
+        $displayPost = new View('post');
+        $displayPost->generate(array('post' => $post, 'comments' => $comments));
     }
     
     public function addComment()

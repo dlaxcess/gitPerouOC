@@ -68,7 +68,7 @@ class Post
     {
         if (is_string($title))
         {
-            $this->post_title = $title;
+            $this->post_title = htmlspecialchars($title);
         }
     }
 

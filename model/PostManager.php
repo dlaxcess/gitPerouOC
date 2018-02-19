@@ -14,15 +14,15 @@
 
 namespace perou\blog\model;
 
-use \perou\blog\model\Manager;
-use \perou\blog\entities\Post;
+use perou\blog\model\Manager;
+use perou\blog\entities\Post;
 
 Class PostManager extends Manager
 {
     public function getPosts()
     {
         $sql = 'SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%d/%m/%Y &agrave; %Hh%imin%ss\') AS post_creation_date_fr FROM posts ORDER BY post_creation_date DESC LIMIT 0, 5';
-        $req = $this->executerRequete($sql);
+        $req = $this->executeRequest($sql);
         
        $postsTab = array();
         while ($newPostDatas = $req->fetch(\PDO::FETCH_ASSOC))
@@ -35,7 +35,7 @@ Class PostManager extends Manager
     public function getPost($postId)
     {
             $sql = 'SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%d/%m/%Y &agrave; %Hh%imin%ss\') AS post_creation_date_fr FROM posts WHERE post_id = ?';
-            $req = $this->executerRequete($sql, array($postId));
+            $req = $this->executeRequest($sql, array($postId));
             $post = new Post($req->fetch(\PDO::FETCH_ASSOC));
 
         return $post;

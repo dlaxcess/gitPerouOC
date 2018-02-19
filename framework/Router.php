@@ -11,7 +11,7 @@ namespace perou\blog\framework;
 use perou\blog\framework\Request;
 use perou\blog\controler\frontend\FrontendControler;
 use perou\blog\framework\Controler;
-use perou\blog\view\frontend\View;
+use perou\blog\framework\View;
 require_once 'controler/frontend/FrontendControler.php';
 require_once 'framework/Controler.php';
 

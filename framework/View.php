@@ -1,6 +1,6 @@
 <?php
 
-namespace perou\blog\view;
+namespace perou\blog\framework;
 
 class View
 {
@@ -14,14 +14,16 @@ class View
         {
             $file =$file . $controler . "/";
         }
-        $this->_file = $file . "/" . $action . "/" . $action . 'View.php';
+        $this->_file = $file . $action . "/" . $action . 'View.php';
     }
 
     public function generate($datas)
     {
         $page_content = $this->generateFile($this->_file, $datas);
+        
+        $racineWeb = \perou\blog\framework\Configuration::get("racineWeb", "/");
 
-        $view = $this->generateFile('view/template.php', array('page_title' =>$this->_title, 'page_content' =>$page_content));
+        $view = $this->generateFile('view/template.php', array('page_title' =>$this->_title, 'page_content' =>$page_content, 'racineWeb' => $racineWeb));
         echo $view;
     }
 

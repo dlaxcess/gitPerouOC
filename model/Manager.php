@@ -23,18 +23,18 @@ abstract Class Manager
 {
   private static $_bdd;
 
-  protected function executerRequete($sql, $params = null)
+  protected function executeRequest($sql, $params = null)
   {
     if ($params == null)
     {
-      $resultat = self::getBdd()->query($sql);    // ex�cution directe
+      $result = self::getBdd()->query($sql);    // ex�cution directe
     }
     else 
     {
-      $resultat = self::getBdd()->prepare($sql);  // requ�te pr�par�e
-      $resultat->execute($params);
+      $result = self::getBdd()->prepare($sql);  // requ�te pr�par�e
+      $result->execute($params);
     }
-    return $resultat;
+    return $result;
   }
 
   // Renvoie un objet de connexion � la BD en initialisant la connexion au besoin
