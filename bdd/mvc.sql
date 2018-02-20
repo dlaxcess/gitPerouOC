@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 11 jan. 2018 à 19:26
+-- Généré le :  mar. 20 fév. 2018 à 12:39
 -- Version du serveur :  10.1.28-MariaDB
 -- Version de PHP :  7.1.11
 
@@ -63,7 +63,22 @@ INSERT INTO `comments` (`comment_id`, `post_id`, `comment_author`, `comment`, `c
 (20, 1, 'phil', 'avec les use', '2018-01-11 18:26:10'),
 (21, 1, 'phil', 'tic toc!', '2018-01-11 19:15:22'),
 (22, 1, 'jo', 'blou!', '2018-01-11 19:16:31'),
-(23, 2, 'phil', 'roh c est po grave! enfin!', '2018-01-11 19:26:27');
+(23, 2, 'phil', 'roh c est po grave! enfin!', '2018-01-11 19:26:27'),
+(24, 2, 'phil', 'hello', '2018-01-12 18:11:54'),
+(25, 2, 'hfdjhd', 'cd,c,c', '2018-01-12 18:12:14'),
+(26, 2, 'sshdj', 'kjqskdvb', '2018-01-17 16:37:21'),
+(27, 2, 'flou', 'biliboop! tout en POO!', '2018-01-20 02:48:25'),
+(28, 2, 'james', 'et la?', '2018-01-22 16:04:53'),
+(29, 2, 'phil', 'c est sur? non? youpi', '2018-02-07 21:26:05'),
+(30, 2, 'jo', 'hop hop', '2018-02-07 19:24:37'),
+(31, 2, 'bob', 'hop lala!! yo', '2018-02-07 19:20:02'),
+(32, 2, 'bob', 'lelouarn bis', '2018-02-07 19:19:27'),
+(33, 2, 'phil', 'nouveau num d id?', '2018-02-07 21:33:52'),
+(34, 2, 'jeff', 'hola! como esta?', '2018-02-07 21:53:11'),
+(35, 2, 'jo', 'bi joba!', '2018-02-07 23:00:23'),
+(36, 2, 'phil', 'ou ghjkl', '2018-02-07 23:12:01'),
+(37, 2, 'phil', 'yopla!', '2018-02-11 20:34:00'),
+(38, 2, 'philou', 'framy? frama? oup', '2018-02-19 15:37:07');
 
 -- --------------------------------------------------------
 
@@ -111,7 +126,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
