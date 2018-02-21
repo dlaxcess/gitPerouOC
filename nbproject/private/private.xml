@@ -3,20 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/index.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/entities/Autoloader.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/model/CommentManager.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/view/frontend/listPostsView.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/view/frontend/errorView.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/framework/Configuration.php</file>
             <file>file:/C:/xampp/htdocs/gitPerouOC/entities/Comment.php</file>
             <file>file:/C:/xampp/htdocs/gitPerouOC/entities/Post.php</file>
             <file>file:/C:/xampp/htdocs/gitPerouOC/model/Manager.php</file>
+            <file>file:/C:/xampp/htdocs/gitPerouOC/index.php</file>
             <file>file:/C:/xampp/htdocs/gitPerouOC/controler/frontend/FrontendControler.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/view/frontend/postView.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/controler/Router.php</file>
+            <file>file:/C:/xampp/htdocs/gitPerouOC/model/CommentManager.php</file>
             <file>file:/C:/xampp/htdocs/gitPerouOC/model/PostManager.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/view/frontend/View.php</file>
+            <file>file:/C:/xampp/htdocs/gitPerouOC/framework/Configuration.php</file>
             <file>file:/C:/xampp/htdocs/gitPerouOC/config/dev.ini</file>
         </group>
     </open-files>
