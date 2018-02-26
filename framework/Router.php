@@ -9,8 +9,7 @@
 namespace perou\blog\framework;
 
 use perou\blog\framework\Request;
-use perou\blog\controler\frontend\FrontendControler;
-use perou\blog\framework\Controler;
+use perou\blog\controler\FrontendControler;
 use perou\blog\framework\View;
 /*require_once 'controler/frontend/FrontendControler.php';
 require_once 'framework/Controler.php';*/
@@ -50,13 +49,14 @@ class Router
             $controler = ucfirst(strtolower($controler));
         }
         //Name of controler file creation
-        $controlerClassNameNSpace = "perou\\blog\\controler\\frontend\\" . $controler . "Controler";
+        $controlerClassNameNSpace = "perou\\blog\\controler\\" . $controler . "Controler";
         $controlerClassName = $controler . "Controler";
-        $controlerFileName = "controler/frontend/" . $controlerClassName . ".php";
+        $controlerFileName = "controler/" . $controlerClassName . ".php";
         if (file_exists($controlerFileName))
         {  //instantiation of the request adapted controler
             //require ($controlerFileName);
             $controler = new $controlerClassNameNSpace();
+            /*var_dump($controler);*/
             $controler->setRequest($request);
             
             return $controler;

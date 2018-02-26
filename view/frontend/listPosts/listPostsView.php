@@ -1,4 +1,5 @@
 <?php $this->_page_title = 'Mon Blog'; ?>
+<?php $this->_personalBar = new perou\blog\view\PersonalBar(); ?>
 
         <p>Derniers billets du blog :</p>
 

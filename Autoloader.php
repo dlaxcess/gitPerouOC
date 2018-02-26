@@ -11,6 +11,7 @@ abstract class Autoloader
 {  
     public static function loadClass($class)
     {
+        /*var_dump($class);**/
        $class = str_replace('perou\\blog\\', '', $class);
        $class = str_replace('\\', '/', $class);
        $path = $class . '.php';

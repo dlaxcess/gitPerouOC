@@ -2,10 +2,13 @@
 
 namespace perou\blog\framework;
 
+use perou\blog\view\PersonalBar;
+
 class View
 {
     private $_file;
     private $_title;
+    private $_personalBar;
 
     public function __construct($action, $controler ="")
     {
@@ -19,11 +22,13 @@ class View
 
     public function generate($datas)
     {
+        $personalBar = new PersonalBar();
+        $personalBar = $personalBar->get();
         $page_content = $this->generateFile($this->_file, $datas);
         
         $racineWeb = \perou\blog\framework\Configuration::get("racineWeb", "/");
 
-        $view = $this->generateFile('view/template.php', array('page_title' =>$this->_title, 'page_content' =>$page_content, 'racineWeb' => $racineWeb));
+        $view = $this->generateFile('view/template.php', array('page_title' =>$this->_title, 'personalBar' => $this->_personalBar, 'page_content' =>$page_content, 'racineWeb' => $racineWeb));
         echo $view;
     }
 

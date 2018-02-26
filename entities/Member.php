@@ -20,5 +20,53 @@ class Member {
                    $member_password,
                    $member_acces;
     
+    public function __construct() {
+        ;
+    }
     
+    public function hydratate() {
+        
+    }
+
+        // GETTERS
+    public function memberId() {
+        
+    }
+    
+    public function memberName() {
+        
+    }
+    
+    public function memberEmail() {
+        
+    }
+    
+    public function memberPassword() {
+        
+    }
+    
+    public function memberAcces() {
+        
+    }
+    
+    //SETTERS
+    public function setMemberID () {
+        
+    }
+    
+    public function setMemberName() {
+        
+    }
+    
+    public function setMemberEmail() {
+        
+    }
+    
+    public function setMemberPassword() {
+        
+    }
+    
+    public function setMemberAcces() {
+        
+    }
 }
