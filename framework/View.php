@@ -23,7 +23,7 @@ class View
     public function generate($datas)
     {
         $personalBar = new PersonalBar();
-        $personalBar = $personalBar->get();
+        $this->_personalBar = $personalBar->get();
         $page_content = $this->generateFile($this->_file, $datas);
         
         $racineWeb = \perou\blog\framework\Configuration::get("racineWeb", "/");

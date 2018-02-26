@@ -16,8 +16,9 @@ namespace perou\blog\view;
 class PersonalBar {
     public function get() {
         ob_start();
+        
         echo 'hello!';
-
+        
         return ob_get_clean();
     }
 }
