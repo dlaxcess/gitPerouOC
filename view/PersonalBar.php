@@ -15,10 +15,19 @@ namespace perou\blog\view;
  */
 class PersonalBar {
     public function get() {
+        if (isset($_SESSION['sessionMemberName'])) {
+            ob_start();
+        
+            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $_SESSION['sessionMemberName'];
+        
+            return ob_get_clean();
+        }
+        else {
         ob_start();
         
         echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>';
         
         return ob_get_clean();
+        }
     }
 }

@@ -28,7 +28,7 @@ class Router
         try
         {
         //Mix $_GET & $_POST parameters
-        $request = new Request(array_merge($_GET, $_POST));
+        $request = new Request(array_merge($_GET, $_POST, $_SESSION, $_COOKIE));
         
         $controler =$this->createControler($request);
         $action = $this->createAction($request);

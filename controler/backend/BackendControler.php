@@ -12,6 +12,7 @@ use perou\blog\framework\Controler;
 use perou\blog\model\MemberManager;
 use perou\blog\framework\View;
 use perou\blog\entities\Member;
+use perou\blog\framework\PasswordTester;
 
 /**
  * Description of BackendControler
@@ -21,13 +22,15 @@ use perou\blog\entities\Member;
 class BackendControler extends Controler {
     
     protected $registration,
+                   $newMember,
                    $connexion,
-                   $newMember;
+                   $connect;
     
     public function __construct() {
         $this->registration = new MemberManager();
-        $this->connexion = new MemberManager();
         $this->newMember = new MemberManager();
+        $this->connexion = new MemberManager();
+        $this->connect = new MemberManager();
     }
     
     public function index() {
@@ -39,6 +42,35 @@ class BackendControler extends Controler {
         $displayConnexion->generate(array('request' => $this->request));
     }
     
+    public function connect() {
+        $memberToConnect = $this->connect->getMember($this->request->getParameter('memberEmail'));
+        if (PasswordTester::testConnexion($this->request, $memberToConnect)) {
+            session_start();
+            $_SESSION['sessionMemberName'] = $memberToConnect->member_name();
+            $_SESSION['sessionMemberEmail'] = $memberToConnect->member_email();
+            if ($this->request->existParameter('autoconnect')) {
+                setcookie('cookieMemberName', $memberToConnect->member_name(), time() + 365*24*3600, null, null, false, true);
+                setcookie('cookieMemberEmail', $memberToConnect->member_email(), time() + 365*24*3600, null, null, false, true);
+            }
+            header('Location: index.php');
+        }
+        else {
+            throw new Exception('Votre mot de passe est incorrect');
+        }
+    }
+    
+    public function logout() {
+        session_start();
+        
+        $_SESSION = array();
+        session_destroy();
+        
+        setcookie('cookieMemberName', '');
+        setcookie('cookieMemberEmail', '');
+        
+        header('Location: index.php');
+    }
+
     public function registration() {
         $displayRegistration = new View('registration');
         $displayRegistration->generate(array('request' => $this->request));
