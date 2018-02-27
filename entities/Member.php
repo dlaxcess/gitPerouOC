@@ -20,53 +20,69 @@ class Member {
                    $member_password,
                    $member_acces;
     
-    public function __construct() {
-        ;
+    public function __construct(array $donnees) {
+        $this->hydratate($donnees);
     }
     
-    public function hydratate() {
-        
+    public function hydratate(array $donnees) {
+        foreach ($donnees as $key => $value) {
+            $method = 'set' . ucfirst($key);
+
+            if (method_exists($this, $method))
+            {
+                $this->$method($value);
+            }
+        }
     }
 
         // GETTERS
-    public function memberId() {
-        
+    public function member_id() {
+        return $this->member_id;
     }
     
-    public function memberName() {
-        
+    public function member_name() {
+        return $this->member_name;
     }
     
-    public function memberEmail() {
-        
+    public function member_email() {
+        return $this->member_email;
     }
     
-    public function memberPassword() {
-        
+    public function member_password() {
+        return $this->member_password;
     }
     
-    public function memberAcces() {
-        
+    public function member_acces() {
+        return $this->member_acces;
     }
     
     //SETTERS
-    public function setMemberID () {
-        
+    public function setMember_id ($id) {
+        $id = intval($id);
+        if ($id > 0) {
+            $this->member_id = $id;
+        }
     }
     
-    public function setMemberName() {
-        
+    public function setMember_name($name) {
+        if (is_string($name)) {
+            $this->member_name = htmlspecialchars($name);
+        }
     }
     
-    public function setMemberEmail() {
-        
+    public function setMember_email($email) {
+        if (is_string($email)) {
+            $this->member_email = htmlspecialchars($email);
+        }
     }
     
-    public function setMemberPassword() {
-        
+    public function setMember_password($password) {
+        if (is_string($password)) {
+            $this->member_password = htmlspecialchars($password);
+        }
     }
     
-    public function setMemberAcces() {
-        
+    public function setMember_acces($access) {
+        $this->member_acces = $access;
     }
 }

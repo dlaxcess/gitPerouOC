@@ -17,7 +17,7 @@ class PersonalBar {
     public function get() {
         ob_start();
         
-        echo 'hello!';
+        echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>';
         
         return ob_get_clean();
     }

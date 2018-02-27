@@ -1,0 +1,29 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+namespace perou\blog\model;
+
+use perou\blog\model\Manager;
+use perou\blog\entities\Member;
+/**
+ * Description of MemberManager
+ *
+ * @author dlaxc
+ */
+class MemberManager extends Manager {
+    
+    public function createMember(Member $newMember) {
+        $sql = 'INSERT INTO members(member_name, member_email, member_password) VALUES(:name, :email, :password)';
+        $affectedLines = $this->executeRequest($sql, array('name' => $newMember->member_name(),
+                                                                                    'email' => $newMember->member_email(),
+                                                                                    'password' => $newMember->member_password()
+                                                                                    ));
+        
+        return $affectedLines;
+    }
+}

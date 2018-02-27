@@ -39,9 +39,9 @@ Class CommentManager extends Manager
     {
         $sql = 'INSERT INTO comments(post_id, comment_author, comment, comment_date) VALUES(:id, :author, :comment, NOW())';
         $affectedLines = $this->executeRequest($sql, array('id' => $newComment->post_id(),
-                                                                                                    'author' => $newComment->comment_author(),
-                                                                                                    'comment' => $newComment->comment()
-                                                                                                    ));
+                                                                                    'author' => $newComment->comment_author(),
+                                                                                    'comment' => $newComment->comment()
+                                                                                    ));
 
         return $affectedLines;
     }

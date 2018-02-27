@@ -9,7 +9,6 @@
         
     <body>
         <div id="personalBar"><?= $this->_personalBar ?></div>
-                <?= var_dump($this->_personalBar); ?>
     	<h1>Mon super blog !</h1>
 
     	<?= $page_content ?>

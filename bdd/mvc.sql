@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 20 fév. 2018 à 12:39
--- Version du serveur :  10.1.28-MariaDB
--- Version de PHP :  7.1.11
+-- Généré le :  mar. 27 fév. 2018 à 18:06
+-- Version du serveur :  10.1.30-MariaDB
+-- Version de PHP :  7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -78,7 +78,28 @@ INSERT INTO `comments` (`comment_id`, `post_id`, `comment_author`, `comment`, `c
 (35, 2, 'jo', 'bi joba!', '2018-02-07 23:00:23'),
 (36, 2, 'phil', 'ou ghjkl', '2018-02-07 23:12:01'),
 (37, 2, 'phil', 'yopla!', '2018-02-11 20:34:00'),
-(38, 2, 'philou', 'framy? frama? oup', '2018-02-19 15:37:07');
+(38, 2, 'philou', 'framy? frama? oup et c est bon', '2018-02-21 17:27:32');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `members`
+--
+
+CREATE TABLE `members` (
+  `member_id` int(11) NOT NULL,
+  `member_name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `member_email` varchar(255) NOT NULL,
+  `member_password` varchar(255) NOT NULL,
+  `member_acces` enum('member','admin') NOT NULL DEFAULT 'member'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `members`
+--
+
+INSERT INTO `members` (`member_id`, `member_name`, `member_email`, `member_password`, `member_acces`) VALUES
+(1, 'phil', 'flipiste@free.fr', '$2y$10$3S.Dn6QUb6zGxIYDoKNoiupcvkDEDtNxDcqbxYif./fhThYDpjGT.', 'admin');
 
 -- --------------------------------------------------------
 
@@ -113,6 +134,12 @@ ALTER TABLE `comments`
   ADD PRIMARY KEY (`comment_id`);
 
 --
+-- Index pour la table `members`
+--
+ALTER TABLE `members`
+  ADD PRIMARY KEY (`member_id`);
+
+--
 -- Index pour la table `posts`
 --
 ALTER TABLE `posts`
@@ -127,6 +154,12 @@ ALTER TABLE `posts`
 --
 ALTER TABLE `comments`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT pour la table `members`
+--
+ALTER TABLE `members`
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
