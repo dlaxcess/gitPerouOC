@@ -22,6 +22,13 @@ class PersonalBar {
         
             return ob_get_clean();
         }
+        elseif (isset($_COOKIE['cookieMemberName'])) {
+            ob_start();
+        
+            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $_COOKIE['cookieMemberName'];
+        
+            return ob_get_clean();
+        }
         else {
         ob_start();
         
