@@ -24,13 +24,15 @@ class BackendControler extends Controler {
     protected $registration,
                    $newMember,
                    $connexion,
-                   $connect;
+                   $connect,
+                   $profil;
     
     public function __construct() {
         $this->registration = new MemberManager();
         $this->newMember = new MemberManager();
         $this->connexion = new MemberManager();
         $this->connect = new MemberManager();
+        $this->profil = new MemberManager();
     }
     
     public function index() {
@@ -87,5 +89,11 @@ class BackendControler extends Controler {
         else {
             header('Location: index.php');
         }
+    }
+    
+    public function profil() {
+        $member = $this->profil->getMember($this->request->getParameter('memberEmail'));
+        $displayProfil = new View('profil', 'backend');
+        $displayProfil->generate(array('member' => $member));
     }
 }

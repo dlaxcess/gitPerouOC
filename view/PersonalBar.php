@@ -18,7 +18,7 @@ class PersonalBar {
         if (isset($_SESSION['sessionMemberName'])) {
             ob_start();
         
-            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $_SESSION['sessionMemberName'];
+            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $_SESSION['sessionMemberName'] . '<a href="index.php?controler=backend&action=profil&memberEmail=' . $_SESSION['sessionMemberEmail'] . '" title="profil">Gérer mon profil</a>';
         
             return ob_get_clean();
         }

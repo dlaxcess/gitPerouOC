@@ -12,10 +12,14 @@ class View
 
     public function __construct($action, $controler ="")
     {
-        $file = "view/frontend/";
+        $file = "view/";
         if ($controler != "")
         {
             $file =$file . $controler . "/";
+        }
+        else
+        {
+            $file = $file . 'frontend/';
         }
         $this->_file = $file . $action . "/" . $action . 'View.php';
     }
