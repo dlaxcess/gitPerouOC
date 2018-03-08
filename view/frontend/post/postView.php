@@ -21,7 +21,7 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
     <div>
         <h2>Commentaires</h2>
         <p>Ajoutez un commentaire :</p>
-        <form action="index.php?controler=frontend&action=addComment&amp;post_id=<?= $post->post_id() ?>" method="post">
+        <form action="index.php?controler=frontend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
             <label for="pseudo">Votre pseudo :</label><br />
             <input type="text" name="comment_author" id="pseudo"><br />
             <label for="comment">Commentaire</label><br />
@@ -32,7 +32,7 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
         <?php
         foreach ($comments AS $comment)
         {
-            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong>(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&post_id=' . $post->post_id() . '">modifier</a>)<br />' . $comment->comment() . '</p>';
+            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong>(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)<br />' . $comment->comment() . '</p>';
         }
         ?>
     </div>

@@ -14,18 +14,20 @@ namespace perou\blog\view;
  * @author dlaxc
  */
 class PersonalBar {
-    public function get() {
-        if (isset($_SESSION['sessionMemberName'])) {
-            ob_start();
-        
-            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $_SESSION['sessionMemberName'] . '<a href="index.php?controler=backend&action=profil&memberEmail=' . $_SESSION['sessionMemberEmail'] . '" title="profil">Gérer mon profil</a>';
-        
-            return ob_get_clean();
+    
+    private $_connectedMember;
+    
+    public function __construct(Member $member = null) {
+        if ($member != null) {
+            $this->_connectedMember = $member;
         }
-        elseif (isset($_COOKIE['cookieMemberName'])) {
+    }
+    
+    public function get() {
+        if (isset($this->_connectedMember)) {
             ob_start();
         
-            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $_COOKIE['cookieMemberName'];
+            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $this->_connectedMember->member_name() . '<a href="index.php?controler=backend&action=profil&memberId=' . $this->_connectedMember->member_id() . '" title="profil">Gérer mon profil</a>';
         
             return ob_get_clean();
         }

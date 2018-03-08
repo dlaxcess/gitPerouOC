@@ -8,13 +8,13 @@
 
 namespace perou\blog\controler\frontend;
 
-use perou\blog\framework\Controler;
+use perou\blog\framework\SecuredControler;
 use perou\blog\entities\Comment;
 use perou\blog\model\PostManager;
 use perou\blog\model\CommentManager;
 use perou\blog\framework\View;
 
-class FrontendControler extends Controler
+class FrontendControler extends SecuredControler
 {
     private $_posts;
     private $_post;
@@ -46,15 +46,15 @@ class FrontendControler extends Controler
     
      public function post()
     {
-        $post = $this->_post->getPost($this->request->getParameter('post_id'));
-        $comments = $this->_comments->getComments($this->request->getParameter('post_id'));
+        $post = $this->_post->getPost($this->request->getParameter('id'));
+        $comments = $this->_comments->getComments($this->request->getParameter('id'));
         $displayPost = new View('post');
         $displayPost->generate(array('post' => $post, 'comments' => $comments));
     }
     
     public function addComment()
     {
-        $newComment = new Comment(['post_id' => $this->request->getParameter('post_id'), 'comment_author' => $this->request->getParameter('comment_author'), 'comment' => $this->request->getParameter('comment')]);
+        $newComment = new Comment(['post_id' => $this->request->getParameter('id'), 'comment_author' => $this->request->getParameter('comment_author'), 'comment' => $this->request->getParameter('comment')]);
         $affectedLines = $this->_newComment->postComment($newComment);
 
         if ($affectedLines === false) 
@@ -63,13 +63,13 @@ class FrontendControler extends Controler
         }
         else
         {
-            header('Location: index.php?action=post&post_id=' . $_GET['post_id']);
+            header('Location: index.php?action=post&id=' . $_GET['id']);
         }
     }
     
     public function enterNewComment()
     {
-        $post_id = $this->request->getParameter('post_id');
+        $post_id = $this->request->getParameter('id');
         $comment_id = $this->request->getParameter('comment_id');
          if ( isset($post_id) && isset($comment_id) && $post_id > 0 && $comment_id > 0)
          {
@@ -98,7 +98,7 @@ class FrontendControler extends Controler
             }
             else
             {
-                header('Location: index.php?controleur=frontend&action=post&post_id=' . $newComment->post_id());
+                header('Location: index.php?controleur=frontend&action=post&id=' . $newComment->post_id());
             }
         }
     }

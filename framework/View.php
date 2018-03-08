@@ -26,8 +26,9 @@ class View
 
     public function generate($datas)
     {
-        $personalBar = new PersonalBar();
+        $personalBar = $this->generatePersonalBar($datas);
         $this->_personalBar = $personalBar->get();
+        
         $page_content = $this->generateFile($this->_file, $datas);
         
         $racineWeb = \perou\blog\framework\Configuration::get("racineWeb", "/");
@@ -50,6 +51,20 @@ class View
         else
         {
             throw new \Exception("Fichier : '$_file' introuvable");
+        }
+    }
+    
+    private function generatePersonalBar($datas) {
+        extract($datas);
+        if (isset($connectedMember)) {
+            $personalBar = new PersonalBar($connectedMember);
+            
+            return $personalBar;
+        }
+        else {
+            $personalBar = new PersonalBar();
+            
+            return $personalBar;
         }
     }
 }

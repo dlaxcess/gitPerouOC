@@ -16,7 +16,7 @@ use perou\blog\entities\Member;
  *
  * @author dlaxc
  */
-abstract class PasswordTester {
+class PasswordTester {
     
     
     public static function testConnexion(Request $request, Member $member) {
