@@ -45,7 +45,7 @@ class BackendControler extends SecuredControler {
     }
     
     public function connect() {
-        $memberToConnect = $this->connect->getMemberConnexion($this->request->getParameter('memberEmail'));
+        $memberToConnect = $this->connect->getMemberByEmail($this->request->getParameter('memberEmail'));
         if (PasswordTester::testConnexion($this->request, $memberToConnect)) {
             session_start();
             $_SESSION['sessionMember'] = $memberToConnect;
@@ -89,7 +89,7 @@ class BackendControler extends SecuredControler {
     }
     
     public function profil() {
-        $member = $this->request->getParameter('sessionMember');
+        $member = $this->profil->getMemberById($this->request->getParameter('id'));
         $displayProfil = new View('profil', 'backend');
         $displayProfil->generate(array('member' => $member));
     }
