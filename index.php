@@ -8,5 +8,6 @@ Autoloader::register();
 
 session_start();
 var_dump($_COOKIE['cookieMember']);
+var_dump($_SESSION['sessionMember']);
 $router = new Router;
 $router->routRequest();
