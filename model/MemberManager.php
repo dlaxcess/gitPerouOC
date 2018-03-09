@@ -27,9 +27,17 @@ class MemberManager extends Manager {
         return $affectedLines;
     }
     
-    public function getMember($email) {
+    public function getMemberByEmail($email) {
         $sql = 'SELECT Member_id, member_name, member_email, member_password, member_acces FROM members WHERE member_email = ?';
         $req = $this->executeRequest($sql, array($email));
+        $member = new Member($req->fetch(\PDO::FETCH_ASSOC));
+        
+        return $member;
+    }
+    
+    public function getMemberById($id) {
+        $sql = 'SELECT Member_id, member_name, member_email, member_password, member_acces FROM members WHERE member_id = ?';
+        $req = $this->executeRequest($sql, array($id));
         $member = new Member($req->fetch(\PDO::FETCH_ASSOC));
         
         return $member;

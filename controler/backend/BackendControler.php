@@ -45,14 +45,12 @@ class BackendControler extends Controler {
     }
     
     public function connect() {
-        $memberToConnect = $this->connect->getMember($this->request->getParameter('memberEmail'));
+        $memberToConnect = $this->connect->getMemberByEmail($this->request->getParameter('memberEmail'));
         if (PasswordTester::testConnexion($this->request, $memberToConnect)) {
             session_start();
-            $_SESSION['sessionMemberName'] = $memberToConnect->member_name();
-            $_SESSION['sessionMemberEmail'] = $memberToConnect->member_email();
+            $_SESSION['sessionMember'] = $memberToConnect;
             if ($this->request->existParameter('autoconnect')) {
-                setcookie('cookieMemberName', $memberToConnect->member_name(), time() + 365*24*3600, null, null, false, true);
-                setcookie('cookieMemberEmail', $memberToConnect->member_email(), time() + 365*24*3600, null, null, false, true);
+                setcookie('cookieMember', $memberToConnect, time() + 365*24*3600, null, null, false, true);
             }
             header('Location: index.php');
         }
@@ -92,7 +90,7 @@ class BackendControler extends Controler {
     }
     
     public function profil() {
-        $member = $this->profil->getMember($this->request->getParameter('memberEmail'));
+        $member = $this->profil->getMemberById($this->request->getParameter('id'));
         $displayProfil = new View('profil', 'backend');
         $displayProfil->generate(array('member' => $member));
     }

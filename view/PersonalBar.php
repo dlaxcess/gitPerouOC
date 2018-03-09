@@ -15,17 +15,19 @@ namespace perou\blog\view;
  */
 class PersonalBar {
     public function get() {
-        if (isset($_SESSION['sessionMemberName'])) {
+        if (isset($_SESSION['sessionMember'])) {
+            $connectedMember = $_SESSION['sessionMember'];
             ob_start();
         
-            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $_SESSION['sessionMemberName'] . '<a href="index.php?controler=backend&action=profil&memberEmail=' . $_SESSION['sessionMemberEmail'] . '" title="profil">Gérer mon profil</a>';
+            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $connectedMember->member_name() . '<a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a>';
         
             return ob_get_clean();
         }
-        elseif (isset($_COOKIE['cookieMemberName'])) {
+        elseif (isset($_COOKIE['cookieMember'])) {
+            $connectedMember = $_COOKIE['cookieMember'];
             ob_start();
         
-            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $_COOKIE['cookieMemberName'];
+            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $connectedMember->member_name();
         
             return ob_get_clean();
         }

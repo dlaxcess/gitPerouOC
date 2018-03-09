@@ -7,6 +7,6 @@ require_once('Autoloader.php');
 Autoloader::register();
 
 session_start();
-
+var_dump($_COOKIE['cookieMember']);
 $router = new Router;
 $router->routRequest();
