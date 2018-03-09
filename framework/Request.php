@@ -42,4 +42,8 @@ class Request
              throw new \Exception("Paramètre '$name' absent de la requête");
         }
     }
+    
+    public function getAllParam() {
+        return $this->_parameters;
+    }
 }

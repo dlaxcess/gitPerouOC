@@ -54,11 +54,11 @@ class View
         }
     }
     
-    private function generatePersonalBar($datas) {
+    public function generatePersonalBar($datas) {
         extract($datas);
-        if (isset($connectedMember)) {
-            $personalBar = new PersonalBar($connectedMember);
-            
+        if (isset($request) && $request->existParameter('connectedMember')) {
+            $personalBar = new PersonalBar($request->getParameter('connectedMember'));
+
             return $personalBar;
         }
         else {

@@ -8,36 +8,36 @@
 
 namespace perou\blog\view;
 
+use perou\blog\entities\Member;
+
 /**
  * Description of PersonalBar
  *
  * @author dlaxc
  */
 class PersonalBar {
-
-    public function get() {
-        if (isset($_SESSION['sessionMember'])) {
-            $connectedMember = $_SESSION['sessionMember'];
+    
+    private $_personalBar;
+    
+    public function __construct(Member $connectedMember = null) {
+        if ($connectedMember != NULL) {
             ob_start();
         
             echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $connectedMember->member_name() . '<a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a>';
         
-            return ob_get_clean();
-        }
-        elseif (isset($_COOKIE['cookieMember'])) {
-            $connectedMember = $_COOKIE['cookieMember'];
-            ob_start();
-        
-            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $connectedMember->member_name();
-        
-            return ob_get_clean();
+            $this->_personalBar = ob_get_clean();
         }
         else {
-        ob_start();
+            ob_start();
         
-        echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>';
+            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>';
         
-        return ob_get_clean();
+            $this->_personalBar = ob_get_clean();
         }
+    }
+    
+
+    public function get() {
+        return $this->_personalBar;
     }
 }

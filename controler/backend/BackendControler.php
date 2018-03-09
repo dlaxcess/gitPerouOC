@@ -91,6 +91,6 @@ class BackendControler extends SecuredControler {
     public function profil() {
         $member = $this->profil->getMemberById($this->request->getParameter('id'));
         $displayProfil = new View('profil', 'backend');
-        $displayProfil->generate(array('member' => $member));
+        $displayProfil->generate(array('member' => $member, 'request' => $this->request));
     }
 }

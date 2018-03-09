@@ -21,13 +21,18 @@ class SecuredControler extends Controler {
         echo 'yo!';
     }
     
-    protected function generateView($viewDatas = array()) {
-        if ($this->request->existParameter('sessionMember')) {
-            $connectedMember = $this->request->getParameter('sessionMember'); 
+    public function setRequest(Request $request) {
+        $newRequest = $request;
+        $oldRequestTab = $request->getAllParam();
+        if ($request->existParameter('sessionMember')) {
+            $connectedMember = $request->getParameter('sessionMember');
+            $newRequest = new Request($oldRequestTab + array('connectedMember' => $connectedMember));
         }
-        if ($this->request->existParameter('cookieMember')) {
-            $connectedMember = $this->request->getParameter('cookieMember');
+        if ($request->existParameter('cookieMember')) {
+            $connectedMember = $request->getParameter('cookieMember');
+            $newRequest = new Request($oldRequestTab + array('connectedMember' => $connectedMember));
         }
-        parent::generateView($viewDatas + array('connectedMember' => $connectedMember));
+        
+        parent::setRequest($newRequest);
     }
 }
