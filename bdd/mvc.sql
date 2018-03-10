@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 27 fév. 2018 à 18:06
+-- Généré le :  sam. 10 mars 2018 à 16:07
 -- Version du serveur :  10.1.30-MariaDB
 -- Version de PHP :  7.2.2
 
@@ -78,7 +78,14 @@ INSERT INTO `comments` (`comment_id`, `post_id`, `comment_author`, `comment`, `c
 (35, 2, 'jo', 'bi joba!', '2018-02-07 23:00:23'),
 (36, 2, 'phil', 'ou ghjkl', '2018-02-07 23:12:01'),
 (37, 2, 'phil', 'yopla!', '2018-02-11 20:34:00'),
-(38, 2, 'philou', 'framy? frama? oup et c est bon', '2018-02-21 17:27:32');
+(38, 2, 'philou', 'framy? frama? oup et c est bon', '2018-02-21 17:27:32'),
+(39, 2, 'phil', 'tac', '2018-03-04 15:50:55'),
+(40, 2, 'phil', 'hop', '2018-03-04 15:53:01'),
+(41, 2, 'jo', 'zef', '2018-03-04 15:54:19'),
+(42, 2, 'bab', 'bobine', '2018-03-04 15:56:03'),
+(43, 2, 'toc', 'bafbif', '2018-03-04 15:56:25'),
+(44, 2, 'phil', 'hop', '2018-03-10 16:06:52'),
+(45, 2, 'phil', 'hop la', '2018-03-10 16:06:37');
 
 -- --------------------------------------------------------
 
@@ -153,7 +160,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT pour la table `members`

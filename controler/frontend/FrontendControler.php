@@ -49,7 +49,7 @@ class FrontendControler extends SecuredControler
         $post = $this->_post->getPost($this->request->getParameter('id'));
         $comments = $this->_comments->getComments($this->request->getParameter('id'));
         $displayPost = new View('post');
-        $displayPost->generate(array('post' => $post, 'comments' => $comments));
+        $displayPost->generate(array('post' => $post, 'comments' => $comments, 'request' => $this->request));
     }
     
     public function addComment()
@@ -77,7 +77,7 @@ class FrontendControler extends SecuredControler
             $post = $this->_post->getPost($post_id);
 
             $modifCommentView = new View('modifyComment');
-            $modifCommentView->generate(array('toModifyComment' => $toModifyComment, 'post' => $post));
+            $modifCommentView->generate(array('toModifyComment' => $toModifyComment, 'post' => $post, 'request' => $this->request));
         }
     }
 
