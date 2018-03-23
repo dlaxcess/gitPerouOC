@@ -58,7 +58,7 @@ class BackendControler extends SecuredControler {
             session_start();
             $_SESSION['sessionMember'] = $memberToConnect;
             if ($this->request->existParameter('autoconnect')) {
-                setcookie('cookieMember', $memberToConnect, time() + 365*24*3600, null, null, false, true);
+                setcookie('cookieMember', serialize($memberToConnect), time() + 365*24*3600, null, null, false, true);
             }
             header('Location: index.php');
         }
@@ -132,5 +132,37 @@ class BackendControler extends SecuredControler {
         $postToModify = $this->postModification->getPostSqlDate($this->request->getParameter('id'));
         $displayPostToModify = new View('modifyPost', 'backend');
         $displayPostToModify->generate(array('request' => $this->request, 'postToModify' => $postToModify));
+    }
+    
+    public function updatePost() {
+        if ($this->request->existParameter('id')) {
+            $newPostId = $this->request->getParameter('id');
+        }
+        if ($this->request->existParameter('postToModifTitle')) {
+            $newPostTitle = $this->request->getParameter('postToModifTitle');
+        }
+        if ($this->request->existParameter('postToModifContent')) {
+            $newPostContent = $this->request->getParameter('postToModifContent');
+        }
+        if ($this->request->existParameter('postToModifDate')) {
+            $newPostDate = $this->request->getParameter('postToModifDate');
+            $newPostSqlDate = preg_replace('#[T].#', ' ', $newPostDate);
+        }
+        
+        $newPost = new Post(['post_id' => $newPostId, 'post_title' => $newPostTitle, 'post_content' => $newPostContent, 'post_creation_date_fr' => $newPostSqlDate]);
+        
+        if (isset($newPost)) {
+            $affectedLines = $this->postModification->setPost($newPost);
+            
+            if ($affectedLines === false)
+            {
+                throw new \Exception('l\'article ne peut être modifié');	
+            }
+            else
+            {
+                var_dump($newPostSqlDate);
+                header('Location: index.php?');
+            }
+        }
     }
 }

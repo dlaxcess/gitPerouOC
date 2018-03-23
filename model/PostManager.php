@@ -66,4 +66,15 @@ Class PostManager extends Manager
         
         return $deletedLines;
     }
+    
+    public function setPost(Post $newPost) {
+        $sql = 'UPDATE posts SET post_title = :newTitle, post_content = :newContent, post_creation_date = :newDate WHERE post_id = :id';
+        $affectedLines = $this->executeRequest($sql, array('newTitle' => $newPost->post_title(),
+                                                                              'newContent' => $newPost->post_content(),
+                                                                              'newDate' => $newPost->post_creation_date(),
+                                                                              'id' => $newPost->post_id()
+                                                                                ));
+        
+        return $affectedLines;
+    }
 }

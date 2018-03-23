@@ -23,7 +23,17 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
         <p>Ajoutez un commentaire :</p>
         <form action="index.php?controler=frontend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
             <label for="pseudo">Votre pseudo :</label><br />
-            <input type="text" name="comment_author" id="pseudo"><br />
+            <input type="text" name="comment_author" id="pseudo" <?php
+            if (isset($request)) {
+                if ($request->existParameter('sessionMember')) {
+                    echo 'value="' . $request->getParameter('sessionMember')->member_name() . '"';
+                }
+                if (!$request->getParameter('sessionMember') && $request->existParameter('cookieMember')){
+                    $member = unserialize($request->getParameter('cookieMember'));
+                    echo 'value="' . $member->member_name() . '"';
+                }
+            }
+            ?>><br />
             <label for="comment">Commentaire</label><br />
             <textarea name="comment" id="comment"></textarea>
             <input type="submit" value="Poster le commentaire">

@@ -1,13 +1,8 @@
 <?php $this->_page_title = 'Modifier un post'; ?>
 
         <p>Modifier l'article :</p>
-
-<?php
-//$postSqlDate = $postToModify->post_creation_date();
-//$postSqlDate = preg_replace('#[ ].#', 'T', $postSqlDate);
-?>
         
-        <form action="" method="post">
+        <form action="index.php?controler=backend&action=updatePost&id=<?= $postToModify->post_id() ?>" method="post">
             <label for="postToModifTitle">Titre du post</label><br />
             <input type="text" name="postToModifTitle" id="postToModifTitle" size="100" value="<?= $postToModify->post_title() ?>" required><br />
             <label for="postToModifContent">Contenu de l'article</label><br />

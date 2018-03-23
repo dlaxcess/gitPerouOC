@@ -56,9 +56,14 @@ class View
     
     public function generatePersonalBar($datas) {
         extract($datas);
-        if (isset($request) && $request->existParameter('connectedMember')) {
-            $personalBar = new PersonalBar($request->getParameter('connectedMember'));
-
+       if (isset($request) && $request->existParameter('sessionMember')) {
+            $personalBar = new PersonalBar($request->getParameter('sessionMember'));
+            
+            return $personalBar;
+       }
+       if (isset($request) && $request->existParameter('cookieMember')) {
+            $personalBar = new PersonalBar(unserialize($request->getParameter('cookieMember')));
+        
             return $personalBar;
         }
         else {
