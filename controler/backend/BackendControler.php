@@ -8,6 +8,8 @@
 
 namespace perou\blog\controler\backend;
 
+use perou\blog\entities\Post;
+use perou\blog\model\PostManager;
 use perou\blog\framework\SecuredControler;
 use perou\blog\model\MemberManager;
 use perou\blog\framework\View;
@@ -25,7 +27,9 @@ class BackendControler extends SecuredControler {
                    $newMember,
                    $connexion,
                    $connect,
-                   $profil;
+                   $profil,
+                   $newPost,
+                   $postSuppression;
     
     public function __construct() {
         $this->registration = new MemberManager();
@@ -33,6 +37,8 @@ class BackendControler extends SecuredControler {
         $this->connexion = new MemberManager();
         $this->connect = new MemberManager();
         $this->profil = new MemberManager();
+        $this->newPost = new PostManager();
+        $this->postSuppression = new PostManager();
     }
     
     public function index() {
@@ -92,5 +98,31 @@ class BackendControler extends SecuredControler {
         $member = $this->profil->getMemberById($this->request->getParameter('id'));
         $displayProfil = new View('profil', 'backend');
         $displayProfil->generate(array('member' => $member, 'request' => $this->request));
+    }
+    
+    public function newPost() {
+        $newPost = new Post(['post_title' => $this->request->getParameter('newPostTitle'), 'post_content' => $this->request->getParameter('newPostContent'), 'post_author' => $this->request->getParameter('sessionMember')->member_name()]);
+        $affectedLines = $this->newPost->addPost($newPost);
+        
+        if ($affectedLines === false) 
+        {
+            throw new Exception('L\'article ne peut être posté.');
+        }
+        else
+        {
+            header('Location: index.php');
+        }
+    }
+    
+    public function deletePost() {
+        $deletedLine = $this->postSuppression->erasePost($this->request->getParameter('id'));
+        if ($deletedLine === false) 
+        {
+            throw new Exception('L\'article ne peut être supprimé.');
+        }
+        else
+        {
+            header('Location: index.php');
+        }
     }
 }

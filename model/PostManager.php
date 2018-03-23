@@ -40,4 +40,21 @@ Class PostManager extends Manager
 
         return $post;
     }
+    
+    public function addPost(Post $newPost) {
+        $sql = 'INSERT INTO posts(post_title, post_content, post_creation_date, post_author) VALUES(:title, :content, NOW(), :author)';
+        $affectedLines = $this->executeRequest($sql, array('title' => $newPost->post_title(),
+                                                                              'content' => $newPost->post_content(),
+                                                                              'author' => $newPost->post_author()
+                                                                                ));
+        
+        return $affectedLines;
+    }
+    
+    public function erasePost($postID) {
+        $sql = 'DELETE FROM posts WHERE post_id=:id';
+        $deletedLines = $this->executeRequest($sql, array('id' => $postID));
+        
+        return $deletedLines;
+    }
 }
