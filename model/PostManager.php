@@ -41,6 +41,15 @@ Class PostManager extends Manager
         return $post;
     }
     
+    public function getPostSqlDate($postId)
+    {
+            $sql = 'SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%Y-%m-%dT%H:%i:%s\') AS post_creation_date_fr FROM posts WHERE post_id = ?';
+            $req = $this->executeRequest($sql, array($postId));
+            $post = new Post($req->fetch(\PDO::FETCH_ASSOC));
+
+        return $post;
+    }
+    
     public function addPost(Post $newPost) {
         $sql = 'INSERT INTO posts(post_title, post_content, post_creation_date, post_author) VALUES(:title, :content, NOW(), :author)';
         $affectedLines = $this->executeRequest($sql, array('title' => $newPost->post_title(),

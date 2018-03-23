@@ -29,7 +29,8 @@ class BackendControler extends SecuredControler {
                    $connect,
                    $profil,
                    $newPost,
-                   $postSuppression;
+                   $postSuppression,
+                   $postModification;
     
     public function __construct() {
         $this->registration = new MemberManager();
@@ -39,6 +40,7 @@ class BackendControler extends SecuredControler {
         $this->profil = new MemberManager();
         $this->newPost = new PostManager();
         $this->postSuppression = new PostManager();
+        $this->postModification = new PostManager();
     }
     
     public function index() {
@@ -124,5 +126,11 @@ class BackendControler extends SecuredControler {
         {
             header('Location: index.php');
         }
+    }
+    
+    public function modifyPost() {
+        $postToModify = $this->postModification->getPostSqlDate($this->request->getParameter('id'));
+        $displayPostToModify = new View('modifyPost', 'backend');
+        $displayPostToModify->generate(array('request' => $this->request, 'postToModify' => $postToModify));
     }
 }

@@ -21,7 +21,7 @@ foreach ( $posts as $data)
         </p>
         <?php
         if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
-            echo '<p>[ Modifier] <a href="index.php?controler=backend&action=deletePost&id=' . $data->post_id() . '">[ Supprimer ]</a></p>';
+            echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $data->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=deletePost&id=' . $data->post_id() . '">[ Supprimer ]</a></p>';
         }
         ?>
     </div>
