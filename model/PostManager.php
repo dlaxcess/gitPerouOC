@@ -19,7 +19,14 @@ use perou\blog\entities\Post;
 
 Class PostManager extends Manager
 {
-    public function getPosts()
+    public function countPosts() {
+        $sql = 'SELECT count(*) AS postAmount FROM posts';
+        $postAmount = $this->executeRequest($sql);
+        
+        return $postAmount;
+    }
+
+        public function getPosts()
     {
         $sql = 'SELECT post_id, post_title, post_content, post_author, DATE_FORMAT(post_creation_date, \'%d/%m/%Y &agrave; %Hh%imin%ss\') AS post_creation_date_fr FROM posts ORDER BY post_creation_date DESC LIMIT 0, 5';
         $req = $this->executeRequest($sql);

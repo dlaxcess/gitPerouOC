@@ -40,6 +40,7 @@ class FrontendControler extends SecuredControler
     public function listPosts()
     {
         $posts = $this->_posts->getPosts();
+        
         $displayPosts = new View('listPosts');
         $displayPosts->generate(array('posts' => $posts, 'request' => $this->request));
     }
