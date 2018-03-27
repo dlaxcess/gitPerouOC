@@ -3,7 +3,7 @@
         <p>Derniers billets du blog :</p>
         
         <div>
-            <?= $postsPaging->getPaging() ?>
+            <?= $postsPaging ?>
         </div>
         
 <?php
@@ -33,7 +33,7 @@ foreach ( $posts as $data)
 }
 ?>
         <div>
-            <?= $postsPaging->getPaging() ?>
+            <?= $postsPaging ?>
         </div>
  <div>
     <?php

@@ -47,8 +47,7 @@ class FrontendControler extends SecuredControler
         else {
             $posts = $this->_posts->getPosts();
         }
-        $totalPostAmount = $this->_posts->countPosts();
-        $postsPaging = new Paging($totalPostAmount);
+        $postsPaging = new Paging($this->_posts->countPosts());
         $displayPosts = new View('listPosts');
         $displayPosts->generate(array('posts' => $posts, 'request' => $this->request, 'postsPaging' => $postsPaging));
     }

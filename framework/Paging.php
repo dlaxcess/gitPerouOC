@@ -8,8 +8,6 @@
 
 namespace perou\blog\framework;
 
-use perou\blog\entities\Post;
-
 /**
  * Description of Paging
  *
@@ -30,7 +28,7 @@ class Paging {
         }
     }
     
-    public function getPaging() {
+    public function __toString() {
         return $this->_paging;
     }
 }
