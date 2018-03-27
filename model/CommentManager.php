@@ -65,4 +65,11 @@ Class CommentManager extends Manager
 
             return $affectedLines;
     }
+    
+    public function eraseComment($commentId) {
+        $sql = 'DELETE FROM comments WHERE comment_id=:id';
+        $deletedLines = $this->executeRequest($sql, array('id' => $commentId));
+        
+        return $deletedLines;
+    }
 }

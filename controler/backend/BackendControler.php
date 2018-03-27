@@ -10,6 +10,7 @@ namespace perou\blog\controler\backend;
 
 use perou\blog\entities\Post;
 use perou\blog\model\PostManager;
+use perou\blog\model\CommentManager;
 use perou\blog\framework\SecuredControler;
 use perou\blog\model\MemberManager;
 use perou\blog\framework\View;
@@ -24,11 +25,13 @@ use perou\blog\framework\PasswordTester;
 class BackendControler extends SecuredControler {
     
     protected $memberManager,
-                  $postManager;
+                  $postManager,
+                  $commentManager;
     
     public function __construct() {
         $this->memberManager = new MemberManager();
         $this->postManager = new PostManager();
+        $this->commentManager = new CommentManager();
     }
     
     public function index() {
@@ -153,11 +156,11 @@ class BackendControler extends SecuredControler {
         }
     }
     
-    public function reportComment() {
+    public function reportComment($commentId) {
         
     }
     
-    public function deleteComment() {
+    public function deleteComment($commentId) {
         
     }
 }
