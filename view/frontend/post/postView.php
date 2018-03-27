@@ -48,9 +48,25 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
         <?php
         foreach ($comments AS $comment)
         {
-            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong>';
+            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&id=' . $comment->comment_id() . '">"Signaler"</a>';
             if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
-                    echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
+                    if ($request->existParameter('sessionMember')) {
+                        $connectedMemberName = $request->getParameter('sessionMember')->member_name();
+                        $memberAcces = $request->getParameter('sessionMember')->member_acces();
+                    }
+                    if ($request->existParameter('cookieMember')) {
+                        $connectedMemberName = unserialize($request->getParameter('cookieMember'))->member_name();
+                        $memberAcces = unserialize($request->getParameter('cookieMember'))->member_acces();
+                    }
+                    if ($memberAcces == 'admin') {
+                        echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
+                        echo ' [ Supprimer ]';
+                    }
+                    else {
+                        if($comment->comment_author() == $connectedMemberName){
+                            echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
+                        }
+                    }
             }
             echo '<br />' . $comment->comment() . '</p>';
         }

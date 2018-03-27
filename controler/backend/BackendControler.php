@@ -152,4 +152,12 @@ class BackendControler extends SecuredControler {
             }
         }
     }
+    
+    public function reportComment() {
+        
+    }
+    
+    public function deleteComment() {
+        
+    }
 }

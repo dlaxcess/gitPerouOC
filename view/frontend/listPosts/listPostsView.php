@@ -7,25 +7,40 @@
         </div>
         
 <?php
-foreach ( $posts as $data)
+foreach ( $posts as $post)
 {
 ?>
     <div class="news">
         <h3>
-            <?= $data->post_title() ?>
-            <em>le <?= $data->post_creation_date() ?></em>
+            <?= $post->post_title() ?>
+            <em>le <?= $post->post_creation_date() ?></em>
         </h3>
         
         <p>
-            <?= $data->post_content() ?>
+            <?= $post->post_content() ?>
             <br />
-            <strong><?= $data->post_author() ?></strong>
+            <strong><?= $post->post_author() ?></strong>
             <br />
-            <em><a href="index.php?controler=frontend&action=post&id=<?= $data->post_id() ?>">Commentaires</a></em>
+            <em><a href="index.php?controler=frontend&action=post&id=<?= $post->post_id() ?>">Commentaires</a></em>
         </p>
         <?php
         if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
-            echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $data->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=deletePost&id=' . $data->post_id() . '">[ Supprimer ]</a></p>';
+            if ($request->existParameter('sessionMember')) {
+                $connectedMemberName = $request->getParameter('sessionMember')->member_name();
+                $memberAcces = $request->getParameter('sessionMember')->member_acces();
+            }
+            if ($request->existParameter('cookieMember')) {
+                $connectedMemberName = unserialize($request->getParameter('cookieMember'))->member_name();
+                $memberAcces = unserialize($request->getParameter('cookieMember'))->member_acces();
+            }
+            if ($memberAcces == 'admin') {
+                echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=deletePost&id=' . $post->post_id() . '">[ Supprimer ]</a></p>';
+            }
+            else {
+                if($post->post_author() == $connectedMemberName){
+                    echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a></p>';
+                }
+            }
         }
         ?>
     </div>
