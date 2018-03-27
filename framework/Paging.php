@@ -22,6 +22,9 @@ class Paging {
         if (is_int($postAmount) && $postAmount > 0 && $postAmount < 1000) {
             $this->_PostAmount = $postAmount;
         }
+        else {
+            throw new Exception("Le nombre de posts renseigné n'est pas un entier positif ou est trop important");
+        }
         $this->_pagesAmount = ceil(($postAmount)/5);
         for ($i = 1; $i <= $this->_pagesAmount; $i++) {
             $this->_paging = $this->_paging . '<a href="index.php?id=' . strval($i) . '">[ ' . strval($i) . ' ]</a> ';
