@@ -18,18 +18,12 @@ use perou\blog\framework\Paging;
 class FrontendControler extends SecuredControler
 {
     private $_posts;
-    private $_post;
     private $_comments;
-    private $_newComment;
-    private $_modifComment;
     
     public function __construct()
     {
         $this->_posts = new PostManager();
-        $this->_post = new PostManager();
         $this->_comments = new CommentManager();
-        $this->_newComment = new CommentManager();
-        $this->_modifComment = new CommentManager();
     }
     
     public function index()
@@ -54,7 +48,7 @@ class FrontendControler extends SecuredControler
     
      public function post()
     {
-        $post = $this->_post->getPost($this->request->getParameter('id'));
+        $post = $this->_posts->getPost($this->request->getParameter('id'));
         $comments = $this->_comments->getComments($this->request->getParameter('id'));
         $displayPost = new View('post');
         $displayPost->generate(array('post' => $post, 'comments' => $comments, 'request' => $this->request));
@@ -63,7 +57,7 @@ class FrontendControler extends SecuredControler
     public function addComment()
     {
         $newComment = new Comment(['post_id' => $this->request->getParameter('id'), 'comment_author' => $this->request->getParameter('comment_author'), 'comment' => $this->request->getParameter('comment')]);
-        $affectedLines = $this->_newComment->postComment($newComment);
+        $affectedLines = $this->_comments->postComment($newComment);
 
         if ($affectedLines === false) 
         {
@@ -81,8 +75,8 @@ class FrontendControler extends SecuredControler
         $comment_id = $this->request->getParameter('comment_id');
          if ( isset($post_id) && isset($comment_id) && $post_id > 0 && $comment_id > 0)
          {
-            $toModifyComment = $this->_modifComment->getComment($comment_id);
-            $post = $this->_post->getPost($post_id);
+            $toModifyComment = $this->_comments->getComment($comment_id);
+            $post = $this->_posts->getPost($post_id);
 
             $modifCommentView = new View('modifyComment');
             $modifCommentView->generate(array('toModifyComment' => $toModifyComment, 'post' => $post, 'request' => $this->request));
@@ -98,7 +92,7 @@ class FrontendControler extends SecuredControler
         if (isset($new_content))
         {
             $newComment = new Comment(['post_id' => $post_id, 'comment_id' => $comment_id, 'comment' => $new_content]);
-            $affectedLines = $this->_modifComment->setComment($newComment);
+            $affectedLines = $this->_comments->setComment($newComment);
                
             if ($affectedLines === false)
             {

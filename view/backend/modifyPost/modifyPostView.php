@@ -11,8 +11,3 @@
             <input type="datetime-local" name="postToModifDate" value="<?= $postToModify->post_creation_date() ?>" step="1"><br />
             <input type="submit" value="Modifier l'article">
         </form>
-<?php
-echo $request->getParameter('sessionMember')->member_name();
-echo $postToModify->post_title();
-echo $postToModify->post_creation_date();
-?>

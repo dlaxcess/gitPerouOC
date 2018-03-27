@@ -20,6 +20,9 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
 
     <div>
         <h2>Commentaires</h2>
+        <?php
+        if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
+        ?>
         <p>Ajoutez un commentaire :</p>
         <form action="index.php?controler=frontend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
             <label for="pseudo">Votre pseudo :</label><br />
@@ -38,11 +41,18 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
             <textarea name="comment" id="comment"></textarea>
             <input type="submit" value="Poster le commentaire">
         </form>
+        <?php
+        }
+        ?>
 
         <?php
         foreach ($comments AS $comment)
         {
-            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong>(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)<br />' . $comment->comment() . '</p>';
+            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong>';
+            if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
+                    echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
+            }
+            echo '<br />' . $comment->comment() . '</p>';
         }
         ?>
     </div>

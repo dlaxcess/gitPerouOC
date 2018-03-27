@@ -23,24 +23,12 @@ use perou\blog\framework\PasswordTester;
  */
 class BackendControler extends SecuredControler {
     
-    protected $registration,
-                   $newMember,
-                   $connexion,
-                   $connect,
-                   $profil,
-                   $newPost,
-                   $postSuppression,
-                   $postModification;
+    protected $memberManager,
+                  $postManager;
     
     public function __construct() {
-        $this->registration = new MemberManager();
-        $this->newMember = new MemberManager();
-        $this->connexion = new MemberManager();
-        $this->connect = new MemberManager();
-        $this->profil = new MemberManager();
-        $this->newPost = new PostManager();
-        $this->postSuppression = new PostManager();
-        $this->postModification = new PostManager();
+        $this->memberManager = new MemberManager();
+        $this->postManager = new PostManager();
     }
     
     public function index() {
@@ -53,7 +41,7 @@ class BackendControler extends SecuredControler {
     }
     
     public function connect() {
-        $memberToConnect = $this->connect->getMemberByEmail($this->request->getParameter('memberEmail'));
+        $memberToConnect = $this->memberManager->getMemberByEmail($this->request->getParameter('memberEmail'));
         if (PasswordTester::testConnexion($this->request, $memberToConnect)) {
             session_start();
             $_SESSION['sessionMember'] = $memberToConnect;
@@ -86,7 +74,7 @@ class BackendControler extends SecuredControler {
     public function addMember() {
         $hashed_password = password_hash($this->request->getParameter('memberPassword'), PASSWORD_DEFAULT);
         $newMember = new Member(['member_name' => $this->request->getParameter('memberName'), 'member_email' => $this->request->getParameter('memberEmail'), 'member_password' => $hashed_password]);
-        $affectedLines = $this->newMember->createMember($newMember);
+        $affectedLines = $this->memberManager->createMember($newMember);
         
         if ($affectedLines === FALSE) {
             throw new Exception('le membre ne peut être inscrit');
@@ -97,14 +85,14 @@ class BackendControler extends SecuredControler {
     }
     
     public function profil() {
-        $member = $this->profil->getMemberById($this->request->getParameter('id'));
+        $member = $this->memberManager->getMemberById($this->request->getParameter('id'));
         $displayProfil = new View('profil', 'backend');
         $displayProfil->generate(array('member' => $member, 'request' => $this->request));
     }
     
     public function newPost() {
         $newPost = new Post(['post_title' => $this->request->getParameter('newPostTitle'), 'post_content' => $this->request->getParameter('newPostContent'), 'post_author' => $this->request->getParameter('sessionMember')->member_name()]);
-        $affectedLines = $this->newPost->addPost($newPost);
+        $affectedLines = $this->postManager->addPost($newPost);
         
         if ($affectedLines === false) 
         {
@@ -117,7 +105,7 @@ class BackendControler extends SecuredControler {
     }
     
     public function deletePost() {
-        $deletedLine = $this->postSuppression->erasePost($this->request->getParameter('id'));
+        $deletedLine = $this->postManager->erasePost($this->request->getParameter('id'));
         if ($deletedLine === false) 
         {
             throw new Exception('L\'article ne peut être supprimé.');
@@ -129,7 +117,7 @@ class BackendControler extends SecuredControler {
     }
     
     public function modifyPost() {
-        $postToModify = $this->postModification->getPostSqlDate($this->request->getParameter('id'));
+        $postToModify = $this->postManager->getPostSqlDate($this->request->getParameter('id'));
         $displayPostToModify = new View('modifyPost', 'backend');
         $displayPostToModify->generate(array('request' => $this->request, 'postToModify' => $postToModify));
     }
@@ -152,7 +140,7 @@ class BackendControler extends SecuredControler {
         $newPost = new Post(['post_id' => $newPostId, 'post_title' => $newPostTitle, 'post_content' => $newPostContent, 'post_creation_date_fr' => $newPostSqlDate]);
         
         if (isset($newPost)) {
-            $affectedLines = $this->postModification->setPost($newPost);
+            $affectedLines = $this->postManager->setPost($newPost);
             
             if ($affectedLines === false)
             {
