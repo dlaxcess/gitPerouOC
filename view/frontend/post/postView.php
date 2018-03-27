@@ -28,7 +28,7 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
                 if ($request->existParameter('sessionMember')) {
                     echo 'value="' . $request->getParameter('sessionMember')->member_name() . '"';
                 }
-                if (!$request->getParameter('sessionMember') && $request->existParameter('cookieMember')){
+                if (!$request->existParameter('sessionMember') && $request->existParameter('cookieMember')){
                     $member = unserialize($request->getParameter('cookieMember'));
                     echo 'value="' . $member->member_name() . '"';
                 }

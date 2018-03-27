@@ -160,7 +160,6 @@ class BackendControler extends SecuredControler {
             }
             else
             {
-                var_dump($newPostSqlDate);
                 header('Location: index.php?');
             }
         }

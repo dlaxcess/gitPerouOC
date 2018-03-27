@@ -55,9 +55,7 @@ class Router
         $controlerFileName = "controler/". $controler . "/" . $controlerClassName . ".php";
         if (file_exists($controlerFileName))
         {  //instantiation of the request adapted controler
-            //require ($controlerFileName);
             $controler = new $controlerClassNameNSpace();
-            /*var_dump($controler);*/
             $controler->setRequest($request);
             
             return $controler;

@@ -1,7 +1,11 @@
 <?php $this->_page_title = 'Mon Blog'; ?>
 
         <p>Derniers billets du blog :</p>
-
+        
+        <div>
+            <?= $postsPaging->getPaging() ?>
+        </div>
+        
 <?php
 foreach ( $posts as $data)
 {
@@ -28,6 +32,9 @@ foreach ( $posts as $data)
 <?php
 }
 ?>
+        <div>
+            <?= $postsPaging->getPaging() ?>
+        </div>
  <div>
     <?php
     if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
@@ -38,7 +45,7 @@ foreach ( $posts as $data)
          <input type="text" name="newPostTitle" id="newPostTitle" required><br />
          <label for="newPostContent">Contenu de l'article :</label><br />
          <textarea name="newPostContent" id="newPostContent" required>Entrez le texte ici</textarea><br />
-         <input type="submit" value="Poster le commentaire">
+         <input type="submit" value="Poster l'article">
      </form>
         <?php
     }

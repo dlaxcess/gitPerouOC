@@ -13,6 +13,7 @@ use perou\blog\entities\Comment;
 use perou\blog\model\PostManager;
 use perou\blog\model\CommentManager;
 use perou\blog\framework\View;
+use perou\blog\framework\Paging;
 
 class FrontendControler extends SecuredControler
 {
@@ -39,10 +40,17 @@ class FrontendControler extends SecuredControler
 
     public function listPosts()
     {
-        $posts = $this->_posts->getPosts();
-        
+        if ($this->request->existParameter('id')) {
+            $PageNumer = intval($this->request->getParameter('id'));
+            $posts= $this->_posts->getPosts($PageNumer);
+        }
+        else {
+            $posts = $this->_posts->getPosts();
+        }
+        $totalPostAmount = $this->_posts->countPosts();
+        $postsPaging = new Paging($totalPostAmount);
         $displayPosts = new View('listPosts');
-        $displayPosts->generate(array('posts' => $posts, 'request' => $this->request));
+        $displayPosts->generate(array('posts' => $posts, 'request' => $this->request, 'postsPaging' => $postsPaging));
     }
     
      public function post()
