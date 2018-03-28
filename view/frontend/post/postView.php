@@ -48,7 +48,7 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
         <?php
         foreach ($comments AS $comment)
         {
-            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&id=' . $comment->comment_id() . '">"Signaler"</a>';
+            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&id=' . $comment->comment_id() . '">"Signaler"</a> ';
             if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
                     if ($request->existParameter('sessionMember')) {
                         $connectedMemberName = $request->getParameter('sessionMember')->member_name();
@@ -60,7 +60,7 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
                     }
                     if ($memberAcces == 'admin') {
                         echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
-                        echo ' [ Supprimer ]';
+                        echo ' <a href="index.php?controler=backend&action=deleteComment&id=' . $post->post_id() . '&comment_id=' . $comment->comment_id() . '">[ Supprimer ]</a>';
                     }
                     else {
                         if($comment->comment_author() == $connectedMemberName){

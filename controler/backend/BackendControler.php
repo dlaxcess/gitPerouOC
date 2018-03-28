@@ -160,7 +160,22 @@ class BackendControler extends SecuredControler {
         
     }
     
-    public function deleteComment($commentId) {
-        
+    public function deleteComment() {
+        if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
+            $commentId = intval($this->request->getParameter('comment_id'));
+            $postId = intval($this->request->getParameter('id'));
+            if ($commentId > 0 && $postId > 0) {
+                $deletedLine = $this->commentManager->eraseComment($this->request->getParameter('comment_id'));
+                
+                if ($deletedLine === false) 
+                {
+                    throw new Exception('Le commentaire ne peut être supprimé.');
+                }
+                else
+                {
+                    header('Location: index.php?controler=frontend&action=post&id=' . $this->request->getParameter('id'));
+                }
+            }
+        }
     }
 }
