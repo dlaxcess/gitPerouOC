@@ -11,10 +11,11 @@ namespace perou\blog\entities;
 class Comment
 {
     protected $comment_id,
-                      $post_id,
-                      $comment_author,
-                      $comment,
-                      $comment_date;
+                  $post_id,
+                  $comment_author,
+                  $comment,
+                  $comment_date,
+                  $comment_moderation;
 
     public function __construct(array $donnees)
     {
@@ -59,6 +60,11 @@ class Comment
     {
         return $this->comment_date;
     }
+    
+    public function comment_moderation()
+    {
+        return $this->comment_moderation();
+    }
 
 // SETTERS
     public function setComment_id($id)
@@ -98,6 +104,11 @@ class Comment
     public function setComment_date_fr($dateTime)
     {
         $this->comment_date = $dateTime;
+    }
+    
+    public function setComment_moderation($commentModeration)
+    {
+        $this->comment_moderation = $commentModeration;
     }
 }
 

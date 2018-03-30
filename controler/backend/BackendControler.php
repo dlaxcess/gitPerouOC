@@ -16,6 +16,8 @@ use perou\blog\model\MemberManager;
 use perou\blog\framework\View;
 use perou\blog\entities\Member;
 use perou\blog\framework\PasswordTester;
+use perou\blog\entities\Report;
+use perou\blog\model\ReportManager;
 
 /**
  * Description of BackendControler
@@ -26,12 +28,14 @@ class BackendControler extends SecuredControler {
     
     protected $memberManager,
                   $postManager,
-                  $commentManager;
+                  $commentManager,
+                  $reportManager;
     
     public function __construct() {
         $this->memberManager = new MemberManager();
         $this->postManager = new PostManager();
         $this->commentManager = new CommentManager();
+        $this->reportManager = new ReportManager();
     }
     
     public function index() {
@@ -172,6 +176,22 @@ class BackendControler extends SecuredControler {
     }
     
     public function sendCommentedReport() {
+        if ($this->request->existParameter('commentId') && $this->request->existParameter('reportContent')) {
+            $newReport = new Report(array('comment_id' => $this->request->getParameter('commentId'), 'report_content' => $this->request->getParameter('reportContent')));
+            $reportedComment = $this->commentManager->getComment($this->request->getParameter('commentId'));
+            if (isset($newReport)){
+                $newLine = $this->reportManager->postReport($newReport);
+                
+                if ($newLine === FALSE) {
+                    throw new \Exception('le commentaire ne peut être signalé');
+                }
+                else {
+                    $this->commentManager->setCommentModeration($reportedComment->comment_id(), 'reported');
+                    header('Location: index.php?controler=frontend&action=post&id=' . $reportedComment->post_id());
+                }
+            }
+        }
+        
         
     }
 

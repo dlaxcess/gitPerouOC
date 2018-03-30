@@ -23,7 +23,7 @@ Class CommentManager extends Manager
 {
     public function getComments($postId)
     {
-        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
+        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
         $comments = $this->executeRequest($sql, array($postId));
         $commentsTab = array();
         
@@ -48,7 +48,7 @@ Class CommentManager extends Manager
 
     public function getComment($comment_id)
     {
-        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE comment_id = ?';
+        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE comment_id = ?';
         $req = $this->executeRequest($sql, array($comment_id));
         $comment = new Comment($req->fetch(\PDO::FETCH_ASSOC));
         $req->closeCursor();
@@ -71,5 +71,14 @@ Class CommentManager extends Manager
         $deletedLines = $this->executeRequest($sql, array('id' => $commentId));
         
         return $deletedLines;
+    }
+    
+    public function setCommentModeration($commentId, $moderation) {
+        $sql = 'UPDATE comments SET comment_moderation = :moderation WHERE comment_id = :id';
+        $affectedLines = $this->executeRequest($sql, array('moderation' => $moderation,
+                                                                              'id' => $commentId
+                                                                                ));
+
+        return $affectedLines;
     }
 }
