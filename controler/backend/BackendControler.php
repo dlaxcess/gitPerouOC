@@ -156,11 +156,26 @@ class BackendControler extends SecuredControler {
         }
     }
     
-    public function reportComment($commentId) {
-        
+    public function reportComment() {
+        if ($this->request->existParameter('commentId')) {
+            $commentId = $this->request->getParameter('commentId');
+            $commentId = intval($commentId);
+            if ($commentId >0) {
+                $commentToReport = $this->commentManager->getComment($commentId);
+                $displayCommentToReport = new View('reportComment', 'backend');
+                $displayCommentToReport->generate(array('request' => $this->request, 'commentToReport' => $commentToReport));
+            }
+            else {
+                throw new Exception('L\'identifiant de commentaire n\'est pas valide');
+            }
+        }
     }
     
-    public function deleteComment() {
+    public function sendCommentedReport() {
+        
+    }
+
+        public function deleteComment() {
         if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
             $commentId = intval($this->request->getParameter('comment_id'));
             $postId = intval($this->request->getParameter('id'));
