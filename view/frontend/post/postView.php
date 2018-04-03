@@ -48,7 +48,18 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
         <?php
         foreach ($comments AS $comment)
         {
-            echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">"Signaler"</a> ';
+            echo '<p';
+            $reportedClass = '';
+            if ($comment->comment_moderation() == 'reported') {
+                if ($request->existParameter('sessionMember') && $request->getParameter('sessionMember')->member_acces() == 'admin') {
+                    $reportedClass = ' class="reportedComment"';
+                }
+                if ($request->existParameter('cookieMember') && unserialize($request->getParameter('cookieMember'))->member_acces() == 'admin') {
+                    $reportedClass = ' class="reportedComment"';
+                }
+            }
+            echo $reportedClass . '><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">"Signaler"</a> ';
+            
             if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
                     if ($request->existParameter('sessionMember')) {
                         $connectedMemberName = $request->getParameter('sessionMember')->member_name();

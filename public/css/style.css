@@ -30,3 +30,8 @@ a
 {
     text-align: center;
 }
+
+.reportedComment
+{
+    background-color: red;
+}

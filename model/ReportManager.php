@@ -26,4 +26,17 @@ class ReportManager extends Manager {
 
         return $affectedLines;
     }
+    
+    public function getReports() {
+        $sql = 'SELECT report_id, comment_id, report_content, DATE_FORMAT(report_date, \'%d/%m/%Y à %Hh%imin%ss\') AS report_date_fr FROM reports ORDER BY report_date DESC';
+        $reports = $this->executeRequest($sql);
+        $reportsTab = array();
+        
+        while ($reportData = $reports->fetch(\PDO::FETCH_ASSOC))
+        {
+            $reportsTab[] = new Report($reportData);
+        }
+        
+        return $reportsTab;
+    }
 }

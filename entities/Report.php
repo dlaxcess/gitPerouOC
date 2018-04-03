@@ -72,7 +72,7 @@ class Report {
         }
     }
     
-    public function setReport_date($date) {
+    public function setReport_date_fr($date) {
         $this->report_date = $date;
     }
 }

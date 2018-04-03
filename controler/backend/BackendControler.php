@@ -187,15 +187,14 @@ class BackendControler extends SecuredControler {
                 }
                 else {
                     $this->commentManager->setCommentModeration($reportedComment->comment_id(), 'reported');
+                    mail('flipiste@free.fr', 'Commentaire signalé', 'Un nouveau commentaire a été signalé');
                     header('Location: index.php?controler=frontend&action=post&id=' . $reportedComment->post_id());
                 }
             }
-        }
-        
-        
+        } 
     }
 
-        public function deleteComment() {
+    public function deleteComment() {
         if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
             $commentId = intval($this->request->getParameter('comment_id'));
             $postId = intval($this->request->getParameter('id'));
@@ -212,5 +211,12 @@ class BackendControler extends SecuredControler {
                 }
             }
         }
+    }
+    
+    public function showReportedComments() {
+        $comments = $this->commentManager->getReportedComments();
+        $reports = $this->reportManager->getReports();
+        $displayReportedComment = new View('showreportedComments', 'backend');
+        $displayReportedComment->generate(array('request' => $this->request, 'comments' => $comments, 'reports' => $reports));
     }
 }

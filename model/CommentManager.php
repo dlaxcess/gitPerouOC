@@ -23,7 +23,7 @@ Class CommentManager extends Manager
 {
     public function getComments($postId)
     {
-        $sql = 'SELECT comment_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
+        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
         $comments = $this->executeRequest($sql, array($postId));
         $commentsTab = array();
         
@@ -48,8 +48,8 @@ Class CommentManager extends Manager
 
     public function getComment($comment_id)
     {
-        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE comment_id = ?';
-        $req = $this->executeRequest($sql, array($comment_id));
+        $sql = 'SELECT comment_id, post_id, comment_author, comment, comment_moderation, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE comment_id = :id';
+        $req = $this->executeRequest($sql, array('id' => $comment_id));
         $comment = new Comment($req->fetch(\PDO::FETCH_ASSOC));
         $req->closeCursor();
 
@@ -80,5 +80,27 @@ Class CommentManager extends Manager
                                                                                 ));
 
         return $affectedLines;
+    }
+    
+    public function countReportedComment() {
+        $sql = 'SELECT count(*) AS commentAmount FROM comments WHERE comment_moderation = \'reported\'';
+        $req = $this->executeRequest($sql);
+        
+        $commentAmount = $req->fetch(\PDO::FETCH_ASSOC);
+        
+        return intval($commentAmount['commentAmount']);
+    }
+    
+    public function getReportedComments() {
+        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE comment_moderation = \'reported\' ORDER BY comment_date DESC';
+        $comments = $this->executeRequest($sql);
+        $commentsTab = array();
+        
+        while ($commentData = $comments->fetch(\PDO::FETCH_ASSOC))
+        {
+            $commentsTab[] = new Comment($commentData);
+        }
+        
+        return $commentsTab;
     }
 }

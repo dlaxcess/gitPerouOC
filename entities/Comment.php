@@ -63,7 +63,7 @@ class Comment
     
     public function comment_moderation()
     {
-        return $this->comment_moderation();
+        return $this->comment_moderation;
     }
 
 // SETTERS
