@@ -288,6 +288,15 @@ class BackendControler extends SecuredControler {
             }
         }
     }
+    
+    public function validateSupression() {
+        if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
+            $commentId = intval($this->request->getParameter('comment_id'));
+            $commentToDelete = $this->commentManager->getComment($commentId);
+        }
+        $displaySuppressionValidation = new View('validateSuppression', 'backend');
+        $displaySuppressionValidation->generate(array('request' => $this->request, 'commentToDelete' => $commentToDelete));
+    }
 
     public function deleteComment() {
         if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {

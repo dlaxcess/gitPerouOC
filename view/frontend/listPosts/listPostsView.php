@@ -34,12 +34,7 @@ foreach ( $posts as $post)
                 $memberAcces = unserialize($request->getParameter('cookieMember'))->member_acces();
             }
             if ($memberAcces == 'admin') {
-                echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=deletePost&id=' . $post->post_id() . '">[ Supprimer ]</a></p>';
-            }
-            else {
-                if($post->post_author() == $connectedMemberName){
-                    echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a></p>';
-                }
+                echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '&oldAction=post">[ Supprimer ]</a></p>';
             }
         }
         ?>
@@ -52,16 +47,23 @@ foreach ( $posts as $post)
         </div>
  <div>
     <?php
-    if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
+    $memberAcces = '';
+    if ($request->existParameter('sessionMember') && $request->getParameter('sessionMember')->member_acces() == 'admin') {
+        $memberAcces = $request->getParameter('sessionMember')->member_acces();
+    }
+    if ($request->existParameter('cookieMember') && unserialize($request->getParameter('cookieMember'))->member_acces() == 'admin') {
+        $memberAcces = unserialize($request->getParameter('cookieMember'))->member_acces();
+    }
+    if ($memberAcces == 'admin') {
         ?>
-     <p>Nouvel article :</p>
-     <form action="index.php?controler=backend&action=newPost" method="post">
-         <label for="newPostTitle">Titre :</label><br />
-         <input type="text" name="newPostTitle" id="newPostTitle" required><br />
-         <label for="newPostContent">Contenu de l'article :</label><br />
-         <textarea name="newPostContent" id="newPostContent" required>Entrez le texte ici</textarea><br />
-         <input type="submit" value="Poster l'article">
-     </form>
+        <p>Nouvel article :</p>
+        <form action="index.php?controler=backend&action=newPost" method="post">
+            <label for="newPostTitle">Titre :</label><br />
+            <input type="text" name="newPostTitle" id="newPostTitle" required><br />
+            <label for="newPostContent">Contenu de l'article :</label><br />
+            <textarea name="newPostContent" id="newPostContent" required>Entrez le texte ici</textarea><br />
+            <input type="submit" value="Poster l'article">
+        </form>
         <?php
     }
     ?>

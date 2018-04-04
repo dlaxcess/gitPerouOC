@@ -5,7 +5,7 @@
             
             echo '<p><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong> ';
             echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $comment->post_id() . '&oldAction=showReportedComments">modifier</a>)';
-            echo ' <a href="index.php?controler=backend&action=deleteCommentFromList&id=' . $comment->post_id() . '&comment_id=' . $comment->comment_id() . '&oldAction=showReportedComments">[ Supprimer ]</a>';
+            echo ' <a href="index.php?controler=backend&action=validateSupression&id=' . $comment->post_id() . '&comment_id=' . $comment->comment_id() . '&oldAction=showReportedComments">[ Supprimer ]</a>';
             echo ' <a href="index.php?controler=backend&action=moderateCommentFromList&commentId=' . $comment->comment_id() . '&oldAction=showReportedComments">[ Modérer ]</a>';
             echo ' <a href="index.php?controler=backend&action=acceptCommentFromList&commentId=' . $comment->comment_id() . '&oldAction=showReportedComments">[ Valider ]</a>';
             echo '<br />' . $comment->comment() . '</p>';

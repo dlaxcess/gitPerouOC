@@ -61,7 +61,12 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
             if ($comment->comment_moderation() == 'moderated') {
                 $reportedClass = ' class="moderatedComment"';
             }
-            echo $reportedClass . '><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">"Signaler"</a> ';
+            if ($reportedClass != ' class="moderatedComment"') {
+                echo $reportedClass . '><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">"Signaler"</a> ';
+            }
+            else {
+                echo $reportedClass . '>Ce Commentaire a été modéré';
+            }
             
             if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
                     if ($request->existParameter('sessionMember')) {
@@ -74,7 +79,7 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
                     }
                     if ($memberAcces == 'admin') {
                         echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
-                        echo ' <a href="index.php?controler=backend&action=deleteComment&id=' . $post->post_id() . '&comment_id=' . $comment->comment_id() . '">[ Supprimer ]</a>';
+                        echo ' <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '&comment_id=' . $comment->comment_id() . '&oldAction=post">[ Supprimer ]</a>';
                         echo ' <a href="index.php?controler=backend&action=moderateCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">[ Modérer ]</a>';
                         echo ' <a href="index.php?controler=backend&action=acceptCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">[ Valider ]</a>';
                     }
@@ -84,7 +89,13 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
                         }
                     }
             }
-            echo '<br />' . $comment->comment() . '</p>';
+            echo '<br />';
+            if ($reportedClass != ' class="moderatedComment"') {
+                echo $comment->comment() . '</p>';
+            }
+            else {
+                echo 'Modéré';
+            }
         }
         ?>
     </div>
