@@ -71,6 +71,13 @@ class FrontendControler extends SecuredControler
     
     public function enterNewComment()
     {
+        //$oldAction is used when the comment is modified from showReportedCommentView or showModeratedCommentView
+        $oldAction = NULL;
+        if ($this->request->existParameter('oldAction')) {
+            if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
+                $oldAction = $this->request->getParameter('oldAction');
+            }
+        }
         $post_id = $this->request->getParameter('id');
         $comment_id = $this->request->getParameter('comment_id');
          if ( isset($post_id) && isset($comment_id) && $post_id > 0 && $comment_id > 0)
@@ -79,7 +86,7 @@ class FrontendControler extends SecuredControler
             $post = $this->_posts->getPost($post_id);
 
             $modifCommentView = new View('modifyComment');
-            $modifCommentView->generate(array('toModifyComment' => $toModifyComment, 'post' => $post, 'request' => $this->request));
+            $modifCommentView->generate(array('toModifyComment' => $toModifyComment, 'post' => $post, 'request' => $this->request, 'oldAction' => $oldAction));
         }
     }
 
@@ -100,7 +107,14 @@ class FrontendControler extends SecuredControler
             }
             else
             {
-                header('Location: index.php?controleur=frontend&action=post&id=' . $newComment->post_id());
+                if ($this->request->existParameter('oldAction')) {
+                    if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
+                        header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
+                    }
+                }
+                else {
+                    header('Location: index.php?controleur=frontend&action=post&id=' . $newComment->post_id());
+                }
             }
         }
     }

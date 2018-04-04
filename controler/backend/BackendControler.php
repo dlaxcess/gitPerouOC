@@ -166,8 +166,14 @@ class BackendControler extends SecuredControler {
             $commentId = intval($commentId);
             if ($commentId >0) {
                 $commentToReport = $this->commentManager->getComment($commentId);
-                $displayCommentToReport = new View('reportComment', 'backend');
-                $displayCommentToReport->generate(array('request' => $this->request, 'commentToReport' => $commentToReport));
+                if ($commentToReport->comment_moderation() == 'reported' OR $commentToReport->comment_moderation() == 'moderated') {
+                    $displayAlreadyReported = new View('alreadyReportedComment', 'backend');
+                    $displayAlreadyReported->generate(array('request' => $this->request, 'commentToReport' => $commentToReport));
+                }
+                else {
+                    $displayCommentToReport = new View('reportComment', 'backend');
+                    $displayCommentToReport->generate(array('request' => $this->request, 'commentToReport' => $commentToReport));
+                }
             }
             else {
                 throw new Exception('L\'identifiant de commentaire n\'est pas valide');
@@ -176,8 +182,12 @@ class BackendControler extends SecuredControler {
     }
     
     public function sendCommentedReport() {
-        if ($this->request->existParameter('commentId') && $this->request->existParameter('reportContent')) {
-            $newReport = new Report(array('comment_id' => $this->request->getParameter('commentId'), 'report_content' => $this->request->getParameter('reportContent')));
+        if ($this->request->existParameter('commentId')) {
+            $reportContent = 'Pas de raison donnée';
+            if ($this->request->existParameter('reportContent')) {
+                $reportContent = $this->request->getParameter('reportContent');
+            }
+            $newReport = new Report(array('comment_id' => $this->request->getParameter('commentId'), 'report_content' => $reportContent));
             $reportedComment = $this->commentManager->getComment($this->request->getParameter('commentId'));
             if (isset($newReport)){
                 $newLine = $this->reportManager->postReport($newReport);
@@ -187,11 +197,96 @@ class BackendControler extends SecuredControler {
                 }
                 else {
                     $this->commentManager->setCommentModeration($reportedComment->comment_id(), 'reported');
-                    mail('flipiste@free.fr', 'Commentaire signalé', 'Un nouveau commentaire a été signalé');
+                    mail('flipiste@free.fr', 'Commentaire signalé', 'Un nouveau commentaire a été signalé', 'monblog@free.fr');
                     header('Location: index.php?controler=frontend&action=post&id=' . $reportedComment->post_id());
                 }
             }
         } 
+    }
+    
+    public function moderateCommentFromList() {
+        if ($this->request->existParameter('commentId')) {
+            $commentId = intval($this->request->getParameter('commentId'));
+            if ($commentId > 0) {
+                $affectedLine = $this->commentManager->setCommentModeration($commentId, 'moderated');
+                
+                if ($affectedLine === FALSE) {
+                    throw new \Exception('Le commentaire ne peut être moderé.');
+                }
+                else {
+                        header('Location: index.php?controler=backend&action=showReportedComments');
+                }
+            }
+        }
+    }
+    
+    public function moderateCommentFromPost() {
+        if ($this->request->existParameter('id') && $this->request->existParameter('commentId')) {
+            $postId = intval($this->request->getParameter('id'));
+            $commentId = intval($this->request->getParameter('commentId'));
+            if ($postId > 0 && $commentId > 0) {
+                $affectedLine = $this->commentManager->setCommentModeration($commentId, 'moderated');
+                
+                if ($affectedLine === FALSE) {
+                    throw new \Exception('Le commentaire ne peut être moderé.');
+                }
+                else {
+                    header('Location: index.php?controler=frontend&action=post&id=' . $postId);
+                }
+            }
+        }
+    }
+    
+    public function acceptCommentFromList() {
+        if ($this->request->existParameter('commentId')) {
+            $commentId = intval($this->request->getParameter('commentId'));
+            if ($commentId > 0) {
+                $affectedLine = $this->commentManager->setCommentModeration($commentId, 'accepted');
+                
+                if ($affectedLine === FALSE) {
+                    throw new \Exception('Le commentaire ne peut être moderé.');
+                }
+                else {
+                    if ($this->reportManager->existReport($commentId) != 0) {
+                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
+                        if ($deletedLine === false) {
+                            throw new Exception('Le report ne peut être supprimé.');
+                        }
+                    }
+                    if ($this->request->existParameter('oldAction')) {
+                        if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
+                            header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
+                        }
+                        else {
+                            header('Location: index.php?controler=frontend&action=listPost');
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public function acceptCommentFromPost() {
+        if ($this->request->existParameter('id') && $this->request->existParameter('commentId')) {
+            $postId = intval($this->request->getParameter('id'));
+            $commentId = intval($this->request->getParameter('commentId'));
+            if ($postId > 0 && $commentId > 0) {
+                $affectedLine = $this->commentManager->setCommentModeration($commentId, 'accepted');
+                
+                if ($affectedLine === FALSE) {
+                    throw new \Exception('Le commentaire ne peut être moderé.');
+                }
+                else {
+                    if ($this->reportManager->existReport($commentId) != 0) {
+                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
+                        if ($deletedLine === false) {
+                            throw new Exception('Le report ne peut être supprimé.');
+                        }
+                    }
+                    header('Location: index.php?controler=frontend&action=post&id=' . $postId);
+                }
+            }
+        }
     }
 
     public function deleteComment() {
@@ -205,9 +300,45 @@ class BackendControler extends SecuredControler {
                 {
                     throw new Exception('Le commentaire ne peut être supprimé.');
                 }
-                else
-                {
+                else {
+                    if ($this->reportManager->existReport($commentId) != 0) {
+                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
+                        if ($deletedLine === false) {
+                            throw new Exception('Le report ne peut être supprimé.');
+                        } 
+                    }
                     header('Location: index.php?controler=frontend&action=post&id=' . $this->request->getParameter('id'));
+                }
+            }
+        }
+    }
+    
+    public function deleteCommentFromList() {
+        if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
+            $commentId = intval($this->request->getParameter('comment_id'));
+            $postId = intval($this->request->getParameter('id'));
+            if ($commentId > 0 && $postId > 0) {
+                $deletedLine = $this->commentManager->eraseComment($this->request->getParameter('comment_id'));
+                
+                if ($deletedLine === false) 
+                {
+                    throw new Exception('Le commentaire ne peut être supprimé.');
+                }
+                else {
+                    if ($this->reportManager->existReport($commentId) != 0) {
+                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
+                        if ($deletedLine === false) {
+                            throw new Exception('Le report ne peut être supprimé.');
+                        } 
+                    }
+                    if ($this->request->existParameter('oldAction')) {
+                        if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
+                            header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
+                        }
+                        else {
+                            header('Location: index.php?controler=frontend&action=listPost');
+                        }
+                    }
                 }
             }
         }
@@ -218,5 +349,12 @@ class BackendControler extends SecuredControler {
         $reports = $this->reportManager->getReports();
         $displayReportedComment = new View('showreportedComments', 'backend');
         $displayReportedComment->generate(array('request' => $this->request, 'comments' => $comments, 'reports' => $reports));
+    }
+    
+    public function showModeratedComments() {
+        $comments = $this->commentManager->getModeratedComments();
+        $reports = $this->reportManager->getReports();
+        $displayModeratedComment = new View('showModeratedComments', 'backend');
+        $displayModeratedComment->generate(array('request' => $this->request, 'comments' => $comments, 'reports' => $reports));
     }
 }

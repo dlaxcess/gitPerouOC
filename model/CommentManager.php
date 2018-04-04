@@ -91,8 +91,30 @@ Class CommentManager extends Manager
         return intval($commentAmount['commentAmount']);
     }
     
+    public function countModeratedComment() {
+        $sql = 'SELECT count(*) AS commentAmount FROM comments WHERE comment_moderation = \'moderated\'';
+        $req = $this->executeRequest($sql);
+        
+        $commentAmount = $req->fetch(\PDO::FETCH_ASSOC);
+        
+        return intval($commentAmount['commentAmount']);
+    }
+    
     public function getReportedComments() {
         $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE comment_moderation = \'reported\' ORDER BY comment_date DESC';
+        $comments = $this->executeRequest($sql);
+        $commentsTab = array();
+        
+        while ($commentData = $comments->fetch(\PDO::FETCH_ASSOC))
+        {
+            $commentsTab[] = new Comment($commentData);
+        }
+        
+        return $commentsTab;
+    }
+    
+    public function getModeratedComments() {
+        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE comment_moderation = \'moderated\' ORDER BY comment_date DESC';
         $comments = $this->executeRequest($sql);
         $commentsTab = array();
         

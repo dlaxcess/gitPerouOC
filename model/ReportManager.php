@@ -39,4 +39,32 @@ class ReportManager extends Manager {
         
         return $reportsTab;
     }
+    
+    public function existReport($commentId) {
+        $commentId = intval($commentId);
+        if ($commentId > 0) {
+            $sql = 'SELECT count(*) AS reportAmount FROM reports WHERE comment_id = :id';
+            $req = $this->executeRequest($sql, array('id' => $commentId));
+            $reportAmount = $req->fetch(\PDO::FETCH_ASSOC)['reportAmount'];
+            
+            if ($reportAmount != 0) {
+                $sql = 'SELECT report_id, comment_id, report_content, report_date FROM reports WHERE comment_id = :id';
+                $affectedLine = $this->executeRequest($sql, array('id' => $commentId));
+                
+                $report = new Report($affectedLine->fetch(\PDO::FETCH_ASSOC));
+                
+                return $report->report_id();
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+    
+    public function deleteReport($reportId) {
+        $sql = 'DELETE FROM reports WHERE report_id=:id';
+        $deletedLines = $this->executeRequest($sql, array('id' => $reportId));
+        
+        return $deletedLines;
+    }
 }

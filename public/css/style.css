@@ -35,3 +35,19 @@ a
 {
     background-color: red;
 }
+
+p.moderatedComment
+{
+    background-color: black;
+}
+
+.moderatedComment a
+{
+    color: red;
+}
+
+p.moderatedComment::after
+{
+    content: "Ce commentaire a été modéré";
+    color: white;
+}

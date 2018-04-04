@@ -58,6 +58,9 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
                     $reportedClass = ' class="reportedComment"';
                 }
             }
+            if ($comment->comment_moderation() == 'moderated') {
+                $reportedClass = ' class="moderatedComment"';
+            }
             echo $reportedClass . '><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">"Signaler"</a> ';
             
             if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
@@ -72,6 +75,8 @@ $this->_page_title = 'Mon Blog/article ' . $post->post_id();
                     if ($memberAcces == 'admin') {
                         echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
                         echo ' <a href="index.php?controler=backend&action=deleteComment&id=' . $post->post_id() . '&comment_id=' . $comment->comment_id() . '">[ Supprimer ]</a>';
+                        echo ' <a href="index.php?controler=backend&action=moderateCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">[ Modérer ]</a>';
+                        echo ' <a href="index.php?controler=backend&action=acceptCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">[ Valider ]</a>';
                     }
                     else {
                         if($comment->comment_author() == $connectedMemberName){
