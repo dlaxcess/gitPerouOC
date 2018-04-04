@@ -16,4 +16,5 @@
                     }
                 }
             }
+            echo '<br /><a href="index.php?controler=frontend&action=post&id=' . $comment->post_id() . '">[ voir le post d\'origine n°: ' . $comment->post_id() . ' ]</a>';
         }
