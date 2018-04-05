@@ -87,6 +87,8 @@ class BackendControler extends SecuredControler {
             throw new Exception('le membre ne peut être inscrit');
         }
         else {
+            session_start();
+            $_SESSION['sessionMember'] = $newMember;
             header('Location: index.php');
         }
     }
