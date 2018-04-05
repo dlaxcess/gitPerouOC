@@ -34,7 +34,7 @@ foreach ( $posts as $post)
                 $memberAcces = unserialize($request->getParameter('cookieMember'))->member_acces();
             }
             if ($memberAcces == 'admin') {
-                echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '&oldAction=post">[ Supprimer ]</a></p>';
+                echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '">[ Supprimer ]</a></p>';
             }
         }
         ?>

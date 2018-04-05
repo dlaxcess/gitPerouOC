@@ -17,25 +17,33 @@
                 $controler = 'frontend';
             }
         }
+        else {
+            $oldAction = 'listPosts';
+            $deleteAction = 'deletePost';
+            $controler = 'frontend';
+        }
         ?>
 
-<a href="index.php?controler=<?= $controler ?>&action=<?= $oldAction ?>&post_id=<?php
-                                                                                                                    if ($oldAction == 'post') {
-                                                                                                                        echo '&id=' . $commentToDelete->post_id();
-                                                                                                                    }
-                                                                                                                    ?>"><?php
-                                                                                                                            if ($oldAction == 'post') {
-                                                                                                                                echo 'Retour à l\'article';
-                                                                                                                            }
-                                                                                                                            else {
-                                                                                                                                echo 'Retour à la liste';
-                                                                                                                            }
-                                                                                                                            ?></a>
+<a href="index.php?controler=<?= $controler ?>&action=<?= $oldAction ?><?php
+                                                                                                        if ($oldAction == 'post') {
+                                                                                                            echo '&id=' . $concernedPost->post_id();
+                                                                                                        }
+                                                                                                        ?>"><?php
+                                                                                                                if ($oldAction == 'listPosts') {
+                                                                                                                    echo 'Retour aux articles';
+                                                                                                                }
+                                                                                                                elseif ($oldAction == 'post') {
+                                                                                                                    echo 'Retour à l\'article';
+                                                                                                                }
+                                                                                                                else {
+                                                                                                                    echo 'Retour à la liste';
+                                                                                                                }
+                                                                                                                ?></a>
 
     <div>
         <h2>Êtes vous sur de vouloir supprimer ce 
         <?php
-        if (!isset($postToDelete)) {
+        if (isset($commentToDelete)) {
             echo ' commentaire ? :';
         }
         else {
@@ -43,11 +51,16 @@
         }
         ?></h2>
 
-        <a href="index.php?controler=backend&AMP;action=<?= $deleteAction ?>&AMP;id=<?= $commentToDelete->post_id() ?>&AMP;comment_id=<?= $commentToDelete->comment_id() ?>&AMP;oldAction=<?= $oldAction ?>">[ Supprimer ]</a>
+        <a href="index.php?controler=backend&AMP;action=<?= $deleteAction ?>&AMP;id=<?= $concernedPost->post_id() ?><?php
+                                                                                                                                                                        if(isset($commentToDelete)) {                                                                                                                                                       
+                                                                                                                                                                            ?>&AMP;comment_id=<?= $commentToDelete->comment_id() ?>&AMP;oldAction=<?= $oldAction ?>
+                                                                                                                                                                            <?php
+                                                                                                                                                                        }
+                                                                                                                                                                            ?>">[ Supprimer ]</a>
         <a href="index.php?controler=<?= $controler ?>&action=<?php
                                                                                         echo $oldAction;
-                                                                                        if ($oldAction == 'post') {
-                                                                                            echo '&id=' . $commentToDelete->post_id();
+                                                                                        if ($oldAction == 'post' OR $oldAction == 'listPosts') {
+                                                                                            echo '&id=' . $concernedPost->post_id();
                                                                                         }
                                                                                         ?>
                                                                                         "> [ Annuler ]</a>

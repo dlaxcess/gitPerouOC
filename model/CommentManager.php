@@ -21,6 +21,23 @@ use perou\blog\entities\Comment;
 
 Class CommentManager extends Manager
 {
+    public function existComment($postId) {
+        $postId = intval($postId);
+        if ($postId > 0) {
+            $sql = 'SELECT count(*) AS commentAmount FROM comments WHERE post_id = :id';
+            $req = $this->executeRequest($sql, array('id' => $postId));
+            $commentAmount = $req->fetch(\PDO::FETCH_ASSOC)['commentAmount'];
+            
+            if ($commentAmount != 0) {
+                                
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+    }
+    
     public function getComments($postId)
     {
         $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE post_id = ? ORDER BY comment_date DESC';

@@ -112,14 +112,31 @@ class BackendControler extends SecuredControler {
     }
     
     public function deletePost() {
-        $deletedLine = $this->postManager->erasePost($this->request->getParameter('id'));
-        if ($deletedLine === false) 
-        {
-            throw new Exception('L\'article ne peut être supprimé.');
-        }
-        else
-        {
-            header('Location: index.php');
+        if ($this->request->existParameter('id')){
+            $postId = intval($this->request->getParameter('id'));
+            if ($this->commentManager->existComment($postId)) {
+                $postComments = $this->commentManager->getComments($postId);
+                foreach ($postComments as $comment) {
+                    if ($this->reportManager->existReport($comment->comment_id()) != 0) {
+                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($comment->comment_id()));
+                        if ($deletedLine === false) {
+                            throw new Exception('Le report du commentaire ne peut être supprimé.');
+                        } 
+                    }
+                    $deletedLine = $this->commentManager->eraseComment($comment->comment_id());
+                
+                    if ($deletedLine === false) {
+                        throw new Exception('Le commentaire de l\'article ne peut être supprimé.');
+                    }
+                }  
+            }
+            $deletedLine = $this->postManager->erasePost($postId);
+            if ($deletedLine === false) {
+                throw new Exception('L\'article ne peut être supprimé.');
+            }
+            else {
+                header('Location: index.php');
+            }
         }
     }
     
@@ -290,12 +307,22 @@ class BackendControler extends SecuredControler {
     }
     
     public function validateSupression() {
-        if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
-            $commentId = intval($this->request->getParameter('comment_id'));
-            $commentToDelete = $this->commentManager->getComment($commentId);
+        if ($this->request->existParameter('id')) {
+            $postId = intval($this->request->getParameter('id'));
+            $concernedPost = $this->postManager->getPost($postId);
+            if ($this->request->existParameter('comment_id')) {
+                $commentId = intval($this->request->getParameter('comment_id'));
+                $commentToDelete = $this->commentManager->getComment($commentId);
+            }
         }
-        $displaySuppressionValidation = new View('validateSuppression', 'backend');
-        $displaySuppressionValidation->generate(array('request' => $this->request, 'commentToDelete' => $commentToDelete));
+        if (isset($commentToDelete)) {
+            $displaySuppressionValidation = new View('validateSuppression', 'backend');
+            $displaySuppressionValidation->generate(array('request' => $this->request, 'concernedPost' => $concernedPost,  'commentToDelete' => $commentToDelete));
+        }
+        else {
+            $displaySuppressionValidation = new View('validateSuppression', 'backend');
+            $displaySuppressionValidation->generate(array('request' => $this->request, 'concernedPost' => $concernedPost));
+        }
     }
 
     public function deleteComment() {
