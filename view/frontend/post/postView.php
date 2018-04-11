@@ -2,7 +2,7 @@
 $this->_page_title = 'Mon Blog/article ' . $post->post_id();
 ?>
 
-<p>Billets n° : <?= $post->post_id() ?></p>
+<p>Billet n° : <?= $post->post_id() ?></p>
 <a href="index.php">Retour aux billets</a>
 
     <div class="news">

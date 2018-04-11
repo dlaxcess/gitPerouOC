@@ -97,7 +97,7 @@ class Comment
     {
         if (is_string($comment))
         {
-            $this->comment = htmlspecialchars(nl2br($comment));
+            $this->comment = nl2br(htmlspecialchars($comment), FALSE);
         }
     }
 

@@ -27,25 +27,57 @@ class PersonalBar {
                 $reportedComments = $commentModeration->countReportedComment();
                 $moderatedComments = $commentModeration->countModeratedComment();
                 ob_start();
+                
+                echo '<nav class="navbar navbar-inverse" id="navbar">
+                            <div class="container-fluid">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="index.php">Accueil</a></li>
+                                    <li><a href="index.php?controler=backend&action=connexion">connexion</a></li>
+                                    <li><a href="index.php?controler=backend&action=logout">déconnexion</a></li>
+                                    <li><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
+                                </ul>
+                                <span class="navbar-brand navbar-right">Bienvenue ' . $connectedMember->member_name() . '</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6"><span class="pull-right">Vous avez <a href="index.php?controler=backend&action=showReportedComments">' . $reportedComments . ' commentaires signalé(s)</a></span></div>
+                                <div class="col-sm-6"><span class="pull-right">Vous avez <a href="index.php?controler=backend&action=showModeratedComments">' . $moderatedComments . ' commentaires modéré(s)</a></span></div>
+                            </div>
+                        </nav>';
         
-                echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $connectedMember->member_name() . '<a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a>';
-                echo '<br />Vous avez <a href="index.php?controler=backend&action=showReportedComments">' . $reportedComments . ' commentaires signalé(s)</a>';
-                echo '<br />Vous avez <a href="index.php?controler=backend&action=showModeratedComments">' . $moderatedComments . ' commentaires modéré(s)</a>';
+                /*echo '<br />Vous avez <a href="index.php?controler=backend&action=showReportedComments">' . $reportedComments . ' commentaires signalé(s)</a>';
+                echo '<br />Vous avez <a href="index.php?controler=backend&action=showModeratedComments">' . $moderatedComments . ' commentaires modéré(s)</a>';*/
         
                 $this->_personalBar = ob_get_clean();
             }
             else {
                 ob_start();
-        
-                echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>  <a href="index.php?controler=backend&action=logout">déconnexion</a><br /> Bienvenue ' . $connectedMember->member_name() . '<a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a>';
+                
+                echo '<nav class="navbar navbar-inverse" id="navbar">
+                            <div class="container-fluid">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="index.php">Accueil</a></li>
+                                    <li><a href="index.php?controler=backend&action=connexion">connexion</a></li>
+                                    <li><a href="index.php?controler=backend&action=logout">déconnexion</a></li>
+                                    <li><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
+                                </ul>
+                                <span class="navbar-brand navbar-right">Bienvenue ' . $connectedMember->member_name() . '</span>
+                            </div>
+                        </nav>';
         
                 $this->_personalBar = ob_get_clean();
             }
         }
         else {
             ob_start();
-        
-            echo '<a href="index.php">Accueil</a> <a href="index.php?controler=backend&action=connexion">connexion</a>';
+            
+            echo '<nav class="navbar navbar-inverse" id="navbar">
+                            <div class="container-fluid">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="index.php">Accueil</a></li>
+                                    <li><a href="index.php?controler=backend&action=connexion">connexion</a></li>
+                                </ul>
+                            </div>
+                        </nav>';
         
             $this->_personalBar = ob_get_clean();
         }

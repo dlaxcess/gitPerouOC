@@ -202,7 +202,7 @@ class BackendControler extends SecuredControler {
     
     public function sendCommentedReport() {
         if ($this->request->existParameter('commentId')) {
-            $reportContent = 'Pas de raison donnée';
+            $reportContent = '( Pas de raison donnée )';
             if ($this->request->existParameter('reportContent')) {
                 $reportContent = $this->request->getParameter('reportContent');
             }
