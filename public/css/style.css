@@ -1,18 +1,8 @@
 /* Style the navbar */
 #navbar {
-  /*overflow: hidden;*/
+  overflow: hidden;
   border-radius: 0;
 }
-
-/* Navbar links 
-#navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
-}*/
 
 /* The sticky class is added to the navbar with JS when it reaches its scroll position */
 .sticky {
@@ -24,6 +14,23 @@
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
 .sticky + .container {
   padding-top: 60px;
+}
+
+/* margin for the nav bar showComments links*/
+.showComments {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+/* pull-right-sm*/
+@media (min-width: 768px) {
+    .pull-right-sm {
+        float: right;
+    }
+}
+
+li.disabled {
+    background-color: lightgray;
 }
 
 h3

@@ -18,7 +18,7 @@ class Paging {
               $_pagesAmount,
               $_paging;
     
-    public function __construct($postAmount) {
+    public function __construct($postAmount, $pageId) {
         if (is_int($postAmount) && $postAmount > 0 && $postAmount < 1000) {
             $this->_PostAmount = $postAmount;
         }
@@ -26,9 +26,28 @@ class Paging {
             throw new Exception("Le nombre de posts renseigné n'est pas un entier positif ou est trop important");
         }
         $this->_pagesAmount = ceil(($postAmount)/5);
-        for ($i = 1; $i <= $this->_pagesAmount; $i++) {
-            $this->_paging = $this->_paging . '<a href="index.php?id=' . strval($i) . '">[ ' . strval($i) . ' ]</a> ';
+        $this->_paging = '<ul class="pagination pagination-sm">';
+        if ($pageId > 1) {
+            $this->_paging .= '<li><a href="index.php?id=' . strval($pageId - 1) . '">&laquo;</a></li>';
         }
+        else {
+            $this->_paging .= '<li class="disabled"><span style="background-color: lightgrey">&laquo;</span></li>';
+        }
+        for ($i = 1; $i <= $this->_pagesAmount; $i++) {
+            if ($i == $pageId) {
+                $this->_paging .=  '<li class="active"><a href="index.php?id=' . strval($i) . '">' . strval($i) . '</a></li> ';
+            }
+            else {
+                $this->_paging .=  '<li><a href="index.php?id=' . strval($i) . '">' . strval($i) . '</a></li> ';
+            }
+        }
+        if ($pageId != $this->_pagesAmount) {
+            $this->_paging .= '<li><a href="index.php?id=' . strval($pageId + 1) . '">&raquo;</a></li>';
+        }
+        else {
+            $this->_paging .= '<li class="disabled"><span style="background-color: lightgrey">&raquo;</span></li>';
+        }
+        $this->_paging .= '</ul>';
     }
     
     public function __toString() {

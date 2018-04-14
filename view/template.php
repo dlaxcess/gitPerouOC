@@ -18,6 +18,9 @@
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <link href="public/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
         
+        <!-- CDN fontawsome -->
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        
         <!-- Custom styles for this template -->
         <link href="public/css/style.css" rel="stylesheet" /> 
 
