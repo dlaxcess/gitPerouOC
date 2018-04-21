@@ -3,6 +3,13 @@
   overflow: hidden;
   border-radius: 0;
   z-index: 1040;
+  border-bottom: white;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+#navbarDown {
+    background-color: white;
 }
 
 /* The sticky class is added to the navbar with JS when it reaches its scroll position */

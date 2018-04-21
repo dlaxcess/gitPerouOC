@@ -2,6 +2,8 @@
 
 <p>Parutions pour <a data-toggle="tooltip" href="index.php" title="Un roman de Jean Forteroche">Billet simple pour l'Alaska</a> :</p>
         
+<button data-toggle="modal" href="#newPost" class="btn btn-primary">nouvelle Parution</button>
+
         <div>
             <?= $postsPaging ?>
         </div>
@@ -56,14 +58,25 @@ foreach ( $posts as $post)
     }
     if ($memberAcces == 'admin') {
         ?>
-        <p>Nouvel article :</p>
-        <form action="index.php?controler=backend&action=newPost" method="post">
-            <label for="newPostTitle">Titre :</label><br />
-            <input type="text" name="newPostTitle" id="newPostTitle" required><br />
-            <label for="newPostContent">Contenu de l'article :</label><br />
-            <textarea name="newPostContent" id="newPostContent" required>Entrez le texte ici</textarea><br />
-            <input type="submit" value="Poster l'article">
-        </form>
+     <div class="modal" id="newPost">
+         <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <h4 class="modal-title">Nouvelle parution</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="index.php?controler=backend&action=newPost" method="post">
+                        <label for="newPostTitle">Titre :</label><br />
+                        <input type="text" name="newPostTitle" id="newPostTitle" required><br />
+                        <label for="newPostContent">Contenu de l'article :</label><br />
+                        <textarea name="newPostContent" id="newPostContent" required>Entrez le texte ici</textarea><br />
+                        <input type="submit" value="Poster l'article">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
         <?php
     }
     ?>

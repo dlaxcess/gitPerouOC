@@ -1,8 +1,6 @@
-<?php 
-$this->_page_title = 'Mon Blog/article ' . $post->post_id();
-?>
+<?php $this->_page_title = 'Jean Forteroche - Billet simple pour l\'Alaska - parutions'; ?>
 
-<p>Billet n° : <?= $post->post_id() ?></p>
+<p>parution n° : <?= $post->post_id() ?></p>
 <a href="index.php">Retour aux billets</a>
 
     <div class="news">
