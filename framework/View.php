@@ -56,19 +56,23 @@ class View
     
     public function generatePersonalBar($datas) {
         extract($datas);
-       if (isset($request) && $request->existParameter('sessionMember')) {
-            $personalBar = new PersonalBar($request->getParameter('sessionMember'));
-            
+        $action = 'listPosts';
+        if (isset($request) && $request->existParameter('action')) {
+            $action = $request->getParameter('action');
+        }
+        if (isset($request) && $request->existParameter('sessionMember')) {
+            $personalBar = new PersonalBar($action, $request->getParameter('sessionMember'));
+
             return $personalBar;
-       }
-       if (isset($request) && $request->existParameter('cookieMember')) {
-            $personalBar = new PersonalBar(unserialize($request->getParameter('cookieMember')));
-        
+        }
+        if (isset($request) && $request->existParameter('cookieMember')) {
+            $personalBar = new PersonalBar($action, unserialize($request->getParameter('cookieMember')));
+
             return $personalBar;
         }
         else {
-            $personalBar = new PersonalBar();
-            
+            $personalBar = new PersonalBar($action);
+
             return $personalBar;
         }
     }

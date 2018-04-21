@@ -20,7 +20,7 @@ class PersonalBar {
     
     private $_personalBar;
     
-    public function __construct(Member $connectedMember = null) {
+    public function __construct($action, Member $connectedMember = null) {
         if ($connectedMember != NULL) {
             if ($connectedMember->member_acces() == 'admin') {
                 $commentModeration = new CommentManager();
@@ -28,39 +28,78 @@ class PersonalBar {
                 $moderatedComments = $commentModeration->countModeratedComment();
                 ob_start();
                 
-                echo '<nav class="navbar navbar-inverse" id="navbar">
-                            <div class="container-fluid">
-                                <ul class="nav navbar-nav">
-                                    <li><a href="index.php"><i class="fa fa-home" style="color: #9d9d9d"></i> Accueil</a></li>
-                                    <li><a href="index.php?controler=backend&action=connexion">connexion</a></li>
-                                    <li><a href="index.php?controler=backend&action=logout">déconnexion</a></li>
-                                    <li><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
-                                </ul>
-                                <span class="navbar-brand navbar-right">Bienvenue ' . $connectedMember->member_name() . '</span>
+                echo '<nav class="navbar navbar-inverse" id="navbar" role="navigation">
+                            <div class="navbar-header">   
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                </button>
                             </div>
-                            <div class="row">
-                                <div class="col-xs-12"><span class="pull-right-sm"><a href="index.php?controler=backend&action=showReportedComments" class="showComments"><span class="badge">' . $reportedComments . '</span> commentaires signalé(s)</a></span></div>
-                                <div class="col-xs-12"><span class="pull-right-sm"><a href="index.php?controler=backend&action=showModeratedComments" class="showComments"><span class="badge">' . $moderatedComments . '</span> commentaires modéré(s)</a></span></div>
+                            <div class="collapse navbar-collapse">
+                                <div class="container-fluid">
+                                    <ul class="nav navbar-nav">
+                                        <li';
+                                            if ($action == 'listPosts') {
+                                                echo ' class="active"';
+                                            }
+                                    echo '><a href="index.php"><i class="fa fa-home" style="color: #9d9d9d"></i> Accueil</a></li>
+                                        <li';
+                                            if ($action == 'connexion') {
+                                                echo ' class="active"';
+                                            }
+                                    echo '><a href="index.php?controler=backend&action=connexion">connexion</a></li>
+                                        <li><a href="index.php?controler=backend&action=logout">déconnexion</a></li>
+                                        <li';
+                                            if ($action == 'profil') {
+                                                echo ' class="active"';
+                                            }
+                                    echo '><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
+                                    </ul>
+                                    <span class="navbar-brand navbar-right">Bienvenue ' . $connectedMember->member_name() . '</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12"><span class="pull-right-sm"><a href="index.php?controler=backend&action=showReportedComments" class="showComments"><span class="badge">' . $reportedComments . '</span> commentaires signalé(s)</a></span></div>
+                                    <div class="col-xs-12"><span class="pull-right-sm"><a href="index.php?controler=backend&action=showModeratedComments" class="showComments"><span class="badge">' . $moderatedComments . '</span> commentaires modéré(s)</a></span></div>
+                                </div>
                             </div>
                         </nav>';
-        
-                /*echo '<br />Vous avez <a href="index.php?controler=backend&action=showReportedComments">' . $reportedComments . ' commentaires signalé(s)</a>';
-                echo '<br />Vous avez <a href="index.php?controler=backend&action=showModeratedComments">' . $moderatedComments . ' commentaires modéré(s)</a>';*/
         
                 $this->_personalBar = ob_get_clean();
             }
             else {
                 ob_start();
                 
-                echo '<nav class="navbar navbar-inverse" id="navbar">
-                            <div class="container-fluid">
-                                <ul class="nav navbar-nav">
-                                    <li><a href="index.php">Accueil</a></li>
-                                    <li><a href="index.php?controler=backend&action=connexion">connexion</a></li>
-                                    <li><a href="index.php?controler=backend&action=logout">déconnexion</a></li>
-                                    <li><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
-                                </ul>
-                                <span class="navbar-brand navbar-right">Bienvenue ' . $connectedMember->member_name() . '</span>
+                echo '<nav class="navbar navbar-inverse" id="navbar" role="navigation">
+                            <div class="navbar-header">   
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse">
+                                <div class="container-fluid">
+                                    <ul class="nav navbar-nav">
+                                        <li';
+                                            if ($action == 'listPosts') {
+                                                echo ' class="active"';
+                                            }
+                                    echo '><a href="index.php">Accueil</a></li>
+                                        <li';
+                                            if ($action == 'connexion') {
+                                                echo ' class="active"';
+                                            }
+                                    echo '><a href="index.php?controler=backend&action=connexion">connexion</a></li>
+                                        <li><a href="index.php?controler=backend&action=logout">déconnexion</a></li>
+                                        <li';
+                                            if ($action == 'profil') {
+                                                echo ' class="active"';
+                                            }
+                                    echo '><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
+                                    </ul>
+                                    <span class="navbar-brand navbar-right">Bienvenue ' . $connectedMember->member_name() . '</span>
+                                </div>
                             </div>
                         </nav>';
         
@@ -70,14 +109,31 @@ class PersonalBar {
         else {
             ob_start();
             
-            echo '<nav class="navbar navbar-inverse" id="navbar">
+            echo '<nav class="navbar navbar-inverse" id="navbar" role="navigation">
+                        <div class="navbar-header">   
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse">
                             <div class="container-fluid">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="index.php">Accueil</a></li>
-                                    <li><a href="index.php?controler=backend&action=connexion">connexion</a></li>
+                                    <li';
+                                        if ($action == 'listPosts') {
+                                            echo ' class="active"';
+                                        }
+                                echo '><a href="index.php">Accueil</a></li>
+                                    <li';
+                                        if ($action == 'connexion') {
+                                            echo ' class="active"';
+                                        }
+                                echo '><a href="index.php?controler=backend&action=connexion">connexion</a></li>
                                 </ul>
                             </div>
-                        </nav>';
+                        </div>
+                    </nav>';
         
             $this->_personalBar = ob_get_clean();
         }
