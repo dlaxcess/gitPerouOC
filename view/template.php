@@ -37,7 +37,7 @@
         
         <header class="row container">
             <div class="col-sm-12">
-                <h1 class="pull-left">Jean Forteroche - <small>Billet simple pour l'Alaska</small></h1>
+                <h1 class="pull-left">Jean Forteroche<span id ="dashTitle" class="visible-xs"><br /></span><span class="hidden-xs"> - </span><small>Billet simple pour l'Alaska</small></h1>
             </div>
         </header>
 
@@ -80,6 +80,12 @@
                 navbar.classList.remove("sticky");
               }
             }
+        </script>
+        
+        <script>
+            $(function (){
+                $('a').tooltip();
+             });
         </script>
         
         <script src="public/tinymce/tinymce.min.js"></script>

@@ -30,6 +30,10 @@
     }
 }
 
+#dashTitle {
+    height: 0px;
+}
+
 li.disabled {
     background-color: lightgray;
 }

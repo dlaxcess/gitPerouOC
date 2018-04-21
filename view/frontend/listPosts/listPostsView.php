@@ -1,6 +1,6 @@
-<?php $this->_page_title = 'Mon Blog'; ?>
+<?php $this->_page_title = 'Jean Forteroche - Billet simple pour l\'Alaska'; ?>
 
-        <p>Derniers billets du blog :</p>
+<p>Parutions pour <a data-toggle="tooltip" href="index.php" title="Un roman de Jean Forteroche">Billet simple pour l'Alaska</a> :</p>
         
         <div>
             <?= $postsPaging ?>
