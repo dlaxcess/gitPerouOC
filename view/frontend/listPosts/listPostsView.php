@@ -2,7 +2,6 @@
 
 <p>Parutions pour <a data-toggle="tooltip" href="index.php" title="Un roman de Jean Forteroche">Billet simple pour l'Alaska</a> :</p>
         
-<button data-toggle="modal" href="#newPost" class="btn btn-primary">nouvelle Parution</button>
 
         <div>
             <?= $postsPaging ?>
