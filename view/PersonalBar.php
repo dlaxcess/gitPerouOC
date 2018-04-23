@@ -29,7 +29,7 @@ class PersonalBar {
                 ob_start();
                 
                 echo '<nav class="navbar navbar-inverse" id="navbar" role="navigation">
-                            <div class="navbar-header navbar-right header-padding-sm">   
+                            <div class="navbar-header navbar-right header-padding-sm" id="navHeaderTop">   
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                   <span class="icon-bar"></span>
                                   <span class="icon-bar"></span>
@@ -37,7 +37,7 @@ class PersonalBar {
                                 </button>
                                 <span class="navbar-brand">Bienvenue ' . $connectedMember->member_name() . '</span>
                             </div>
-                            <div class="collapse navbar-collapse">
+                            <div class="collapse navbar-collapse" id="navbarTop">
                                 <div class="container-fluid">
                                     <ul class="nav navbar-nav">
                                         <li';
@@ -79,7 +79,7 @@ class PersonalBar {
                 ob_start();
                 
                 echo '<nav class="navbar navbar-inverse" id="navbar" role="navigation">
-                            <div class="navbar-header navbar-right header-padding-sm">   
+                            <div class="navbar-header navbar-right header-padding-sm" id="navHeaderTop">   
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                   <span class="icon-bar"></span>
                                   <span class="icon-bar"></span>
@@ -87,7 +87,7 @@ class PersonalBar {
                                 </button>
                                 <span class="navbar-brand">Bienvenue ' . $connectedMember->member_name() . '</span>
                             </div>
-                            <div class="collapse navbar-collapse">
+                            <div class="collapse navbar-collapse" id="navbarTop">
                                 <div class="container-fluid">
                                     <ul class="nav navbar-nav">
                                         <li';
