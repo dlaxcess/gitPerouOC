@@ -22,6 +22,16 @@
     padding-right: 14px;
 }
 
+@media (max-width: 768px) {
+    #navbarDown a {
+        font-size: 80%;
+    }
+}
+
+.backgroundWhite {
+    background-color: white !important;
+}
+
 @media (min-width: 768px) {
     .header-padding-sm {
         padding-right: 15px;
@@ -51,9 +61,11 @@
 }
 
 /* margin for the nav bar showComments links*/
-.showComments {
-    margin-left: 15px;
-    margin-right: 15px;
+@media (min-width: 768px) {
+    .showComments {
+        margin-left: 15px;
+        margin-right: 0px;
+    }
 }
 
 /* pull-right-sm*/

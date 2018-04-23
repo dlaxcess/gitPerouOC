@@ -60,14 +60,15 @@ class PersonalBar {
                                 </div>
                             </div>
                             <div class="row" id="navbarDown">
-                                <div>
-                                <div><span class="pull-right-sm"><a href="index.php?controler=backend&action=showModeratedComments" class="showComments"><span class="badge">' . $moderatedComments . '</span> commentaires modéré(s)</a></span></div>
-                                <div><span class="pull-right-sm"><a href="index.php?controler=backend&action=showReportedComments" class="showComments"><span class="badge">' . $reportedComments . '</span> commentaires signalé(s)</a></span></div>
-                                </div><br />';
+                                <div class="col-sm-12 col-xs-8">
+                                    <div class="container-fluid backgroundWhite">
+                                        <div><span class="pull-right-sm"><a href="index.php?controler=backend&action=showModeratedComments" class="showComments"><span class="badge">' . $moderatedComments . '</span> commentaires modéré(s)</a></span></div>
+                                        <div><span class="pull-right-sm"><a href="index.php?controler=backend&action=showReportedComments" class="showComments"><span class="badge">' . $reportedComments . '</span> commentaires signalé(s)</a></span></div>
+                                    </div>
+                                </div>';
                         if ($action == 'listPosts') {
-                            echo '<div class="clearfix></div>
-                                    <div class="row" id="newPostBar">
-                                        <div class="pull-right-sm"><button data-toggle="modal" href="#newPost" class="btn btn-primary navbar-btn">nouvelle Parution</button></div>
+                            echo '<div class="col-sm-12 col-xs-4" id="newPostBar">
+                                        <div class="container-fluid pull-right-sm"><button data-toggle="modal" href="#newPost" class="btn btn-primary btn-xs navbar-btn">nouvelle Parution</button></div>
                                     </div>';
                         }
                         echo '</div>
