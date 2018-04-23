@@ -29,12 +29,13 @@ class PersonalBar {
                 ob_start();
                 
                 echo '<nav class="navbar navbar-inverse" id="navbar" role="navigation">
-                            <div class="navbar-header">   
+                            <div class="navbar-header navbar-right header-padding-sm">   
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                   <span class="icon-bar"></span>
                                   <span class="icon-bar"></span>
                                   <span class="icon-bar"></span>
                                 </button>
+                                <span class="navbar-brand">Bienvenue ' . $connectedMember->member_name() . '</span>
                             </div>
                             <div class="collapse navbar-collapse">
                                 <div class="container-fluid">
@@ -56,7 +57,6 @@ class PersonalBar {
                                             }
                                     echo '><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
                                     </ul>
-                                    <span class="navbar-brand navbar-right">Bienvenue ' . $connectedMember->member_name() . '</span>
                                 </div>
                             </div>
                             <div class="row" id="navbarDown">
@@ -79,12 +79,13 @@ class PersonalBar {
                 ob_start();
                 
                 echo '<nav class="navbar navbar-inverse" id="navbar" role="navigation">
-                            <div class="navbar-header">   
+                            <div class="navbar-header navbar-right header-padding-sm">   
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                   <span class="icon-bar"></span>
                                   <span class="icon-bar"></span>
                                   <span class="icon-bar"></span>
                                 </button>
+                                <span class="navbar-brand">Bienvenue ' . $connectedMember->member_name() . '</span>
                             </div>
                             <div class="collapse navbar-collapse">
                                 <div class="container-fluid">
@@ -106,7 +107,6 @@ class PersonalBar {
                                             }
                                     echo '><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
                                     </ul>
-                                    <span class="navbar-brand navbar-right">Bienvenue ' . $connectedMember->member_name() . '</span>
                                 </div>
                             </div>
                         </nav>';
