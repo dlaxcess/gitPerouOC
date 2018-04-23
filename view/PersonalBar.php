@@ -59,13 +59,18 @@ class PersonalBar {
                                     <span class="navbar-brand navbar-right">Bienvenue ' . $connectedMember->member_name() . '</span>
                                 </div>
                             </div>
-                            <div class="row" id="navbarDown">';
-                                if ($action == 'listPosts') {
-                                    echo '<div class="pull-right-sm"><button data-toggle="modal" href="#newPost" class="btn btn-primary">nouvelle Parution</button></div>';
-                                } 
-                        echo '<div><span class="pull-right-sm"><a href="index.php?controler=backend&action=showModeratedComments" class="showComments"><span class="badge">' . $moderatedComments . '</span> commentaires modéré(s)</a></span></div>
+                            <div class="row" id="navbarDown">
+                                <div>
+                                <div><span class="pull-right-sm"><a href="index.php?controler=backend&action=showModeratedComments" class="showComments"><span class="badge">' . $moderatedComments . '</span> commentaires modéré(s)</a></span></div>
                                 <div><span class="pull-right-sm"><a href="index.php?controler=backend&action=showReportedComments" class="showComments"><span class="badge">' . $reportedComments . '</span> commentaires signalé(s)</a></span></div>
-                            </div>
+                                </div><br />';
+                        if ($action == 'listPosts') {
+                            echo '<div class="clearfix></div>
+                                    <div class="row" id="newPostBar">
+                                        <div class="pull-right-sm"><button data-toggle="modal" href="#newPost" class="btn btn-primary navbar-btn">nouvelle Parution</button></div>
+                                    </div>';
+                        }
+                        echo '</div>
                         </nav>';
         
                 $this->_personalBar = ob_get_clean();
