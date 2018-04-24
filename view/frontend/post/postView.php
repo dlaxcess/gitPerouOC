@@ -3,17 +3,25 @@
 <p>parution n° : <?= $post->post_id() ?></p>
 <a href="index.php">Retour aux billets</a>
 
-    <div class="news">
-        <h3>
-            <?= $post->post_title() ?>
-            <em>le <?= $post->post_creation_date() ?></em>
-        </h3>
-        
-        <p>
-            <?= $post->post_content() ?>
-            <br />
-            <strong><?= $post->post_author() ?></strong> 
-        </p>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <?= $post->post_title() ?>
+                <em>le <?= $post->post_creation_date() ?></em>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <?= $post->post_content() ?>
+                </div>
+            </div>
+            <small class="pull-right"><strong><?= $post->post_author() ?></strong></small>
+        </div>
+        <div class="panel-footer">
+            <em><a href="index.php?controler=frontend&action=post&id=<?= $post->post_id() ?>">Commentaires</a></em>
+        </div>
     </div>
 
     <div>
@@ -97,3 +105,4 @@
         }
         ?>
     </div>
+</div>
