@@ -11,19 +11,24 @@
 foreach ( $posts as $post)
 {
 ?>
-    <div class="news">
-        <h3>
-            <?= $post->post_title() ?>
-            <em>le <?= $post->post_creation_date() ?></em>
-        </h3>
-        
-        <p>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <?= $post->post_title() ?>
+                <em>le <?= $post->post_creation_date() ?></em>
+            </h3>
+        </div>
+        <div class="panel-body">
             <?= $post->post_content() ?>
-            <br />
+        </div>
+        <div class="panel-footer">
             <strong><?= $post->post_author() ?></strong>
             <br />
             <em><a href="index.php?controler=frontend&action=post&id=<?= $post->post_id() ?>">Commentaires</a></em>
-        </p>
+        </div>
+    </div>
+        
+        
         <?php
         if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
             if ($request->existParameter('sessionMember')) {
@@ -38,9 +43,6 @@ foreach ( $posts as $post)
                 echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '">[ Supprimer ]</a></p>';
             }
         }
-        ?>
-    </div>
-<?php
 }
 ?>
         <div>
