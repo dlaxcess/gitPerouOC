@@ -79,6 +79,10 @@
     height: 0px;
 }
 
+#lienHeaderColor {
+    color: black;
+}
+
 li.disabled {
     background-color: lightgray;
 }

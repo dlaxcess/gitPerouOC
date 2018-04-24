@@ -37,7 +37,7 @@
         
         <header class="row container">
             <div class="col-sm-12">
-                <h1 class="pull-left">Jean Forteroche<span id ="dashTitle" class="visible-xs"><br /></span><span class="hidden-xs"> - </span><small>Billet simple pour l'Alaska</small></h1>
+                <a href="index.php" title="Jean Forteroche" id="lienHeaderColor"><h1 class="pull-left">Jean Forteroche<span id ="dashTitle" class="visible-xs"><br /></span><span class="hidden-xs"> - </span><small>Billet simple pour l'Alaska</small></h1></a>
             </div>
         </header>
 
