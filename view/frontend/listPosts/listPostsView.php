@@ -19,11 +19,14 @@ foreach ( $posts as $post)
             </h3>
         </div>
         <div class="panel-body">
-            <?= $post->post_content() ?>
+            <div class="row">
+                <div class="col-xs-12">
+                    <?= $post->post_content() ?>
+                </div>
+            </div>
+            <small class="pull-right"><strong><?= $post->post_author() ?></strong></small>
         </div>
         <div class="panel-footer">
-            <strong><?= $post->post_author() ?></strong>
-            <br />
             <em><a href="index.php?controler=frontend&action=post&id=<?= $post->post_id() ?>">Commentaires</a></em>
         </div>
     </div>
