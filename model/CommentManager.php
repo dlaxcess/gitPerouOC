@@ -24,7 +24,7 @@ Class CommentManager extends Manager
     public function existComment($postId) {
         $postId = intval($postId);
         if ($postId > 0) {
-            $sql = 'SELECT count(*) AS commentAmount FROM comments WHERE post_id = :id';
+            $sql = 'SELECT count(*) AS commentAmount FROM ocp3comments WHERE post_id = :id';
             $req = $this->executeRequest($sql, array('id' => $postId));
             $commentAmount = $req->fetch(\PDO::FETCH_ASSOC)['commentAmount'];
             
@@ -40,7 +40,7 @@ Class CommentManager extends Manager
     
     public function getComments($postId)
     {
-        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE post_id = ? ORDER BY comment_date DESC';
+        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM ocp3comments WHERE post_id = ? ORDER BY comment_date DESC';
         $comments = $this->executeRequest($sql, array($postId));
         $commentsTab = array();
         
@@ -54,7 +54,7 @@ Class CommentManager extends Manager
 
     public function postComment(Comment $newComment)
     {
-        $sql = 'INSERT INTO comments(post_id, comment_author, comment, comment_date) VALUES(:id, :author, :comment, NOW())';
+        $sql = 'INSERT INTO ocp3comments(post_id, comment_author, comment, comment_date) VALUES(:id, :author, :comment, NOW())';
         $affectedLines = $this->executeRequest($sql, array('id' => $newComment->post_id(),
                                                                                     'author' => $newComment->comment_author(),
                                                                                     'comment' => $newComment->comment()
@@ -65,7 +65,7 @@ Class CommentManager extends Manager
 
     public function getComment($comment_id)
     {
-        $sql = 'SELECT comment_id, post_id, comment_author, comment, comment_moderation, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE comment_id = :id';
+        $sql = 'SELECT comment_id, post_id, comment_author, comment, comment_moderation, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM ocp3comments WHERE comment_id = :id';
         $req = $this->executeRequest($sql, array('id' => $comment_id));
         $comment = new Comment($req->fetch(\PDO::FETCH_ASSOC));
         $req->closeCursor();
@@ -75,7 +75,7 @@ Class CommentManager extends Manager
 
     public function setComment(Comment $newComment)
     {
-        $sql = 'UPDATE comments SET comment = :new_comment, comment_date = NOW() WHERE comment_id = :id';
+        $sql = 'UPDATE ocp3comments SET comment = :new_comment, comment_date = NOW() WHERE comment_id = :id';
         $affectedLines = $this->executeRequest($sql, array('new_comment' => $newComment->comment(),
                                                                                                     'id' => $newComment->comment_id()
                                                                                                    ));
@@ -84,14 +84,14 @@ Class CommentManager extends Manager
     }
     
     public function eraseComment($commentId) {
-        $sql = 'DELETE FROM comments WHERE comment_id=:id';
+        $sql = 'DELETE FROM ocp3comments WHERE comment_id=:id';
         $deletedLines = $this->executeRequest($sql, array('id' => $commentId));
         
         return $deletedLines;
     }
     
     public function setCommentModeration($commentId, $moderation) {
-        $sql = 'UPDATE comments SET comment_moderation = :moderation WHERE comment_id = :id';
+        $sql = 'UPDATE ocp3comments SET comment_moderation = :moderation WHERE comment_id = :id';
         $affectedLines = $this->executeRequest($sql, array('moderation' => $moderation,
                                                                               'id' => $commentId
                                                                                 ));
@@ -100,7 +100,7 @@ Class CommentManager extends Manager
     }
     
     public function countReportedComment() {
-        $sql = 'SELECT count(*) AS commentAmount FROM comments WHERE comment_moderation = \'reported\'';
+        $sql = 'SELECT count(*) AS commentAmount FROM ocp3comments WHERE comment_moderation = \'reported\'';
         $req = $this->executeRequest($sql);
         
         $commentAmount = $req->fetch(\PDO::FETCH_ASSOC);
@@ -109,7 +109,7 @@ Class CommentManager extends Manager
     }
     
     public function countModeratedComment() {
-        $sql = 'SELECT count(*) AS commentAmount FROM comments WHERE comment_moderation = \'moderated\'';
+        $sql = 'SELECT count(*) AS commentAmount FROM ocp3comments WHERE comment_moderation = \'moderated\'';
         $req = $this->executeRequest($sql);
         
         $commentAmount = $req->fetch(\PDO::FETCH_ASSOC);
@@ -118,7 +118,7 @@ Class CommentManager extends Manager
     }
     
     public function getReportedComments() {
-        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE comment_moderation = \'reported\' ORDER BY comment_date DESC';
+        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM ocp3comments WHERE comment_moderation = \'reported\' ORDER BY comment_date DESC';
         $comments = $this->executeRequest($sql);
         $commentsTab = array();
         
@@ -131,7 +131,7 @@ Class CommentManager extends Manager
     }
     
     public function getModeratedComments() {
-        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM comments WHERE comment_moderation = \'moderated\' ORDER BY comment_date DESC';
+        $sql = 'SELECT comment_id, post_id, comment_author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, comment_moderation FROM ocp3comments WHERE comment_moderation = \'moderated\' ORDER BY comment_date DESC';
         $comments = $this->executeRequest($sql);
         $commentsTab = array();
         

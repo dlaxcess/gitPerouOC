@@ -19,7 +19,7 @@ use perou\blog\entities\Report;
 class ReportManager extends Manager {
     
     public function postReport(Report $report) {
-        $sql = 'INSERT INTO reports(comment_id, report_content, report_date) VALUES(:id, :content, NOW())';
+        $sql = 'INSERT INTO ocp3reports(comment_id, report_content, report_date) VALUES(:id, :content, NOW())';
         $affectedLines = $this->executeRequest($sql, array('id' => $report->comment_id(),
                                                                               'content' => $report->report_content()
                                                                               ));
@@ -28,7 +28,7 @@ class ReportManager extends Manager {
     }
     
     public function getReports() {
-        $sql = 'SELECT report_id, comment_id, report_content, DATE_FORMAT(report_date, \'%d/%m/%Y à %Hh%imin%ss\') AS report_date_fr FROM reports ORDER BY report_date DESC';
+        $sql = 'SELECT report_id, comment_id, report_content, DATE_FORMAT(report_date, \'%d/%m/%Y à %Hh%imin%ss\') AS report_date_fr FROM ocp3reports ORDER BY report_date DESC';
         $reports = $this->executeRequest($sql);
         $reportsTab = array();
         
@@ -43,12 +43,12 @@ class ReportManager extends Manager {
     public function existReport($commentId) {
         $commentId = intval($commentId);
         if ($commentId > 0) {
-            $sql = 'SELECT count(*) AS reportAmount FROM reports WHERE comment_id = :id';
+            $sql = 'SELECT count(*) AS reportAmount FROM ocp3reports WHERE comment_id = :id';
             $req = $this->executeRequest($sql, array('id' => $commentId));
             $reportAmount = $req->fetch(\PDO::FETCH_ASSOC)['reportAmount'];
             
             if ($reportAmount != 0) {
-                $sql = 'SELECT report_id, comment_id, report_content, report_date FROM reports WHERE comment_id = :id';
+                $sql = 'SELECT report_id, comment_id, report_content, report_date FROM ocp3reports WHERE comment_id = :id';
                 $affectedLine = $this->executeRequest($sql, array('id' => $commentId));
                 
                 $report = new Report($affectedLine->fetch(\PDO::FETCH_ASSOC));
@@ -62,7 +62,7 @@ class ReportManager extends Manager {
     }
     
     public function deleteReport($reportId) {
-        $sql = 'DELETE FROM reports WHERE report_id=:id';
+        $sql = 'DELETE FROM ocp3reports WHERE report_id=:id';
         $deletedLines = $this->executeRequest($sql, array('id' => $reportId));
         
         return $deletedLines;

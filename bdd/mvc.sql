@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 24 avr. 2018 à 20:24
+-- Généré le :  mar. 24 avr. 2018 à 20:39
 -- Version du serveur :  10.1.30-MariaDB
 -- Version de PHP :  7.2.2
 
@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comments`
+-- Structure de la table `ocp3comments`
 --
 
-CREATE TABLE `comments` (
+CREATE TABLE `ocp3comments` (
   `comment_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
   `comment_author` varchar(255) CHARACTER SET utf8 NOT NULL,
@@ -38,10 +38,10 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `comments`
+-- Déchargement des données de la table `ocp3comments`
 --
 
-INSERT INTO `comments` (`comment_id`, `post_id`, `comment_author`, `comment`, `comment_date`, `comment_moderation`) VALUES
+INSERT INTO `ocp3comments` (`comment_id`, `post_id`, `comment_author`, `comment`, `comment_date`, `comment_moderation`) VALUES
 (1, 1, 'Phil', 'et voici un commentaire!\r\nil faut l\'afficher...', '2018-01-08 13:37:06', 'accepted'),
 (2, 1, 'john', 'bah c\'est super!', '2018-01-08 13:38:26', 'accepted'),
 (3, 1, 'phil', 'yo!', '2018-01-11 09:58:14', 'accepted'),
@@ -105,10 +105,10 @@ INSERT INTO `comments` (`comment_id`, `post_id`, `comment_author`, `comment`, `c
 -- --------------------------------------------------------
 
 --
--- Structure de la table `members`
+-- Structure de la table `ocp3members`
 --
 
-CREATE TABLE `members` (
+CREATE TABLE `ocp3members` (
   `member_id` int(11) NOT NULL,
   `member_name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `member_email` varchar(255) NOT NULL,
@@ -117,10 +117,10 @@ CREATE TABLE `members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `members`
+-- Déchargement des données de la table `ocp3members`
 --
 
-INSERT INTO `members` (`member_id`, `member_name`, `member_email`, `member_password`, `member_acces`) VALUES
+INSERT INTO `ocp3members` (`member_id`, `member_name`, `member_email`, `member_password`, `member_acces`) VALUES
 (1, 'phil', 'flipiste@free.fr', '$2y$10$3S.Dn6QUb6zGxIYDoKNoiupcvkDEDtNxDcqbxYif./fhThYDpjGT.', 'admin'),
 (2, 'fifi', 'heroinestones@gmail.com', '$2y$10$9QcAtJjRhOw71BYv6ZhXtOmJpmkvmVjRS0zhnnbYUWuR4n0FofL3O', 'member'),
 (3, 'jo', 'blibli@blabla.com', '$2y$10$9q15epa9wlTQLefiIHpOAu8iiELG.Y4UlVaBLTeryVW2Tg1K93keS', 'member'),
@@ -129,10 +129,10 @@ INSERT INTO `members` (`member_id`, `member_name`, `member_email`, `member_passw
 -- --------------------------------------------------------
 
 --
--- Structure de la table `posts`
+-- Structure de la table `ocp3posts`
 --
 
-CREATE TABLE `posts` (
+CREATE TABLE `ocp3posts` (
   `post_id` int(11) NOT NULL,
   `post_title` varchar(255) CHARACTER SET utf8 NOT NULL,
   `post_content` text CHARACTER SET utf8 NOT NULL,
@@ -141,10 +141,10 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `posts`
+-- Déchargement des données de la table `ocp3posts`
 --
 
-INSERT INTO `posts` (`post_id`, `post_title`, `post_content`, `post_creation_date`, `post_author`) VALUES
+INSERT INTO `ocp3posts` (`post_id`, `post_title`, `post_content`, `post_creation_date`, `post_author`) VALUES
 (1, 'Premier post!', 'Ceci est le premier article posté sur ce blog mais avec phpmyadmin', '0000-00-00 00:00:00', 'Philou Perou'),
 (2, 'Et hop! un nouvel article!', 'Ça y est c\'est lancé, mais ce n\'est pas très beau... ;) ', '2018-01-11 18:24:12', 'Jo'),
 (3, 'test fonction post', 'Ceci est le vrai nouvel article posté!', '2018-03-23 04:05:04', 'phil'),
@@ -166,10 +166,10 @@ INSERT INTO `posts` (`post_id`, `post_title`, `post_content`, `post_creation_dat
 -- --------------------------------------------------------
 
 --
--- Structure de la table `reports`
+-- Structure de la table `ocp3reports`
 --
 
-CREATE TABLE `reports` (
+CREATE TABLE `ocp3reports` (
   `report_id` int(11) NOT NULL,
   `comment_id` int(11) NOT NULL,
   `report_content` text,
@@ -177,10 +177,10 @@ CREATE TABLE `reports` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `reports`
+-- Déchargement des données de la table `ocp3reports`
 --
 
-INSERT INTO `reports` (`report_id`, `comment_id`, `report_content`, `report_date`) VALUES
+INSERT INTO `ocp3reports` (`report_id`, `comment_id`, `report_content`, `report_date`) VALUES
 (50, 80, '( Pas de raison donnée )', '2018-04-14 14:08:41');
 
 --
@@ -188,27 +188,27 @@ INSERT INTO `reports` (`report_id`, `comment_id`, `report_content`, `report_date
 --
 
 --
--- Index pour la table `comments`
+-- Index pour la table `ocp3comments`
 --
-ALTER TABLE `comments`
+ALTER TABLE `ocp3comments`
   ADD PRIMARY KEY (`comment_id`);
 
 --
--- Index pour la table `members`
+-- Index pour la table `ocp3members`
 --
-ALTER TABLE `members`
+ALTER TABLE `ocp3members`
   ADD PRIMARY KEY (`member_id`);
 
 --
--- Index pour la table `posts`
+-- Index pour la table `ocp3posts`
 --
-ALTER TABLE `posts`
+ALTER TABLE `ocp3posts`
   ADD PRIMARY KEY (`post_id`);
 
 --
--- Index pour la table `reports`
+-- Index pour la table `ocp3reports`
 --
-ALTER TABLE `reports`
+ALTER TABLE `ocp3reports`
   ADD PRIMARY KEY (`report_id`);
 
 --
@@ -216,27 +216,27 @@ ALTER TABLE `reports`
 --
 
 --
--- AUTO_INCREMENT pour la table `comments`
+-- AUTO_INCREMENT pour la table `ocp3comments`
 --
-ALTER TABLE `comments`
+ALTER TABLE `ocp3comments`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
--- AUTO_INCREMENT pour la table `members`
+-- AUTO_INCREMENT pour la table `ocp3members`
 --
-ALTER TABLE `members`
+ALTER TABLE `ocp3members`
   MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT pour la table `posts`
+-- AUTO_INCREMENT pour la table `ocp3posts`
 --
-ALTER TABLE `posts`
+ALTER TABLE `ocp3posts`
   MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT pour la table `reports`
+-- AUTO_INCREMENT pour la table `ocp3reports`
 --
-ALTER TABLE `reports`
+ALTER TABLE `ocp3reports`
   MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 COMMIT;
 
