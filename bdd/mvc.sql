@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mer. 04 avr. 2018 à 16:53
+-- Généré le :  mar. 24 avr. 2018 à 20:24
 -- Version du serveur :  10.1.30-MariaDB
 -- Version de PHP :  7.2.2
 
@@ -89,13 +89,18 @@ INSERT INTO `comments` (`comment_id`, `post_id`, `comment_author`, `comment`, `c
 (45, 2, 'phil', 'hop la', '2018-03-10 16:06:37', 'accepted'),
 (46, 3, 'phil', 'yop!', '2018-03-26 15:31:59', 'accepted'),
 (47, 15, 'jo', 'ploum', '2018-03-27 12:43:29', 'accepted'),
-(48, 16, 'phil', 'youpla!', '2018-03-27 16:34:22', 'accepted'),
-(50, 16, 'toc', 'tac ho pa ho', '2018-04-04 02:17:50', 'accepted'),
-(59, 19, 'phil', 'jkhdfgd', '2018-04-03 20:49:41', 'accepted'),
-(64, 18, 'phil', 'jhgf  pou!', '2018-04-04 02:18:19', 'reported'),
-(66, 19, 'phil', 'kjckj', '2018-04-04 02:43:50', 'reported'),
-(67, 18, 'phil', 'xcvbn', '2018-04-04 02:44:24', 'moderated'),
-(68, 18, 'phil', 'azertyu', '2018-04-04 02:44:28', 'accepted');
+(64, 18, 'phil', 'jhgf  pou!', '2018-04-04 02:18:19', 'accepted'),
+(71, 20, 'phil', 'yop!&amp;lt;br /&amp;gt;&lt;br /&gt;&lt;br /&gt;\r\nboudiou!', '2018-04-06 11:28:01', 'accepted'),
+(72, 20, 'fifi', 'hello', '2018-04-04 20:55:32', 'accepted'),
+(73, 20, 'phil', 'bondieux!&lt;br /&gt;\r\nil me met de la merde quand&lt;br /&gt;\r\nje fais espace!&lt;br /&gt;\r\n', '2018-04-04 20:56:05', 'accepted'),
+(75, 20, 'phil', 'fhdjkhd&lt;br /&gt;\r\nkjdkjf', '2018-04-06 11:41:35', 'accepted'),
+(76, 20, 'phil', 'dhdhjkd<br />\r\nskjdskj', '2018-04-06 11:48:11', 'accepted'),
+(77, 20, 'phil', 'jhjhdsf\r\njkdjfgkjdfg', '2018-04-06 11:49:15', 'accepted'),
+(78, 20, 'phil', 'kjhkdjhfd<br>\r\nsldkjfldf', '2018-04-06 11:54:24', 'accepted'),
+(79, 20, 'phil', 'nlkjhlkdfg<br>\r\nsdkjhfvg', '2018-04-06 11:54:38', 'accepted'),
+(80, 20, 'phil', ';jnd,n', '2018-04-14 14:06:45', 'reported'),
+(81, 20, 'fifi', 'kjfkjf', '2018-04-14 14:09:30', 'accepted'),
+(82, 20, 'phil', '&lt;p&gt;yo&lt;/p&gt;<br>\r\n&lt;p&gt;alors?&lt;/p&gt;', '2018-04-21 15:38:58', 'accepted');
 
 -- --------------------------------------------------------
 
@@ -117,7 +122,9 @@ CREATE TABLE `members` (
 
 INSERT INTO `members` (`member_id`, `member_name`, `member_email`, `member_password`, `member_acces`) VALUES
 (1, 'phil', 'flipiste@free.fr', '$2y$10$3S.Dn6QUb6zGxIYDoKNoiupcvkDEDtNxDcqbxYif./fhThYDpjGT.', 'admin'),
-(2, 'fifi', 'heroinestones@gmail.com', '$2y$10$9QcAtJjRhOw71BYv6ZhXtOmJpmkvmVjRS0zhnnbYUWuR4n0FofL3O', 'member');
+(2, 'fifi', 'heroinestones@gmail.com', '$2y$10$9QcAtJjRhOw71BYv6ZhXtOmJpmkvmVjRS0zhnnbYUWuR4n0FofL3O', 'member'),
+(3, 'jo', 'blibli@blabla.com', '$2y$10$9q15epa9wlTQLefiIHpOAu8iiELG.Y4UlVaBLTeryVW2Tg1K93keS', 'member'),
+(4, 'bilbo', 'bilbo.lehobit@mordor.mor', '$2y$10$4U0euU0bpQHpkNqkSS5FHeavBUjhqh4DXV9gByoD6e.Q.7ISN3rhO', 'member');
 
 -- --------------------------------------------------------
 
@@ -151,7 +158,10 @@ INSERT INTO `posts` (`post_id`, `post_title`, `post_content`, `post_creation_dat
 (15, '11', 'Entrez le texte ici', '2018-03-26 17:35:46', 'phil'),
 (16, '12', 'Entrez le texte ici pof', '2018-03-27 06:32:03', 'phil'),
 (18, '13', 'Entrez le texte ici et la', '2018-03-27 06:57:02', 'phil'),
-(19, '14', 'Entrez le texte ici post d\'un membre', '2018-03-27 23:00:08', 'fifi');
+(20, '15', 'Entrez le texte ici', '2018-04-04 17:07:26', 'phil'),
+(21, 'bouliboula', 'et pour une fois je rentre du texte!', '2018-04-16 23:22:41', 'phil'),
+(22, 'et la tout marche!', '&lt;p&gt;Entrez le texte ici&lt;/p&gt;', '2018-04-23 13:04:35', 'phil'),
+(23, 'Intro', '&lt;p&gt;dkhdskj hds jkdkj hdsjk hdskj hdskj hdsjk hkdsjh dskj hdskj hdskjhdkjh dskjhdsjkhsdkj hdkjhdskj hdskj hdskj hdskj hdsm kjdjk dslki jdslk jsdlj smlkjcml smlscm ds&amp;nbsp; &amp;nbsp;dlk jslkj dslk j d.&lt;br /&gt;D o i sl idsli li dslkij lcs lk dslklkjc qlk&amp;nbsp; lk j lkjclkj lkj clk jlkjc slkj lscm csmj ok!mcs&amp;nbsp; jllcjkj cs jl!jk !slk js!ljkl!c slk! jlq!c jklkjcqlkj l! jkk jlk!j cljkjk lk!c jlk!j clkjlkj lk .&lt;/p&gt;&lt;br /&gt;\r\n&lt;p&gt;K ml f mslm jdsml jfs lk jslkj qdlk jlq dk jdqcl:kqc m:cq :kj hcqjk hjk hcqkmj hc q&lt;br /&gt;Ajkj o ldlki j dli&amp;nbsp; &amp;nbsp;liudli h ldkjh mfd jh fsmkjhmkfzsm ojh mkj rfshkmj hmkj hmkfs&amp;nbsp; jhm kfsj hmjk hmkfsjh ms kfjhsjk hfskj hsjk hfsjkm fsjkh fsjk dshjk fshfsjk hfsjk hfs.&lt;/p&gt;', '2018-04-24 18:14:37', 'phil');
 
 -- --------------------------------------------------------
 
@@ -171,9 +181,7 @@ CREATE TABLE `reports` (
 --
 
 INSERT INTO `reports` (`report_id`, `comment_id`, `report_content`, `report_date`) VALUES
-(39, 66, 'xdfgvg', '2018-04-04 02:43:58'),
-(40, 64, 'lkx', '2018-04-04 02:44:20'),
-(41, 67, 'Pas de raison donnée', '2018-04-04 02:44:33');
+(50, 80, '( Pas de raison donnée )', '2018-04-14 14:08:41');
 
 --
 -- Index pour les tables déchargées
@@ -211,25 +219,25 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT pour la table `members`
 --
 ALTER TABLE `members`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
