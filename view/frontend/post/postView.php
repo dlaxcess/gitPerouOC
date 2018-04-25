@@ -19,9 +19,9 @@
             </div>
             <small class="pull-right"><strong><?= $post->post_author() ?></strong></small>
         </div>
-        <div class="panel-footer">
+        <!--<div class="panel-footer">
             <em><a href="index.php?controler=frontend&action=post&id=<?= $post->post_id() ?>">Commentaires</a></em>
-        </div>
+        </div>-->
     </div>
 
     <div>
