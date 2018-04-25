@@ -76,7 +76,7 @@ class Post
     {
         if (is_string($content))
         {
-            $this->post_content = htmlspecialchars(nl2br($content));
+            $this->post_content = nl2br(filter_var($content, FILTER_SANITIZE_STRIPPED));
         }
     }
 

@@ -97,7 +97,7 @@ class Comment
     {
         if (is_string($comment))
         {
-            $this->comment = nl2br(htmlspecialchars($comment), FALSE);
+            $this->comment = nl2br(filter_var($comment, FILTER_SANITIZE_STRIPPED));
         }
     }
 
