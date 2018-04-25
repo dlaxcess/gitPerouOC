@@ -89,7 +89,7 @@
         </script>
         
         <script src="public/tinymce/tinymce.min.js"></script>
-        <script>tinymce.init({ selector:'textarea' });</script>
+        <script>tinymce.init({ selector:'textarea#newPostContent' });</script>
         
     </body>
 </html>
