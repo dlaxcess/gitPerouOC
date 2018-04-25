@@ -71,10 +71,14 @@ foreach ( $posts as $post)
                 </div>
                 <div class="modal-body">
                     <form class="well" action="index.php?controler=backend&action=newPost" method="post">
-                        <label for="newPostTitle">Titre :</label><br />
-                        <input type="text" name="newPostTitle" id="newPostTitle" required><br />
-                        <label for="newPostContent">Contenu de l'article :</label><br />
-                        <textarea name="newPostContent" id="newPostContent" required>Entrez le texte ici</textarea><br />
+                        <div class="form-group">
+                            <label for="newPostTitle">Entrez le titre de la parution</label>
+                            <input type="text" class="form-control" name="newPostTitle" id="newPostTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPostContent">Entrez le contenu de la parution</label>
+                            <textarea name="newPostContent" class="form-control" id="newPostContent" required>Entrez le texte ici</textarea>
+                        </div>
                         <input type="submit" value="Poster l'article">
                     </form>
                 </div>

@@ -1,15 +1,22 @@
 <?php $this->_page_title = 'Connexion à mon Blog'; ?>
 
-<p>Connectez vous : </p>
-
-<form action="index.php?controler=backend&action=connect" method="post">
-    <label for ="name">Entrez votre nom : </label><br />
-    <input type="text" name="memberName" id="name" autofocus required><br />
-    <label for ="email">Entrez votre email : </label><br />
-    <input type="text" name="memberEmail" id="email" required><br />
-    <label for ="pass">Entrez votre mot de pass : </label><br />
-    <input type="text" name="memberPassword" id="pass" required><br />
-    <label for="autoconnect">Connexion automatique</label><input type="checkbox" name="autoconnect" id="autoconnect">
+<form class="col-6-sm well center-block" action="index.php?controler=backend&action=connect" method="post">
+    <legend>Connectez vous</legend>
+    <div class="form-group">
+        <label for ="name">Entrez votre nom : </label>
+        <input type="text" class="form-control" name="memberName" id="name" autofocus required>
+    </div>
+    <div class="form-group">
+        <label for ="email">Entrez votre email : </label>
+        <input type="email" class="form-control" name="memberEmail" id="email" required>
+    </div>
+    <div class="form-group">
+        <label for ="pass">Entrez votre mot de pass : </label>
+        <input type="password" class="form-control" name="memberPassword" id="pass" required>
+    </div>
+    <div class="form-group form-horizontal">
+        <label for="autoconnect">Connexion automatique</label><input type="checkbox" class="form-control" name="autoconnect" id="autoconnect">
+    </div>
     <input type="submit" value="Connexion">
 </form>
 
