@@ -24,27 +24,31 @@
         </div>-->
     </div>
 
-    <div>
+    <div class="row">
         <h2>Commentaires</h2>
         <?php
         if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
         ?>
-        <p>Ajoutez un commentaire :</p>
-        <form action="index.php?controler=frontend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
-            <label for="pseudo">Votre pseudo :</label><br />
-            <input type="text" name="comment_author" id="pseudo" <?php
-            if (isset($request)) {
-                if ($request->existParameter('sessionMember')) {
-                    echo 'value="' . $request->getParameter('sessionMember')->member_name() . '"';
-                }
-                if (!$request->existParameter('sessionMember') && $request->existParameter('cookieMember')){
-                    $member = unserialize($request->getParameter('cookieMember'));
-                    echo 'value="' . $member->member_name() . '"';
-                }
-            }
-            ?>><br />
-            <label for="comment">Commentaire</label><br />
-            <textarea name="comment" id="comment"></textarea>
+        <form class="col-sm-6 well" action="index.php?controler=frontend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
+            <legend>Ajoutez un commentaire</legend>
+            <div class="form-group">
+                <label for="pseudo">Votre pseudo :</label>
+                <input type="text" class="form-control" name="comment_author" id="pseudo" <?php
+                    if (isset($request)) {
+                        if ($request->existParameter('sessionMember')) {
+                            echo 'value="' . $request->getParameter('sessionMember')->member_name() . '"';
+                        }
+                        if (!$request->existParameter('sessionMember') && $request->existParameter('cookieMember')){
+                            $member = unserialize($request->getParameter('cookieMember'));
+                            echo 'value="' . $member->member_name() . '"';
+                        }
+                    }
+                ?>>
+            </div>
+            <div class="form-group">
+                <label for="comment">Commentaire</label>
+                <textarea class="form-control" name="comment" id="comment"></textarea>
+            </div>
             <input type="submit" value="Poster le commentaire">
         </form>
         <?php

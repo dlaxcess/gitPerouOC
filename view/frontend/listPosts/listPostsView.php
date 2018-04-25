@@ -70,7 +70,7 @@ foreach ( $posts as $post)
                     <h4 class="modal-title">Nouvelle parution</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="index.php?controler=backend&action=newPost" method="post">
+                    <form class="well" action="index.php?controler=backend&action=newPost" method="post">
                         <label for="newPostTitle">Titre :</label><br />
                         <input type="text" name="newPostTitle" id="newPostTitle" required><br />
                         <label for="newPostContent">Contenu de l'article :</label><br />
