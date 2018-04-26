@@ -95,7 +95,7 @@ class PersonalBar {
                                             if ($action == 'listPosts') {
                                                 echo ' class="active"';
                                             }
-                                    echo '><a href="index.php">Accueil</a></li>
+                                    echo '><a href="index.php"><i class="fa fa-home" style="color: #9d9d9d"></i> Accueil</a></li>
                                         <li';
                                             if ($action == 'connexion') {
                                                 echo ' class="active"';
@@ -133,7 +133,7 @@ class PersonalBar {
                                         if ($action == 'listPosts') {
                                             echo ' class="active"';
                                         }
-                                echo '><a href="index.php">Accueil</a></li>
+                                echo '><a href="index.php"><i class="fa fa-home" style="color: #9d9d9d"></i> Accueil</a></li>
                                     <li';
                                         if ($action == 'connexion') {
                                             echo ' class="active"';
