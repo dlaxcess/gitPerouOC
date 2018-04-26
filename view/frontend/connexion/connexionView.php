@@ -14,10 +14,10 @@
         <label for ="pass">Entrez votre mot de pass : </label>
         <input type="password" class="form-control" name="memberPassword" id="pass" required>
     </div>
-    <div class="form-group form-horizontal">
-        <label for="autoconnect">Connexion automatique</label><input type="checkbox" class="form-control" name="autoconnect" id="autoconnect">
+    <div class="form-group" id="divAutoConnect">
+        <label for="autoconnect">Connexion automatique</label><input type="checkbox" name="autoconnect" id="autoconnect">
     </div>
-    <input type="submit" value="Connexion">
+    <input type="submit" value="Connexion" class="center-block">
 </form>
 
 <p>Pas encore membre? <a href="index.php?controler=backend&action=registration" title="Inscription">Inscrivez vous</a></p>
