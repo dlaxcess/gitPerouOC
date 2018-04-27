@@ -9,7 +9,6 @@
 namespace perou\blog\controler\frontend;
 
 use perou\blog\framework\SecuredControler;
-use perou\blog\entities\Comment;
 use perou\blog\model\PostManager;
 use perou\blog\model\CommentManager;
 use perou\blog\framework\View;
@@ -53,70 +52,5 @@ class FrontendControler extends SecuredControler
         $comments = $this->_comments->getComments($this->request->getParameter('id'));
         $displayPost = new View('post');
         $displayPost->generate(array('post' => $post, 'comments' => $comments, 'request' => $this->request));
-    }
-    
-    public function addComment()
-    {
-        $newComment = new Comment(['post_id' => $this->request->getParameter('id'), 'comment_author' => $this->request->getParameter('comment_author'), 'comment' => $this->request->getParameter('comment')]);
-        $affectedLines = $this->_comments->postComment($newComment);
-
-        if ($affectedLines === false) 
-        {
-            throw new Exception('Le commentaire ne peut être posté.');
-        }
-        else
-        {
-            header('Location: index.php?action=post&id=' . $_GET['id']);
-        }
-    }
-    
-    public function enterNewComment()
-    {
-        //$oldAction is used when the comment is modified from showReportedCommentView or showModeratedCommentView
-        $oldAction = NULL;
-        if ($this->request->existParameter('oldAction')) {
-            if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
-                $oldAction = $this->request->getParameter('oldAction');
-            }
-        }
-        $post_id = $this->request->getParameter('id');
-        $comment_id = $this->request->getParameter('comment_id');
-         if ( isset($post_id) && isset($comment_id) && $post_id > 0 && $comment_id > 0)
-         {
-            $toModifyComment = $this->_comments->getComment($comment_id);
-            $post = $this->_posts->getPost($post_id);
-
-            $modifCommentView = new View('modifyComment');
-            $modifCommentView->generate(array('toModifyComment' => $toModifyComment, 'post' => $post, 'request' => $this->request, 'oldAction' => $oldAction));
-        }
-    }
-
-    function modifyComment()
-    {
-        $post_id = $this->request->getParameter('post_id');
-        $comment_id = $this->request->getParameter('comment_id');
-        $new_content = $this->request->getParameter('new_comment');
-        
-        if (isset($new_content))
-        {
-            $newComment = new Comment(['post_id' => $post_id, 'comment_id' => $comment_id, 'comment' => $new_content]);
-            $affectedLines = $this->_comments->setComment($newComment);
-               
-            if ($affectedLines === false)
-            {
-                throw new \Exception('le commentaire ne peut être modifié');	
-            }
-            else
-            {
-                if ($this->request->existParameter('oldAction')) {
-                    if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
-                        header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
-                    }
-                }
-                else {
-                    header('Location: index.php?controleur=frontend&action=post&id=' . $newComment->post_id());
-                }
-            }
-        }
     }
 }

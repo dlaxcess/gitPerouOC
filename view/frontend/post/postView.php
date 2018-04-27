@@ -29,7 +29,7 @@
         <?php
         if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
         ?>
-        <form class="col-sm-6 well" action="index.php?controler=frontend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
+        <form class="col-sm-6 well" action="index.php?controler=backend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
             <legend>Ajoutez un commentaire</legend>
             <div class="form-group">
                 <label for="pseudo">Votre pseudo :</label>
@@ -88,14 +88,14 @@
                         $memberAcces = unserialize($request->getParameter('cookieMember'))->member_acces();
                     }
                     if ($memberAcces == 'admin') {
-                        echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
+                        echo '(<a href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
                         echo ' <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '&comment_id=' . $comment->comment_id() . '&oldAction=post">[ Supprimer ]</a>';
                         echo ' <a href="index.php?controler=backend&action=moderateCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">[ Modérer ]</a>';
                         echo ' <a href="index.php?controler=backend&action=acceptCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">[ Valider ]</a>';
                     }
                     else {
                         if($comment->comment_author() == $connectedMemberName){
-                            echo '(<a href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
+                            echo '(<a href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
                         }
                     }
             }
