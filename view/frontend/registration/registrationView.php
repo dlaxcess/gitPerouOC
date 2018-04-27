@@ -19,10 +19,15 @@
             <label for ="pass">Entrez un mot de passe : </label>
             <input type="password" class="form-control" name="memberPassword" id="pass">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="divPass">
             <label for ="passConfirm">Confirmez votre mot de passe : </label>
             <input type="password" class="form-control" name="memberPasswordConfirm" id="passConfirm">
         </div>
         <button type="submit" class="btn btn-default center-block">Inscription</button>
+        <div class="alert alert-block alert-danger" style="display:none">
+            <h4>Erreur !</h4>
+            Vous devez entrer au moins 4 caractères ! 
+        </div>
     </form>
 </div>
+

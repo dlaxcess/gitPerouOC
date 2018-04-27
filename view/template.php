@@ -91,5 +91,17 @@
         <script src="public/tinymce/tinymce.min.js"></script>
         <script>tinymce.init({ selector:'textarea#newPostContent' });</script>
         
+        <script>
+            $(function(){
+              $("form").on("submit", function() {
+                if($("input#pass").val().length < 6) {
+                  $("div#divPass").addClass("has-error");
+                  $("div.alert").show("slow").delay(4000).hide("slow");
+                  return false;
+                }
+              });
+            });
+        </script>
+        
     </body>
 </html>
