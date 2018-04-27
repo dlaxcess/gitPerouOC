@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 24 avr. 2018 à 20:56
+-- Généré le :  ven. 27 avr. 2018 à 11:46
 -- Version du serveur :  10.1.30-MariaDB
 -- Version de PHP :  7.2.2
 
@@ -57,7 +57,12 @@ INSERT INTO `ocp3posts` (`post_id`, `post_title`, `post_content`, `post_creation
 (20, '15', 'Entrez le texte ici', '2018-04-04 17:07:26', 'phil'),
 (21, 'bouliboula', 'et pour une fois je rentre du texte!', '2018-04-16 23:22:41', 'phil'),
 (22, 'et la tout marche!', '&lt;p&gt;Entrez le texte ici&lt;/p&gt;', '2018-04-23 13:04:35', 'phil'),
-(23, 'Intro', '&lt;p&gt;dkhdskj hds jkdkj hdsjk hdskj hdskj hdsjk hkdsjh dskj hdskj hdskjhdkjh dskjhdsjkhsdkj hdkjhdskj hdskj hdskj hdskj hdsm kjdjk dslki jdslk jsdlj smlkjcml smlscm ds&amp;nbsp; &amp;nbsp;dlk jslkj dslk j d.&lt;br /&gt;D o i sl idsli li dslkij lcs lk dslklkjc qlk&amp;nbsp; lk j lkjclkj lkj clk jlkjc slkj lscm csmj ok!mcs&amp;nbsp; jllcjkj cs jl!jk !slk js!ljkl!c slk! jlq!c jklkjcqlkj l! jkk jlk!j cljkjk lk!c jlk!j clkjlkj lk .&lt;/p&gt;&lt;br /&gt;\r\n&lt;p&gt;K ml f mslm jdsml jfs lk jslkj qdlk jlq dk jdqcl:kqc m:cq :kj hcqjk hjk hcqkmj hc q&lt;br /&gt;Ajkj o ldlki j dli&amp;nbsp; &amp;nbsp;liudli h ldkjh mfd jh fsmkjhmkfzsm ojh mkj rfshkmj hmkj hmkfs&amp;nbsp; jhm kfsj hmjk hmkfsjh ms kfjhsjk hfskj hsjk hfsjkm fsjkh fsjk dshjk fshfsjk hfsjk hfs.&lt;/p&gt;', '2018-04-24 18:14:37', 'phil');
+(23, 'Intro', '&lt;p&gt;dkhdskj hds jkdkj hdsjk hdskj hdskj hdsjk hkdsjh dskj hdskj hdskjhdkjh dskjhdsjkhsdkj hdkjhdskj hdskj hdskj hdskj hdsm kjdjk dslki jdslk jsdlj smlkjcml smlscm ds&amp;nbsp; &amp;nbsp;dlk jslkj dslk j d.&lt;br /&gt;D o i sl idsli li dslkij lcs lk dslklkjc qlk&amp;nbsp; lk j lkjclkj lkj clk jlkjc slkj lscm csmj ok!mcs&amp;nbsp; jllcjkj cs jl!jk !slk js!ljkl!c slk! jlq!c jklkjcqlkj l! jkk jlk!j cljkjk lk!c jlk!j clkjlkj lk .&lt;/p&gt;&lt;br /&gt;\r\n&lt;p&gt;K ml f mslm jdsml jfs lk jslkj qdlk jlq dk jdqcl:kqc m:cq :kj hcqjk hjk hcqkmj hc q&lt;br /&gt;Ajkj o ldlki j dli&amp;nbsp; &amp;nbsp;liudli h ldkjh mfd jh fsmkjhmkfzsm ojh mkj rfshkmj hmkj hmkfs&amp;nbsp; jhm kfsj hmjk hmkfsjh ms kfjhsjk hfskj hsjk hfsjkm fsjkh fsjk dshjk fshfsjk hfsjk hfs.&lt;/p&gt;', '2018-04-24 18:14:37', 'phil'),
+(24, 'ertghy', 'hello\r\nworld', '2018-04-25 10:06:49', 'phil'),
+(25, 'lkjhgfd', 'hello<br />\r\nworldyo', '2018-04-25 10:08:26', 'phil'),
+(26, 'ecriture!', 'hello<br />\r\nvoici du texte avec une tabulation<br />\r\nici avec du gras<br />\r\net la en italique', '2018-04-25 10:14:43', 'phil'),
+(27, 'test fonction post', 'yo<br />\r\net hop!<br />\r\ncool', '2018-04-25 11:35:55', 'phil'),
+(28, 'dfghjklm', 'Entrez le texte ici', '2018-04-25 17:54:49', 'phil');
 
 --
 -- Index pour les tables déchargées
@@ -77,7 +82,7 @@ ALTER TABLE `ocp3posts`
 -- AUTO_INCREMENT pour la table `ocp3posts`
 --
 ALTER TABLE `ocp3posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

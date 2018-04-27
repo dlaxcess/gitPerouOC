@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 24 avr. 2018 à 20:39
+-- Généré le :  ven. 27 avr. 2018 à 11:44
 -- Version du serveur :  10.1.30-MariaDB
 -- Version de PHP :  7.2.2
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `mvc`
+-- Base de données :  `ocp3blogmvc`
 --
 
 -- --------------------------------------------------------
@@ -100,7 +100,12 @@ INSERT INTO `ocp3comments` (`comment_id`, `post_id`, `comment_author`, `comment`
 (79, 20, 'phil', 'nlkjhlkdfg<br>\r\nsdkjhfvg', '2018-04-06 11:54:38', 'accepted'),
 (80, 20, 'phil', ';jnd,n', '2018-04-14 14:06:45', 'reported'),
 (81, 20, 'fifi', 'kjfkjf', '2018-04-14 14:09:30', 'accepted'),
-(82, 20, 'phil', '&lt;p&gt;yo&lt;/p&gt;<br>\r\n&lt;p&gt;alors?&lt;/p&gt;', '2018-04-21 15:38:58', 'accepted');
+(82, 20, 'phil', '&lt;p&gt;yo&lt;/p&gt;<br>\r\n&lt;p&gt;alors?&lt;/p&gt;', '2018-04-21 15:38:58', 'accepted'),
+(83, 24, 'phil', '&lt;p&gt;hello&lt;/p&gt;<br>\r\n&lt;p&gt;tout le&lt;br /&gt;monde&lt;/p&gt;', '2018-04-25 10:11:29', 'accepted'),
+(84, 24, 'phil', 'yolala<br />\r\nyoup!', '2018-04-25 10:13:14', 'accepted'),
+(85, 26, 'phil', 'yo<br />\r\nlala', '2018-04-25 11:22:25', 'accepted'),
+(86, 27, 'phil', 'bloup<br />\r\npop', '2018-04-25 17:16:39', 'accepted'),
+(87, 27, 'phil', 'bip<br />\r\ndouap', '2018-04-25 17:16:49', 'accepted');
 
 -- --------------------------------------------------------
 
@@ -161,7 +166,12 @@ INSERT INTO `ocp3posts` (`post_id`, `post_title`, `post_content`, `post_creation
 (20, '15', 'Entrez le texte ici', '2018-04-04 17:07:26', 'phil'),
 (21, 'bouliboula', 'et pour une fois je rentre du texte!', '2018-04-16 23:22:41', 'phil'),
 (22, 'et la tout marche!', '&lt;p&gt;Entrez le texte ici&lt;/p&gt;', '2018-04-23 13:04:35', 'phil'),
-(23, 'Intro', '&lt;p&gt;dkhdskj hds jkdkj hdsjk hdskj hdskj hdsjk hkdsjh dskj hdskj hdskjhdkjh dskjhdsjkhsdkj hdkjhdskj hdskj hdskj hdskj hdsm kjdjk dslki jdslk jsdlj smlkjcml smlscm ds&amp;nbsp; &amp;nbsp;dlk jslkj dslk j d.&lt;br /&gt;D o i sl idsli li dslkij lcs lk dslklkjc qlk&amp;nbsp; lk j lkjclkj lkj clk jlkjc slkj lscm csmj ok!mcs&amp;nbsp; jllcjkj cs jl!jk !slk js!ljkl!c slk! jlq!c jklkjcqlkj l! jkk jlk!j cljkjk lk!c jlk!j clkjlkj lk .&lt;/p&gt;&lt;br /&gt;\r\n&lt;p&gt;K ml f mslm jdsml jfs lk jslkj qdlk jlq dk jdqcl:kqc m:cq :kj hcqjk hjk hcqkmj hc q&lt;br /&gt;Ajkj o ldlki j dli&amp;nbsp; &amp;nbsp;liudli h ldkjh mfd jh fsmkjhmkfzsm ojh mkj rfshkmj hmkj hmkfs&amp;nbsp; jhm kfsj hmjk hmkfsjh ms kfjhsjk hfskj hsjk hfsjkm fsjkh fsjk dshjk fshfsjk hfsjk hfs.&lt;/p&gt;', '2018-04-24 18:14:37', 'phil');
+(23, 'Intro', '&lt;p&gt;dkhdskj hds jkdkj hdsjk hdskj hdskj hdsjk hkdsjh dskj hdskj hdskjhdkjh dskjhdsjkhsdkj hdkjhdskj hdskj hdskj hdskj hdsm kjdjk dslki jdslk jsdlj smlkjcml smlscm ds&amp;nbsp; &amp;nbsp;dlk jslkj dslk j d.&lt;br /&gt;D o i sl idsli li dslkij lcs lk dslklkjc qlk&amp;nbsp; lk j lkjclkj lkj clk jlkjc slkj lscm csmj ok!mcs&amp;nbsp; jllcjkj cs jl!jk !slk js!ljkl!c slk! jlq!c jklkjcqlkj l! jkk jlk!j cljkjk lk!c jlk!j clkjlkj lk .&lt;/p&gt;&lt;br /&gt;\r\n&lt;p&gt;K ml f mslm jdsml jfs lk jslkj qdlk jlq dk jdqcl:kqc m:cq :kj hcqjk hjk hcqkmj hc q&lt;br /&gt;Ajkj o ldlki j dli&amp;nbsp; &amp;nbsp;liudli h ldkjh mfd jh fsmkjhmkfzsm ojh mkj rfshkmj hmkj hmkfs&amp;nbsp; jhm kfsj hmjk hmkfsjh ms kfjhsjk hfskj hsjk hfsjkm fsjkh fsjk dshjk fshfsjk hfsjk hfs.&lt;/p&gt;', '2018-04-24 18:14:37', 'phil'),
+(24, 'ertghy', 'hello\r\nworld', '2018-04-25 10:06:49', 'phil'),
+(25, 'lkjhgfd', 'hello<br />\r\nworldyo', '2018-04-25 10:08:26', 'phil'),
+(26, 'ecriture!', 'hello<br />\r\nvoici du texte avec une tabulation<br />\r\nici avec du gras<br />\r\net la en italique', '2018-04-25 10:14:43', 'phil'),
+(27, 'test fonction post', 'yo<br />\r\net hop!<br />\r\ncool', '2018-04-25 11:35:55', 'phil'),
+(28, 'dfghjklm', 'Entrez le texte ici', '2018-04-25 17:54:49', 'phil');
 
 -- --------------------------------------------------------
 
@@ -191,7 +201,8 @@ INSERT INTO `ocp3reports` (`report_id`, `comment_id`, `report_content`, `report_
 -- Index pour la table `ocp3comments`
 --
 ALTER TABLE `ocp3comments`
-  ADD PRIMARY KEY (`comment_id`);
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `post_id` (`post_id`);
 
 --
 -- Index pour la table `ocp3members`
@@ -209,7 +220,8 @@ ALTER TABLE `ocp3posts`
 -- Index pour la table `ocp3reports`
 --
 ALTER TABLE `ocp3reports`
-  ADD PRIMARY KEY (`report_id`);
+  ADD PRIMARY KEY (`report_id`),
+  ADD KEY `comment_id` (`comment_id`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -219,7 +231,7 @@ ALTER TABLE `ocp3reports`
 -- AUTO_INCREMENT pour la table `ocp3comments`
 --
 ALTER TABLE `ocp3comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT pour la table `ocp3members`
@@ -231,13 +243,29 @@ ALTER TABLE `ocp3members`
 -- AUTO_INCREMENT pour la table `ocp3posts`
 --
 ALTER TABLE `ocp3posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT pour la table `ocp3reports`
 --
 ALTER TABLE `ocp3reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `ocp3comments`
+--
+ALTER TABLE `ocp3comments`
+  ADD CONSTRAINT `fk_postComment` FOREIGN KEY (`post_id`) REFERENCES `ocp3posts` (`post_id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `ocp3reports`
+--
+ALTER TABLE `ocp3reports`
+  ADD CONSTRAINT `fk_commentReport` FOREIGN KEY (`comment_id`) REFERENCES `ocp3comments` (`comment_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

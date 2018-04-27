@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 24 avr. 2018 à 20:51
+-- Généré le :  ven. 27 avr. 2018 à 11:45
 -- Version du serveur :  10.1.30-MariaDB
 -- Version de PHP :  7.2.2
 
@@ -100,7 +100,12 @@ INSERT INTO `ocp3comments` (`comment_id`, `post_id`, `comment_author`, `comment`
 (79, 20, 'phil', 'nlkjhlkdfg<br>\r\nsdkjhfvg', '2018-04-06 11:54:38', 'accepted'),
 (80, 20, 'phil', ';jnd,n', '2018-04-14 14:06:45', 'reported'),
 (81, 20, 'fifi', 'kjfkjf', '2018-04-14 14:09:30', 'accepted'),
-(82, 20, 'phil', '&lt;p&gt;yo&lt;/p&gt;<br>\r\n&lt;p&gt;alors?&lt;/p&gt;', '2018-04-21 15:38:58', 'accepted');
+(82, 20, 'phil', '&lt;p&gt;yo&lt;/p&gt;<br>\r\n&lt;p&gt;alors?&lt;/p&gt;', '2018-04-21 15:38:58', 'accepted'),
+(83, 24, 'phil', '&lt;p&gt;hello&lt;/p&gt;<br>\r\n&lt;p&gt;tout le&lt;br /&gt;monde&lt;/p&gt;', '2018-04-25 10:11:29', 'accepted'),
+(84, 24, 'phil', 'yolala<br />\r\nyoup!', '2018-04-25 10:13:14', 'accepted'),
+(85, 26, 'phil', 'yo<br />\r\nlala', '2018-04-25 11:22:25', 'accepted'),
+(86, 27, 'phil', 'bloup<br />\r\npop', '2018-04-25 17:16:39', 'accepted'),
+(87, 27, 'phil', 'bip<br />\r\ndouap', '2018-04-25 17:16:49', 'accepted');
 
 --
 -- Index pour les tables déchargées
@@ -110,7 +115,8 @@ INSERT INTO `ocp3comments` (`comment_id`, `post_id`, `comment_author`, `comment`
 -- Index pour la table `ocp3comments`
 --
 ALTER TABLE `ocp3comments`
-  ADD PRIMARY KEY (`comment_id`);
+  ADD PRIMARY KEY (`comment_id`),
+  ADD KEY `post_id` (`post_id`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -120,7 +126,17 @@ ALTER TABLE `ocp3comments`
 -- AUTO_INCREMENT pour la table `ocp3comments`
 --
 ALTER TABLE `ocp3comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `ocp3comments`
+--
+ALTER TABLE `ocp3comments`
+  ADD CONSTRAINT `fk_postComment` FOREIGN KEY (`post_id`) REFERENCES `ocp3posts` (`post_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

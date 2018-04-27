@@ -116,7 +116,7 @@ class BackendControler extends SecuredControler {
     public function deletePost() {
         if ($this->request->existParameter('id')){
             $postId = intval($this->request->getParameter('id'));
-            if ($this->commentManager->existComment($postId)) {
+            /*if ($this->commentManager->existComment($postId)) {
                 $postComments = $this->commentManager->getComments($postId);
                 foreach ($postComments as $comment) {
                     if ($this->reportManager->existReport($comment->comment_id()) != 0) {
@@ -131,7 +131,7 @@ class BackendControler extends SecuredControler {
                         throw new Exception('Le commentaire de l\'article ne peut être supprimé.');
                     }
                 }  
-            }
+            }*/
             $deletedLine = $this->postManager->erasePost($postId);
             if ($deletedLine === false) {
                 throw new Exception('L\'article ne peut être supprimé.');
@@ -339,12 +339,12 @@ class BackendControler extends SecuredControler {
                     throw new Exception('Le commentaire ne peut être supprimé.');
                 }
                 else {
-                    if ($this->reportManager->existReport($commentId) != 0) {
+                    /*if ($this->reportManager->existReport($commentId) != 0) {
                         $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
                         if ($deletedLine === false) {
                             throw new Exception('Le report ne peut être supprimé.');
                         } 
-                    }
+                    }*/
                     header('Location: index.php?controler=frontend&action=post&id=' . $this->request->getParameter('id'));
                 }
             }
@@ -363,12 +363,12 @@ class BackendControler extends SecuredControler {
                     throw new Exception('Le commentaire ne peut être supprimé.');
                 }
                 else {
-                    if ($this->reportManager->existReport($commentId) != 0) {
+                    /*if ($this->reportManager->existReport($commentId) != 0) {
                         $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
                         if ($deletedLine === false) {
                             throw new Exception('Le report ne peut être supprimé.');
                         } 
-                    }
+                    }*/
                     if ($this->request->existParameter('oldAction')) {
                         if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
                             header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
