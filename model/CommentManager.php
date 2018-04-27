@@ -142,4 +142,13 @@ Class CommentManager extends Manager
         
         return $commentsTab;
     }
+    
+    /*public function countCommentsFromPost($postId) {
+        $sql = 'SELECT count(*) AS commentAmount FROM ocp3comments WHERE post_id = :id';
+        $req = $this->executeRequest($sql, array('id' => $postId));
+        
+        $commentAmount = $req->fetch(\PDO::FETCH_ASSOC);
+        
+        return intval($commentAmount['commentAmount']);
+    }*/
 }
