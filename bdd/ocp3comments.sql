@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  ven. 27 avr. 2018 à 11:45
+-- Généré le :  sam. 28 avr. 2018 à 20:49
 -- Version du serveur :  10.1.30-MariaDB
 -- Version de PHP :  7.2.2
 
@@ -105,7 +105,9 @@ INSERT INTO `ocp3comments` (`comment_id`, `post_id`, `comment_author`, `comment`
 (84, 24, 'phil', 'yolala<br />\r\nyoup!', '2018-04-25 10:13:14', 'accepted'),
 (85, 26, 'phil', 'yo<br />\r\nlala', '2018-04-25 11:22:25', 'accepted'),
 (86, 27, 'phil', 'bloup<br />\r\npop', '2018-04-25 17:16:39', 'accepted'),
-(87, 27, 'phil', 'bip<br />\r\ndouap', '2018-04-25 17:16:49', 'accepted');
+(87, 27, 'phil', 'bip<br />\r\ndouap', '2018-04-25 17:16:49', 'accepted'),
+(90, 28, 'phil', 'poup', '2018-04-27 14:27:51', 'reported'),
+(91, 28, 'fifi', 'zoup zap', '2018-04-27 14:29:08', 'reported');
 
 --
 -- Index pour les tables déchargées
@@ -126,7 +128,7 @@ ALTER TABLE `ocp3comments`
 -- AUTO_INCREMENT pour la table `ocp3comments`
 --
 ALTER TABLE `ocp3comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- Contraintes pour les tables déchargées

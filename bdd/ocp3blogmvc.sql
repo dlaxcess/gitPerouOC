@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  ven. 27 avr. 2018 à 11:44
+-- Généré le :  sam. 28 avr. 2018 à 20:51
 -- Version du serveur :  10.1.30-MariaDB
 -- Version de PHP :  7.2.2
 
@@ -105,7 +105,9 @@ INSERT INTO `ocp3comments` (`comment_id`, `post_id`, `comment_author`, `comment`
 (84, 24, 'phil', 'yolala<br />\r\nyoup!', '2018-04-25 10:13:14', 'accepted'),
 (85, 26, 'phil', 'yo<br />\r\nlala', '2018-04-25 11:22:25', 'accepted'),
 (86, 27, 'phil', 'bloup<br />\r\npop', '2018-04-25 17:16:39', 'accepted'),
-(87, 27, 'phil', 'bip<br />\r\ndouap', '2018-04-25 17:16:49', 'accepted');
+(87, 27, 'phil', 'bip<br />\r\ndouap', '2018-04-25 17:16:49', 'accepted'),
+(90, 28, 'phil', 'poup', '2018-04-27 14:27:51', 'reported'),
+(91, 28, 'fifi', 'zoup zap', '2018-04-27 14:29:08', 'reported');
 
 -- --------------------------------------------------------
 
@@ -129,7 +131,8 @@ INSERT INTO `ocp3members` (`member_id`, `member_name`, `member_email`, `member_p
 (1, 'phil', 'flipiste@free.fr', '$2y$10$3S.Dn6QUb6zGxIYDoKNoiupcvkDEDtNxDcqbxYif./fhThYDpjGT.', 'admin'),
 (2, 'fifi', 'heroinestones@gmail.com', '$2y$10$9QcAtJjRhOw71BYv6ZhXtOmJpmkvmVjRS0zhnnbYUWuR4n0FofL3O', 'member'),
 (3, 'jo', 'blibli@blabla.com', '$2y$10$9q15epa9wlTQLefiIHpOAu8iiELG.Y4UlVaBLTeryVW2Tg1K93keS', 'member'),
-(4, 'bilbo', 'bilbo.lehobit@mordor.mor', '$2y$10$4U0euU0bpQHpkNqkSS5FHeavBUjhqh4DXV9gByoD6e.Q.7ISN3rhO', 'member');
+(4, 'bilbo', 'bilbo.lehobit@mordor.mor', '$2y$10$4U0euU0bpQHpkNqkSS5FHeavBUjhqh4DXV9gByoD6e.Q.7ISN3rhO', 'member'),
+(5, 'ploup', 'ljkldsksd@knjdf.con', '$2y$10$/Jlcj7Y6RdGTyvlnlSMFNeb9xwqJ18oit44kiZ8u.BbLDHrQSSBsq', 'member');
 
 -- --------------------------------------------------------
 
@@ -191,7 +194,9 @@ CREATE TABLE `ocp3reports` (
 --
 
 INSERT INTO `ocp3reports` (`report_id`, `comment_id`, `report_content`, `report_date`) VALUES
-(50, 80, '( Pas de raison donnée )', '2018-04-14 14:08:41');
+(50, 80, '( Pas de raison donnée )', '2018-04-14 14:08:41'),
+(51, 91, 'ggb', '2018-04-28 20:24:07'),
+(52, 90, 'jhgjhg', '2018-04-28 20:24:28');
 
 --
 -- Index pour les tables déchargées
@@ -231,25 +236,25 @@ ALTER TABLE `ocp3reports`
 -- AUTO_INCREMENT pour la table `ocp3comments`
 --
 ALTER TABLE `ocp3comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT pour la table `ocp3members`
 --
 ALTER TABLE `ocp3members`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `ocp3posts`
 --
 ALTER TABLE `ocp3posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT pour la table `ocp3reports`
 --
 ALTER TABLE `ocp3reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- Contraintes pour les tables déchargées

@@ -94,23 +94,33 @@
         <script>
             $(function(){
               $("form#regitrationForm").on("submit", function() {
-                if($("input#pass").val().length < 6) {
-                  $("div#divPass").addClass("has-error");
-                  $("div.alert#passCaracAmount").show("slow").delay(4000).hide("slow");
-                  return false;
-                }
-                if($("input#pass").val() !== $("input#passConfirm").val()) {
-                    $("div#divPass").addClass("has-error");
-                    $("div.alert#differentPass").show("slow").delay(4000).hide("slow");
-                    return false;
-                }
-                var mailReg = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,4}$/;
-                var mail = $("input#email").val();
-                if(!mailReg.test(mail)) {
-                    $("div#divEmail").addClass("has-error");
-                    $("div.alert#emailVerif").show("slow").delay(4000).hide("slow");
-                    return false;
-                }
+                  if(!$("input#name").val()) {
+                      $("div#divName").addClass("has-error");
+                      $("div.alert#emptyName").show("slow").delay(4000).hide("slow");
+                      return false;
+                  }
+                  if($("input#pass").val().length < 6) {
+                      $("div#divPass").addClass("has-error");
+                      $("div.alert#passCaracAmount").show("slow").delay(4000).hide("slow");
+                      return false;
+                  }
+                  if($("input#pass").val() !== $("input#passConfirm").val()) {
+                      $("div#divPass").addClass("has-error");
+                      $("div.alert#differentPass").show("slow").delay(4000).hide("slow");
+                      return false;
+                  }
+                  var mailReg = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,4}$/;
+                  var mail = $("input#email").val();
+                  if(!mailReg.test(mail)) {
+                      $("div#divEmail").addClass("has-error");
+                      $("div.alert#emailVerif").show("slow").delay(4000).hide("slow");
+                      return false;
+                  }
+                  if($("input#email").val() !== $("input#emailConfirm").val()) {
+                      $("div#divEmail").addClass("has-error");
+                      $("div.alert#differentEmail").show("slow").delay(4000).hide("slow");
+                      return false;
+                  }
               });
             }); 
         </script>

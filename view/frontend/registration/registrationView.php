@@ -3,9 +3,13 @@
 <div class="col-sm-offset-3 col-sm-6 col-sm-offset-3">
     <form class="well center-block" id="regitrationForm" action="index.php?controler=backend&action=addMember" method="post">
         <legend>Inscrivez vous</legend>
-        <div class="form-group">
+        <div class="form-group" id="divName">
             <label for ="name">Entrez votre nom : </label>
             <input type="text" class="form-control" name="memberName" id="name">
+        </div>
+        <div class="alert alert-block alert-danger" id="emptyName" style="display:none">
+            <h4>Erreur !</h4>
+            Veuillez renseigner votre nom ! 
         </div>
         <div class="form-group" id="divEmail">
             <label for ="email">Entrez votre email : </label>
@@ -14,6 +18,10 @@
         <div class="alert alert-block alert-danger" id="emailVerif" style="display:none">
             <h4>Erreur !</h4>
             Vous devez entrer une adresse valide ! 
+        </div>
+        <div class="alert alert-block alert-danger" id="differentEmail" style="display:none">
+            <h4>Erreur !</h4>
+            Vous devez entrer deux fois la même adresse ! 
         </div>
         <div class="form-group">
             <label for ="emailConfirm">Confirmez votre email : </label>

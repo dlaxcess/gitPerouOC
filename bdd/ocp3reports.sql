@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  ven. 27 avr. 2018 à 11:46
+-- Généré le :  sam. 28 avr. 2018 à 20:51
 -- Version du serveur :  10.1.30-MariaDB
 -- Version de PHP :  7.2.2
 
@@ -40,7 +40,9 @@ CREATE TABLE `ocp3reports` (
 --
 
 INSERT INTO `ocp3reports` (`report_id`, `comment_id`, `report_content`, `report_date`) VALUES
-(50, 80, '( Pas de raison donnée )', '2018-04-14 14:08:41');
+(50, 80, '( Pas de raison donnée )', '2018-04-14 14:08:41'),
+(51, 91, 'ggb', '2018-04-28 20:24:07'),
+(52, 90, 'jhgjhg', '2018-04-28 20:24:28');
 
 --
 -- Index pour les tables déchargées
@@ -61,7 +63,7 @@ ALTER TABLE `ocp3reports`
 -- AUTO_INCREMENT pour la table `ocp3reports`
 --
 ALTER TABLE `ocp3reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- Contraintes pour les tables déchargées
