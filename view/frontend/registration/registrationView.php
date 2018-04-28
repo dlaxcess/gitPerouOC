@@ -7,23 +7,32 @@
             <label for ="name">Entrez votre nom : </label>
             <input type="text" class="form-control" name="memberName" id="name">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="divEmail">
             <label for ="email">Entrez votre email : </label>
             <input type="text" class="form-control" name="memberEmail" id="email">
+        </div>
+        <div class="alert alert-block alert-danger" id="emailVerif" style="display:none">
+            <h4>Erreur !</h4>
+            Vous devez entrer une adresse valide ! 
         </div>
         <div class="form-group">
             <label for ="emailConfirm">Confirmez votre email : </label>
             <input type="text" class="form-control" name="memberEmailConfirm" id="emailConfirm">
         </div>
-        <div class="form-group">
+        <div class="form-group" id="divPass">
             <label for ="pass">Entrez un mot de passe : </label>
             <input type="password" class="form-control" name="memberPassword" id="pass">
+            <p class="help-block">Au moins 6 caractères</p>
         </div>
-        <div class="alert alert-block alert-danger" style="display:none">
+        <div class="alert alert-block alert-danger" id="passCaracAmount" style="display:none">
             <h4>Erreur !</h4>
             Vous devez entrer au moins 6 caractères ! 
         </div>
-        <div class="form-group" id="divPass">
+        <div class="alert alert-block alert-danger" id="differentPass" style="display:none">
+            <h4>Erreur !</h4>
+            Veuillez entrer deux fois le même mot de passe ! 
+        </div>
+        <div class="form-group">
             <label for ="passConfirm">Confirmez votre mot de passe : </label>
             <input type="password" class="form-control" name="memberPasswordConfirm" id="passConfirm">
         </div>
