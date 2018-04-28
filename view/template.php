@@ -93,7 +93,7 @@
         
         <script>
             $(function(){
-              $("form").on("submit", function() {
+              $("form#regitrationForm").on("submit", function() {
                 if($("input#pass").val().length < 6) {
                   $("div#divPass").addClass("has-error");
                   $("div.alert").show("slow").delay(4000).hide("slow");
