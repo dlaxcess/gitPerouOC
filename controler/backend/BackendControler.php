@@ -76,22 +76,40 @@ class BackendControler extends SecuredControler {
     }
 
     public function registration() {
+        $registrationMsg = '';
         $displayRegistration = new View('registration');
-        $displayRegistration->generate(array('request' => $this->request));
+        $displayRegistration->generate(array('request' => $this->request, 'registrationMsg' => $registrationMsg));
     }
     
     public function addMember() {
-        $hashed_password = password_hash($this->request->getParameter('memberPassword'), PASSWORD_DEFAULT);
-        $newMember = new Member(['member_name' => $this->request->getParameter('memberName'), 'member_email' => $this->request->getParameter('memberEmail'), 'member_password' => $hashed_password]);
-        $affectedLines = $this->memberManager->createMember($newMember);
-        
-        if ($affectedLines === FALSE) {
-            throw new Exception('le membre ne peut être inscrit');
+        if ($this->request->existParameter('memberName')) {
+            if ($this->request->getParameter('memberName') != '') {
+                if ($this->memberManager->existMemberByName($this->request->getParameter('memberName')) == 0) {
+                    $hashed_password = password_hash($this->request->getParameter('memberPassword'), PASSWORD_DEFAULT);
+                    $newMember = new Member(['member_name' => $this->request->getParameter('memberName'), 'member_email' => $this->request->getParameter('memberEmail'), 'member_password' => $hashed_password]);
+                    $affectedLines = $this->memberManager->createMember($newMember);
+
+                    if ($affectedLines === FALSE) {
+                        throw new Exception('le membre ne peut être inscrit');
+                    }
+                    else {
+                        session_start();
+                        $_SESSION['sessionMember'] = $newMember;
+                        header('Location: index.php');
+                    }
+                }
+                else {
+                    $registrationMsg = 'Ce nom existe déjà, veuillez entrez un nouveau nom';
+                    $displayRegistration = new View('registration');
+                    $displayRegistration->generate(array('request' => $this->request, 'registrationMsg' => $registrationMsg));
+                }
+            }
+            else {
+                throw new Exception('Vous devez entrer un nom');
+            }
         }
         else {
-            session_start();
-            $_SESSION['sessionMember'] = $newMember;
-            header('Location: index.php');
+            throw new Exception('Paramètre de nom absent de la requete');
         }
     }
     
