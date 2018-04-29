@@ -481,20 +481,31 @@ class BackendControler extends SecuredControler {
     }
     
     public function moderateCommentFromPost() {
-        if ($this->request->existParameter('id') && $this->request->existParameter('commentId')) {
-            $postId = intval($this->request->getParameter('id'));
-            $commentId = intval($this->request->getParameter('commentId'));
-            if ($postId > 0 && $commentId > 0) {
-                $affectedLine = $this->commentManager->setCommentModeration($commentId, 'moderated');
-                
-                if ($affectedLine === FALSE) {
-                    throw new \Exception('Le commentaire ne peut être moderé.');
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('id') && $this->request->existParameter('commentId')) {
+                $postId = intval($this->request->getParameter('id'));
+                $commentId = intval($this->request->getParameter('commentId'));
+                if ($postId > 0 && $commentId > 0) {
+                    $affectedLine = $this->commentManager->setCommentModeration($commentId, 'moderated');
+
+                    if ($affectedLine === FALSE) {
+                        throw new \Exception('Le commentaire ne peut être moderé.');
+                    }
+                    else {
+                        header('Location: index.php?controler=frontend&action=post&id=' . $postId);
+                    }
                 }
                 else {
-                    header('Location: index.php?controler=frontend&action=post&id=' . $postId);
+                    throw new \Exception('Paramètre id invalide');
                 }
             }
+            else {
+                throw new \Exception('Paramètres absents de la requete');
+            }
         }
+        else {
+            throw new \Exception('Veuillez vous connecter avant de modérer un commentaire.');
+        }     
     }
     
     public function acceptCommentFromList() {
