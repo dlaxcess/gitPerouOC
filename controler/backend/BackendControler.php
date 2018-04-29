@@ -565,6 +565,12 @@ class BackendControler extends SecuredControler {
                     header('Location: index.php?controler=frontend&action=post&id=' . $postId);
                 }
             }
+            else {
+                throw new \Exception('Paramètre id invalide');
+            }
+        }
+        else {
+            throw new \Exception('Paramètres absents de la requete');
         }
     }
     
