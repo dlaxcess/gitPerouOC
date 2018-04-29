@@ -423,6 +423,9 @@ class BackendControler extends SecuredControler {
             if ($this->request->existParameter('reportContent')) {
                 $reportContent = $this->request->getParameter('reportContent');
             }
+            else {
+                throw new \Exception('Paramètres absents de la requete');
+            }
             $newReport = new Report(array('comment_id' => $this->request->getParameter('commentId'), 'report_content' => $reportContent));
             $reportedComment = $this->commentManager->getComment($this->request->getParameter('commentId'));
             if (isset($newReport)){
@@ -441,7 +444,13 @@ class BackendControler extends SecuredControler {
                     $displayPost->generate(array('post' => $post, 'comments' => $comments, 'request' => $this->request, 'reportValidationMsg' => $reportValidationMsg));
                 }
             }
-        } 
+            else {
+                throw new \Exception('Objet Report non initialisé');
+            }
+        }
+        else {
+            throw new \Exception('Paramètres absents de la requete');
+        }
     }
     
     public function moderateCommentFromList() {
