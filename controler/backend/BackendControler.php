@@ -423,9 +423,6 @@ class BackendControler extends SecuredControler {
             if ($this->request->existParameter('reportContent')) {
                 $reportContent = $this->request->getParameter('reportContent');
             }
-            else {
-                throw new \Exception('Paramètres absents de la requete');
-            }
             $newReport = new Report(array('comment_id' => $this->request->getParameter('commentId'), 'report_content' => $reportContent));
             $reportedComment = $this->commentManager->getComment($this->request->getParameter('commentId'));
             if (isset($newReport)){
@@ -509,32 +506,43 @@ class BackendControler extends SecuredControler {
     }
     
     public function acceptCommentFromList() {
-        if ($this->request->existParameter('commentId')) {
-            $commentId = intval($this->request->getParameter('commentId'));
-            if ($commentId > 0) {
-                $affectedLine = $this->commentManager->setCommentModeration($commentId, 'accepted');
-                
-                if ($affectedLine === FALSE) {
-                    throw new \Exception('Le commentaire ne peut être moderé.');
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('commentId')) {
+                $commentId = intval($this->request->getParameter('commentId'));
+                if ($commentId > 0) {
+                    $affectedLine = $this->commentManager->setCommentModeration($commentId, 'accepted');
+
+                    if ($affectedLine === FALSE) {
+                        throw new \Exception('Le commentaire ne peut être validé.');
+                    }
+                    else {
+                        if ($this->reportManager->existReport($commentId) != 0) {
+                            $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
+                            if ($deletedLine === false) {
+                                throw new \Exception('Le report ne peut être supprimé.');
+                            }
+                        }
+                        if ($this->request->existParameter('oldAction')) {
+                            if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
+                                header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
+                            }
+                            else {
+                                header('Location: index.php?controler=frontend&action=listPost');
+                            }
+                        }
+                    }
                 }
                 else {
-                    if ($this->reportManager->existReport($commentId) != 0) {
-                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
-                        if ($deletedLine === false) {
-                            throw new \Exception('Le report ne peut être supprimé.');
-                        }
-                    }
-                    if ($this->request->existParameter('oldAction')) {
-                        if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
-                            header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
-                        }
-                        else {
-                            header('Location: index.php?controler=frontend&action=listPost');
-                        }
-                    }
+                    throw new \Exception('Paramètre id invalide');
                 }
             }
+            else {
+                throw new \Exception('Paramètres absents de la requete');
+            }
         }
+        else {
+            throw new \Exception('Veuillez vous connecter avant de valider un commentaire.');
+        }    
     }
     
     public function acceptCommentFromPost() {
