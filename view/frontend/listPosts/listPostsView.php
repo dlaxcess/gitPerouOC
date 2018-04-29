@@ -33,15 +33,9 @@ foreach ( $posts as $post)
         
         
         <?php
-        if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
-            if ($request->existParameter('sessionMember')) {
-                $connectedMemberName = $request->getParameter('sessionMember')->member_name();
-                $memberAcces = $request->getParameter('sessionMember')->member_acces();
-            }
-            if ($request->existParameter('cookieMember')) {
-                $connectedMemberName = unserialize($request->getParameter('cookieMember'))->member_name();
-                $memberAcces = unserialize($request->getParameter('cookieMember'))->member_acces();
-            }
+        if ($request->existParameter('connectedMember')) {
+            $memberAcces = $request->getParameter('connectedMember')->member_acces();
+            
             if ($memberAcces == 'admin') {
                 echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '">[ Supprimer ]</a></p>';
             }
@@ -54,11 +48,10 @@ foreach ( $posts as $post)
  <div>
     <?php
     $memberAcces = '';
-    if ($request->existParameter('sessionMember') && $request->getParameter('sessionMember')->member_acces() == 'admin') {
-        $memberAcces = $request->getParameter('sessionMember')->member_acces();
-    }
-    if ($request->existParameter('cookieMember') && unserialize($request->getParameter('cookieMember'))->member_acces() == 'admin') {
-        $memberAcces = unserialize($request->getParameter('cookieMember'))->member_acces();
+    if ($request->existParameter('connectedMember')) {
+        if ($request->getParameter('connectedMember')->member_acces() == 'admin') {
+            $memberAcces = $request->getParameter('connectedMember')->member_acces();
+        }
     }
     if ($memberAcces == 'admin') {
         ?>
