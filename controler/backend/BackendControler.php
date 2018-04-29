@@ -169,9 +169,14 @@ class BackendControler extends SecuredControler {
     }
     
     public function profil() {
-        $member = $this->memberManager->getMemberById($this->request->getParameter('id'));
-        $displayProfil = new View('profil', 'backend');
-        $displayProfil->generate(array('member' => $member, 'request' => $this->request));
+        if ($this->request->existParameter('connectedMember')) {
+            $member = $this->request->getParameter('connectedMember');
+            $displayProfil = new View('profil', 'backend');
+            $displayProfil->generate(array('member' => $member, 'request' => $this->request));
+        }
+        else {
+            throw new \Exception('Vous ne pouvez afficher le profil car vous n\'êtes pas connecté');
+        }
     }
     
     public function newPost() {

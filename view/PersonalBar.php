@@ -55,7 +55,7 @@ class PersonalBar {
                                             if ($action == 'profil') {
                                                 echo ' class="active"';
                                             }
-                                    echo '><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
+                                    echo '><a href="index.php?controler=backend&action=profil" title="profil">Gérer mon profil</a></li> 
                                     </ul>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@ class PersonalBar {
                                             if ($action == 'profil') {
                                                 echo ' class="active"';
                                             }
-                                    echo '><a href="index.php?controler=backend&action=profil&id=' . $connectedMember->member_id() . '" title="profil">Gérer mon profil</a></li> 
+                                    echo '><a href="index.php?controler=backend&action=profil" title="profil">Gérer mon profil</a></li> 
                                     </ul>
                                 </div>
                             </div>
