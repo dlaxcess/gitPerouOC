@@ -31,7 +31,6 @@ class Router
         $controler =$this->createControler($request);
         $action = $this->createAction($request);
         
-        $controler->setRequest($request);
         $controler->executeAction($action);
         }
         catch (\Exception $exception)

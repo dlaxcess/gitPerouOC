@@ -41,12 +41,4 @@ abstract class Controler {
     
     // Abstract default class
     public abstract function index();
-    
-    // Generate appropriate view for the current Controler
-    /*protected function generateView($viewDatas = array()) {
-        $controlerClass = get_class($this);
-        $controler = str_replace("Controler", "", $controlerClass);
-        $view = new View($this->_action, $controler);
-        $view->generate($viewDatas);
-    }*/
 }

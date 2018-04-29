@@ -191,22 +191,6 @@ class BackendControler extends SecuredControler {
     public function deletePost() {
         if ($this->request->existParameter('id')){
             $postId = intval($this->request->getParameter('id'));
-            /*if ($this->commentManager->existComment($postId)) {
-                $postComments = $this->commentManager->getComments($postId);
-                foreach ($postComments as $comment) {
-                    if ($this->reportManager->existReport($comment->comment_id()) != 0) {
-                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($comment->comment_id()));
-                        if ($deletedLine === false) {
-                            throw new Exception('Le report du commentaire ne peut être supprimé.');
-                        } 
-                    }
-                    $deletedLine = $this->commentManager->eraseComment($comment->comment_id());
-                
-                    if ($deletedLine === false) {
-                        throw new Exception('Le commentaire de l\'article ne peut être supprimé.');
-                    }
-                }  
-            }*/
             $deletedLine = $this->postManager->erasePost($postId);
             if ($deletedLine === false) {
                 throw new \Exception('L\'article ne peut être supprimé.');
