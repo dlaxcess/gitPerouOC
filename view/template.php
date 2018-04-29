@@ -122,6 +122,20 @@
                       return false;
                   }
               });
+              $("form#connexionForm").on("submit", function() {
+                  var mailReg = /^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,4}$/;
+                  var mail = $("input#email").val();
+                  if(!mailReg.test(mail)) {
+                      $("div#divEmail").addClass("has-error");
+                      $("div.alert#emailVerif").show("slow").delay(4000).hide("slow");
+                      return false;
+                  }
+                  if($("input#pass").val().length < 6) {
+                      $("div#divPass").addClass("has-error");
+                      $("div.alert#passCaracAmount").show("slow").delay(4000).hide("slow");
+                      return false;
+                  }
+              });
             }); 
         </script>
         

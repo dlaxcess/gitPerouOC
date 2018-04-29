@@ -45,22 +45,39 @@ class BackendControler extends SecuredControler {
     }
     
     public function connexion() {
+        $connexionMsg = '';
         $displayConnexion = new View('connexion');
-        $displayConnexion->generate(array('request' => $this->request));
+        $displayConnexion->generate(array('request' => $this->request, 'connexionMsg' => $connexionMsg));
     }
     
     public function connect() {
-        $memberToConnect = $this->memberManager->getMemberByEmail($this->request->getParameter('memberEmail'));
-        if (PasswordTester::testConnexion($this->request, $memberToConnect)) {
-            session_start();
-            $_SESSION['sessionMember'] = $memberToConnect;
-            if ($this->request->existParameter('autoconnect')) {
-                setcookie('cookieMember', serialize($memberToConnect), time() + 365*24*3600, null, null, false, true);
+        if ($this->request->existParameter('memberEmail') && $this->request->existParameter('memberPassword')) {
+            if ($this->memberManager->existMemberByEmail($this->request->getParameter('memberEmail')) == 1) {
+                $memberToConnect = $this->memberManager->getMemberByEmail($this->request->getParameter('memberEmail'));
+                if (PasswordTester::testConnexion($this->request, $memberToConnect)) {
+                    session_start();
+                    $_SESSION['sessionMember'] = $memberToConnect;
+                    if ($this->request->existParameter('autoconnect')) {
+                        setcookie('cookieMember', serialize($memberToConnect), time() + 365*24*3600, null, null, false, true);
+                    }
+                    header('Location: index.php');
+                }
+                else {
+                    $connexionMsg = 'Le mot de passe entré est incorrect';
+                    $displayConnexion = new View('connexion');
+                    $displayConnexion->generate(array('request' => $this->request, 'connexionMsg' => $connexionMsg));
+                }
             }
-            header('Location: index.php');
+            else {
+                $connexionMsg = 'Ce membre n\'existe pas';
+                $displayConnexion = new View('connexion');
+                $displayConnexion->generate(array('request' => $this->request, 'connexionMsg' => $connexionMsg));
+            }
         }
         else {
-            throw new \Exception('Votre mot de passe est incorrect');
+            $connexionMsg = 'Veuillez renseigner votre email ainsi que votre mot de passe';
+            $displayConnexion = new View('connexion');
+            $displayConnexion->generate(array('request' => $this->request, 'connexionMsg' => $connexionMsg));
         }
     }
     
