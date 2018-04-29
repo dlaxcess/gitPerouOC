@@ -180,16 +180,26 @@ class BackendControler extends SecuredControler {
     }
     
     public function newPost() {
-        $newPost = new Post(['post_title' => $this->request->getParameter('newPostTitle'), 'post_content' => $this->request->getParameter('newPostContent'), 'post_author' => $this->request->getParameter('sessionMember')->member_name()]);
-        $affectedLines = $this->postManager->addPost($newPost);
-        
-        if ($affectedLines === false) 
-        {
-            throw new \Exception('L\'article ne peut être posté.');
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('newPostTitle') && $this->request->existParameter('newPostContent')) {
+                $newPost = new Post(['post_title' => $this->request->getParameter('newPostTitle'), 'post_content' => $this->request->getParameter('newPostContent'), 'post_author' => $this->request->getParameter('connectedMember')->member_name()]);
+                $affectedLines = $this->postManager->addPost($newPost);
+
+                if ($affectedLines === false) 
+                {
+                    throw new \Exception('L\'article ne peut être posté.');
+                }
+                else
+                {
+                    header('Location: index.php');
+                }
+            }
+            else {
+                throw new \Exception('Le titre de l\'article ou son contenu n\'ont pas été renseignés.');
+            }
         }
-        else
-        {
-            header('Location: index.php');
+        else {
+            throw new \Exception('Veuillez vous connecter avant de poster un article.');
         }
     }
     
