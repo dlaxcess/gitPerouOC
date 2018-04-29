@@ -412,6 +412,9 @@ class BackendControler extends SecuredControler {
                 throw new \Exception('L\'identifiant de commentaire n\'est pas valide');
             }
         }
+        else {
+            throw new \Exception('Paramètres absents de la requete');
+        }
     }
     
     public function sendCommentedReport() {
