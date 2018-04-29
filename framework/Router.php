@@ -35,9 +35,10 @@ class Router
         
         $controler->executeAction($action);
         }
-        catch (Exception $exception)
+        catch (\Exception $exception)
             {
-            echo $exception->getTraceAsString();
+            /*echo $exception->getTraceAsString();*/
+            $this->manageError($exception);
             }
     }
     
@@ -80,6 +81,6 @@ class Router
     private function manageError(\Exception $exception)
     {
         $view = new View('error');
-        $view->generate(array('ErrorMsg' => $exception->getMessage()));
+        $view->generate(array('errorMessage' => $exception->getMessage()));
     }
 }

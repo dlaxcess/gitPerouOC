@@ -50,4 +50,12 @@ class MemberManager extends Manager {
         
         return $memberAmount;
     }
+    
+    public function existMemberByEmail($email) {
+        $sql = 'SELECT count(*) AS existMember FROM ocp3members WHERE member_email = :email';
+        $req = $this->executeRequest($sql, array('email' => $email));
+        $memberAmount = $req->fetch(\PDO::FETCH_ASSOC)['existMember'];
+        
+        return $memberAmount;
+    }
 }

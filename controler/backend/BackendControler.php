@@ -60,7 +60,7 @@ class BackendControler extends SecuredControler {
             header('Location: index.php');
         }
         else {
-            throw new Exception('Votre mot de passe est incorrect');
+            throw new \Exception('Votre mot de passe est incorrect');
         }
     }
     
@@ -85,17 +85,54 @@ class BackendControler extends SecuredControler {
         if ($this->request->existParameter('memberName')) {
             if ($this->request->getParameter('memberName') != '') {
                 if ($this->memberManager->existMemberByName($this->request->getParameter('memberName')) == 0) {
-                    $hashed_password = password_hash($this->request->getParameter('memberPassword'), PASSWORD_DEFAULT);
-                    $newMember = new Member(['member_name' => $this->request->getParameter('memberName'), 'member_email' => $this->request->getParameter('memberEmail'), 'member_password' => $hashed_password]);
-                    $affectedLines = $this->memberManager->createMember($newMember);
+                    if ($this->request->existParameter('memberEmail') && $this->request->existParameter('memberEmailConfirm')) {
+                        if ($this->request->getParameter('memberEmail') == $this->request->getParameter('memberEmailConfirm')) {
+                            if (preg_match('#^[a-z0-9._-]+@[a-z0-9._-]+\.[a-z]{2,4}$#', $this->request->getParameter('memberEmail'))) {
+                                if ($this->memberManager->existMemberByEmail($this->request->getParameter('memberEmail')) == 0) {
+                                    if ($this->request->existParameter('memberPassword') && $this->request->existParameter('memberPasswordConfirm')) {
+                                        if (strlen($this->request->getParameter('memberPassword')) >= 6) {
+                                            if ($this->request->getParameter('memberPassword') == $this->request->getParameter('memberPasswordConfirm')) {
+                                                $hashed_password = password_hash($this->request->getParameter('memberPassword'), PASSWORD_DEFAULT);
+                                                $newMember = new Member(['member_name' => $this->request->getParameter('memberName'), 'member_email' => $this->request->getParameter('memberEmail'), 'member_password' => $hashed_password]);
+                                                $affectedLines = $this->memberManager->createMember($newMember);
 
-                    if ($affectedLines === FALSE) {
-                        throw new Exception('le membre ne peut être inscrit');
+                                                if ($affectedLines === FALSE) {
+                                                    throw new \Exception('le membre ne peut être inscrit');
+                                                }
+                                                else {
+                                                    session_start();
+                                                    $_SESSION['sessionMember'] = $newMember;
+                                                    header('Location: index.php');
+                                                }
+                                            }
+                                            else {
+                                                throw new \Exception('Veuillez entrer deux fois le même mot de passe');
+                                            }
+                                        }
+                                        else {
+                                            throw new \Exception('Votre mot de passe doit faire au moins 6 caractères');
+                                        }
+                                    }
+                                    else {
+                                        throw new \Exception('Veuillez entrer un mot de passe');
+                                    }
+                                }
+                                else {
+                                    $registrationMsg = 'Cet E-mail est déjà enregistré, veuillez entrez une nouvelle adresse';
+                                    $displayRegistration = new View('registration');
+                                    $displayRegistration->generate(array('request' => $this->request, 'registrationMsg' => $registrationMsg));
+                                }
+                            }
+                            else {
+                                throw new \Exception('Veuillez renseigner une adresse Email valide');
+                            }
+                        }
+                        else {
+                            throw new \Exception('Veuillez renseigner deux fois la même adresse Email');
+                        }
                     }
                     else {
-                        session_start();
-                        $_SESSION['sessionMember'] = $newMember;
-                        header('Location: index.php');
+                        throw new \Exception('Pas d\'email renseignée, veuillez renseigner votre adresse');
                     }
                 }
                 else {
@@ -105,11 +142,11 @@ class BackendControler extends SecuredControler {
                 }
             }
             else {
-                throw new Exception('Vous devez entrer un nom');
+                throw new \Exception('Vous devez entrer un nom');
             }
         }
         else {
-            throw new Exception('Paramètre de nom absent de la requete');
+            throw new \Exception('Paramètre de nom absent de la requete, veuillez entrer un nom');
         }
     }
     
@@ -125,7 +162,7 @@ class BackendControler extends SecuredControler {
         
         if ($affectedLines === false) 
         {
-            throw new Exception('L\'article ne peut être posté.');
+            throw new \Exception('L\'article ne peut être posté.');
         }
         else
         {
@@ -154,7 +191,7 @@ class BackendControler extends SecuredControler {
             }*/
             $deletedLine = $this->postManager->erasePost($postId);
             if ($deletedLine === false) {
-                throw new Exception('L\'article ne peut être supprimé.');
+                throw new \Exception('L\'article ne peut être supprimé.');
             }
             else {
                 header('Location: index.php');
@@ -206,7 +243,7 @@ class BackendControler extends SecuredControler {
 
         if ($affectedLines === false) 
         {
-            throw new Exception('Le commentaire ne peut être posté.');
+            throw new \Exception('Le commentaire ne peut être posté.');
         }
         else
         {
@@ -280,7 +317,7 @@ class BackendControler extends SecuredControler {
                 }
             }
             else {
-                throw new Exception('L\'identifiant de commentaire n\'est pas valide');
+                throw new \Exception('L\'identifiant de commentaire n\'est pas valide');
             }
         }
     }
@@ -354,7 +391,7 @@ class BackendControler extends SecuredControler {
                     if ($this->reportManager->existReport($commentId) != 0) {
                         $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
                         if ($deletedLine === false) {
-                            throw new Exception('Le report ne peut être supprimé.');
+                            throw new \Exception('Le report ne peut être supprimé.');
                         }
                     }
                     if ($this->request->existParameter('oldAction')) {
@@ -384,7 +421,7 @@ class BackendControler extends SecuredControler {
                     if ($this->reportManager->existReport($commentId) != 0) {
                         $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
                         if ($deletedLine === false) {
-                            throw new Exception('Le report ne peut être supprimé.');
+                            throw new \Exception('Le report ne peut être supprimé.');
                         }
                     }
                     header('Location: index.php?controler=frontend&action=post&id=' . $postId);
@@ -421,15 +458,9 @@ class BackendControler extends SecuredControler {
                 
                 if ($deletedLine === false) 
                 {
-                    throw new Exception('Le commentaire ne peut être supprimé.');
+                    throw new \Exception('Le commentaire ne peut être supprimé.');
                 }
                 else {
-                    /*if ($this->reportManager->existReport($commentId) != 0) {
-                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
-                        if ($deletedLine === false) {
-                            throw new Exception('Le report ne peut être supprimé.');
-                        } 
-                    }*/
                     header('Location: index.php?controler=frontend&action=post&id=' . $this->request->getParameter('id'));
                 }
             }
@@ -445,15 +476,9 @@ class BackendControler extends SecuredControler {
                 
                 if ($deletedLine === false) 
                 {
-                    throw new Exception('Le commentaire ne peut être supprimé.');
+                    throw new \Exception('Le commentaire ne peut être supprimé.');
                 }
                 else {
-                    /*if ($this->reportManager->existReport($commentId) != 0) {
-                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
-                        if ($deletedLine === false) {
-                            throw new Exception('Le report ne peut être supprimé.');
-                        } 
-                    }*/
                     if ($this->request->existParameter('oldAction')) {
                         if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
                             header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
