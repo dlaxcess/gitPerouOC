@@ -60,13 +60,8 @@ class View
         if (isset($request) && $request->existParameter('action')) {
             $action = $request->getParameter('action');
         }
-        if (isset($request) && $request->existParameter('sessionMember')) {
-            $personalBar = new PersonalBar($action, $request->getParameter('sessionMember'));
-
-            return $personalBar;
-        }
-        if (isset($request) && $request->existParameter('cookieMember')) {
-            $personalBar = new PersonalBar($action, unserialize($request->getParameter('cookieMember')));
+        if (isset($request) && $request->existParameter('connectedMember')) {
+            $personalBar = new PersonalBar($action, $request->getParameter('connectedMember'));
 
             return $personalBar;
         }

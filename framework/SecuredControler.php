@@ -29,7 +29,7 @@ class SecuredControler extends Controler {
             $newRequest = new Request($oldRequestTab + array('connectedMember' => $connectedMember));
         }
         if ($request->existParameter('cookieMember')) {
-            $connectedMember = $request->getParameter('cookieMember');
+            $connectedMember = unserialize($request->getParameter('cookieMember'));
             $newRequest = new Request($oldRequestTab + array('connectedMember' => $connectedMember));
         }
         
