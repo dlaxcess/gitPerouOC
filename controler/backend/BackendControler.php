@@ -321,53 +321,75 @@ class BackendControler extends SecuredControler {
         }
     }
     
-    public function enterNewComment()
-    {
-        //$oldAction is used when the comment is modified from showReportedCommentView or showModeratedCommentView
-        $oldAction = NULL;
-        if ($this->request->existParameter('oldAction')) {
-            if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
-                $oldAction = $this->request->getParameter('oldAction');
+    public function enterNewComment() {
+       if ($this->request->existParameter('connectedMember')) { 
+            //$oldAction is used when the comment is modified from showReportedCommentView or showModeratedCommentView
+            $oldAction = NULL;
+            if ($this->request->existParameter('oldAction')) {
+                if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
+                    $oldAction = $this->request->getParameter('oldAction');
+                }
+            }
+            if ($this->request->existParameter('id') && $this->request->existParameter('comment_id')) {
+                $postId = intval($this->request->getParameter('id'));
+                $commentId = intval($this->request->getParameter('comment_id'));
+                 if ( isset($postId) && isset($commentId) && $postId > 0 && $commentId > 0) {
+                    $toModifyComment = $this->commentManager->getComment($commentId);
+                    $post = $this->postManager->getPost($postId);
+
+                    $modifCommentView = new View('modifyComment', 'backend');
+                    $modifCommentView->generate(array('toModifyComment' => $toModifyComment, 'post' => $post, 'request' => $this->request, 'oldAction' => $oldAction));
+                }
+                else {
+                    throw new \Exception('Paramètre id invalide');
+                }
+            }
+            else {
+                throw new \Exception('Paramètres absents de la requete');
             }
         }
-        $post_id = $this->request->getParameter('id');
-        $comment_id = $this->request->getParameter('comment_id');
-         if ( isset($post_id) && isset($comment_id) && $post_id > 0 && $comment_id > 0)
-         {
-            $toModifyComment = $this->commentManager->getComment($comment_id);
-            $post = $this->postManager->getPost($post_id);
-
-            $modifCommentView = new View('modifyComment', 'backend');
-            $modifCommentView->generate(array('toModifyComment' => $toModifyComment, 'post' => $post, 'request' => $this->request, 'oldAction' => $oldAction));
+        else {
+            throw new \Exception('Veuillez vous connecter avant de modifier un commentaire.');
         }
     }
 
-    function modifyComment()
-    {
-        $post_id = $this->request->getParameter('post_id');
-        $comment_id = $this->request->getParameter('comment_id');
-        $new_content = $this->request->getParameter('new_comment');
-        
-        if (isset($new_content))
-        {
-            $newComment = new Comment(['post_id' => $post_id, 'comment_id' => $comment_id, 'comment' => $new_content]);
-            $affectedLines = $this->commentManager->setComment($newComment);
-               
-            if ($affectedLines === false)
-            {
-                throw new \Exception('le commentaire ne peut être modifié');	
-            }
-            else
-            {
-                if ($this->request->existParameter('oldAction')) {
-                    if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
-                        header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
+    function modifyComment() {
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('post_id') && $this->request->existParameter('comment_id') && $this->request->existParameter('new_comment')) {
+                $post_id = intval($this->request->getParameter('post_id'));
+                $comment_id = intval($this->request->getParameter('comment_id'));
+                $new_content = $this->request->getParameter('new_comment');
+
+                if (isset($new_content) && $post_id > 0 && $comment_id >0) {
+                    $newComment = new Comment(['post_id' => $post_id, 'comment_id' => $comment_id, 'comment' => $new_content]);
+                    $affectedLines = $this->commentManager->setComment($newComment);
+
+                    if ($affectedLines === false)
+                    {
+                        throw new \Exception('le commentaire ne peut être modifié');	
+                    }
+                    else
+                    {
+                        if ($this->request->existParameter('oldAction')) {
+                            if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
+                                header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
+                            }
+                        }
+                        else {
+                            header('Location: index.php?controleur=frontend&action=post&id=' . $newComment->post_id());
+                        }
                     }
                 }
                 else {
-                    header('Location: index.php?controleur=frontend&action=post&id=' . $newComment->post_id());
+                    throw new \Exception('Paramètre id invalide');
                 }
             }
+            else {
+                throw new \Exception('Paramètres absents de la requete');
+            }
+        }
+        else {
+            throw new \Exception('Veuillez vous connecter avant de modifier un commentaire.');
         }
     }
     
