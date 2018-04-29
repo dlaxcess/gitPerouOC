@@ -27,29 +27,27 @@
     <div class="row">
         <h2>Commentaires</h2>
         <?php
-        if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
+        if ($request->existParameter('connectedMember')) {
         ?>
-        <form class="col-sm-6 well" action="index.php?controler=backend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
+        <form class="col-sm-6 well" id="addCommentForm" action="index.php?controler=backend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
             <legend>Ajoutez un commentaire</legend>
-            <div class="form-group">
+            <div class="form-group" id="divCommentPseudo">
                 <label for="pseudo">Votre pseudo</label>
-                <input type="text" class="form-control" name="comment_author" id="pseudo" <?php
-                    if (isset($request)) {
-                        if ($request->existParameter('sessionMember')) {
-                            echo 'value="' . $request->getParameter('sessionMember')->member_name() . '"';
-                        }
-                        if (!$request->existParameter('sessionMember') && $request->existParameter('cookieMember')){
-                            $member = unserialize($request->getParameter('cookieMember'));
-                            echo 'value="' . $member->member_name() . '"';
-                        }
-                    }
-                ?>>
+                <input type="text" class="form-control" name="comment_author" id="pseudo" <?php echo 'value="' . $request->getParameter('connectedMember')->member_name() . '"'; ?>>
             </div>
-            <div class="form-group">
+            <div class="alert alert-block alert-danger" id="addCommentAuthor" style="display:none">
+                <h4>Erreur !</h4>
+                Vous devez entrer un nom ! 
+            </div>
+            <div class="form-group" id="divCommentContent">
                 <label for="comment">Commentaire</label>
                 <textarea class="form-control" name="comment" id="comment"></textarea>
             </div>
-            <input type="submit" value="Poster le commentaire">
+            <div class="alert alert-block alert-danger" id="addCommentContent" style="display:none">
+                <h4>Erreur !</h4>
+                Vous devez entrer un commentaire ! 
+            </div>
+            <button type="submit" class="btn btn-default center-block">Poster le commentaire</button>
         </form>
         <?php
         }

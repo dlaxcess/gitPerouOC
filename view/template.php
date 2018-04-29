@@ -136,6 +136,18 @@
                       return false;
                   }
               });
+              $("form#addCommentForm").on("submit", function() {
+                  if(!$("input#pseudo").val()) {
+                      $("div#divCommentPseudo").addClass("has-error");
+                      $("div.alert#addCommentAuthor").show("slow").delay(4000).hide("slow");
+                      return false;
+                  }
+                  if(!$("textarea#comment").val()) {
+                      $("div#divCommentContent").addClass("has-error");
+                      $("div.alert#addCommentContent").show("slow").delay(4000).hide("slow");
+                      return false;
+                  }
+              });
               $(window.onload = function() {
                   $("div#reportValidationMsg").delay(4000).hide("slow");
               });
