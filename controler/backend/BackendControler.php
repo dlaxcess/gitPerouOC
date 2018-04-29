@@ -291,18 +291,33 @@ class BackendControler extends SecuredControler {
         }
     }
     
-    public function addComment()
-    {
-        $newComment = new Comment(['post_id' => $this->request->getParameter('id'), 'comment_author' => $this->request->getParameter('comment_author'), 'comment' => $this->request->getParameter('comment')]);
-        $affectedLines = $this->commentManager->postComment($newComment);
+    public function addComment() {
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('id') && $this->request->existParameter('comment_author') && $this->request->existParameter('comment')) {
+                $postId = intval($this->request->getParameter('id'));
+                if ($postId > 0) {
+                    $newComment = new Comment(['post_id' => $postId, 'comment_author' => $this->request->getParameter('comment_author'), 'comment' => $this->request->getParameter('comment')]);
+                    $affectedLines = $this->commentManager->postComment($newComment);
 
-        if ($affectedLines === false) 
-        {
-            throw new \Exception('Le commentaire ne peut être posté.');
+                    if ($affectedLines === false) 
+                    {
+                        throw new \Exception('Le commentaire ne peut être posté.');
+                    }
+                    else
+                    {
+                        header('Location: index.php?action=post&id=' . $postId);
+                    }
+                }
+                else {
+                    throw new \Exception('Paramètre id invalide');
+                }
+            }
+            else {
+                throw new \Exception('Paramètre non renseigné');
+            }
         }
-        else
-        {
-            header('Location: index.php?action=post&id=' . $_GET['id']);
+        else {
+            throw new \Exception('Veuillez vous connecter avant de poster un commentaire.');
         }
     }
     
