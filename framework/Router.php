@@ -12,8 +12,6 @@ use perou\blog\framework\Request;
 use perou\blog\controler\frontend\FrontendControler;
 use perou\blog\controler\backend\BackendControler;
 use perou\blog\framework\View;
-/*require_once 'controler/frontend/FrontendControler.php';
-require_once 'framework/Controler.php';*/
 
 /**
  * Description of Router
@@ -33,6 +31,7 @@ class Router
         $controler =$this->createControler($request);
         $action = $this->createAction($request);
         
+        $controler->setRequest($request);
         $controler->executeAction($action);
         }
         catch (\Exception $exception)

@@ -19,9 +19,9 @@
             </div>
             <small class="pull-right"><strong><?= $post->post_author() ?></strong></small>
         </div>
-        <!--<div class="panel-footer">
-            <em><a href="index.php?controler=frontend&action=post&id=<?= $post->post_id() ?>">Commentaires</a></em>
-        </div>-->
+        <div  id="reportValidationMsg">
+            <span class="label label-success center-block"><?= $reportValidationMsg ?></span>
+        </div>
     </div>
 
     <div class="row">
@@ -32,7 +32,7 @@
         <form class="col-sm-6 well" action="index.php?controler=backend&action=addComment&amp;id=<?= $post->post_id() ?>" method="post">
             <legend>Ajoutez un commentaire</legend>
             <div class="form-group">
-                <label for="pseudo">Votre pseudo :</label>
+                <label for="pseudo">Votre pseudo</label>
                 <input type="text" class="form-control" name="comment_author" id="pseudo" <?php
                     if (isset($request)) {
                         if ($request->existParameter('sessionMember')) {

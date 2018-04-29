@@ -1,10 +1,10 @@
-<?php $this->_page_title = 'Connexion à mon Blog'; ?>
+<?php $this->_page_title = 'Connexion au blog de Jean Forteroche'; ?>
 <div class="row">
     <div class="col-sm-offset-3 col-sm-6 col-sm-offset-3">
         <form class="well center-block" id="connexionForm" action="index.php?controler=backend&action=connect" method="post">
             <span class="label label-danger center-block"><?= $connexionMsg ?></span>
             <legend>Connectez vous</legend>
-            <div class="form-group"" id="divEmail">
+            <div class="form-group" id="divEmail">
                 <label for ="email">Entrez votre email</label>
                 <input type="email" class="form-control" name="memberEmail" id="email">
             </div>

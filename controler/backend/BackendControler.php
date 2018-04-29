@@ -118,7 +118,8 @@ class BackendControler extends SecuredControler {
                                                 }
                                                 else {
                                                     session_start();
-                                                    $_SESSION['sessionMember'] = $newMember;
+                                                    $connectedMember = $this->memberManager->getMemberByEmail($this->request->getParameter('memberEmail'));
+                                                    $_SESSION['sessionMember'] = $connectedMember;
                                                     header('Location: index.php');
                                                 }
                                             }
@@ -356,7 +357,11 @@ class BackendControler extends SecuredControler {
                 else {
                     $this->commentManager->setCommentModeration($reportedComment->comment_id(), 'reported');
                     mail('flipiste@free.fr', 'Commentaire signalé', 'Un nouveau commentaire a été signalé', 'monblog@free.fr');
-                    header('Location: index.php?controler=frontend&action=post&id=' . $reportedComment->post_id());
+                    $reportValidationMsg = 'Le commentaire a été signalé au modérateur';
+                    $post = $this->postManager->getPost($reportedComment->post_id());
+                    $comments = $this->commentManager->getComments($reportedComment->post_id());
+                    $displayPost = new View('post');
+                    $displayPost->generate(array('post' => $post, 'comments' => $comments, 'request' => $this->request, 'reportValidationMsg' => $reportValidationMsg));
                 }
             }
         } 

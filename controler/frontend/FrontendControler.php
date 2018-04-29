@@ -48,9 +48,10 @@ class FrontendControler extends SecuredControler
     
      public function post()
     {
+        $reportValidationMsg = '';
         $post = $this->_posts->getPost($this->request->getParameter('id'));
         $comments = $this->_comments->getComments($this->request->getParameter('id'));
         $displayPost = new View('post');
-        $displayPost->generate(array('post' => $post, 'comments' => $comments, 'request' => $this->request));
+        $displayPost->generate(array('post' => $post, 'comments' => $comments, 'request' => $this->request, 'reportValidationMsg' => $reportValidationMsg));
     }
 }

@@ -136,7 +136,10 @@
                       return false;
                   }
               });
-            }); 
+              $(window.onload = function() {
+                  $("div#reportValidationMsg").delay(4000).hide("slow");
+              });
+            });
         </script>
         
     </body>
