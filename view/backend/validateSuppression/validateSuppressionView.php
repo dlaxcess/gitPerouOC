@@ -41,8 +41,7 @@
                                                                                                                 ?></a>
 
     <div>
-        <h2>Êtes vous sur de vouloir supprimer ce 
-        <?php
+        <h2>Êtes vous sur de vouloir supprimer ce<?php
         if (isset($commentToDelete)) {
             echo ' commentaire ? :';
         }
@@ -59,7 +58,7 @@
                                                                                                                                                                             ?>">[ Supprimer ]</a>
         <a href="index.php?controler=<?= $controler ?>&action=<?php
                                                                                         echo $oldAction;
-                                                                                        if ($oldAction == 'post' OR $oldAction == 'listPosts') {
+                                                                                        if ($oldAction == 'post') {
                                                                                             echo '&id=' . $concernedPost->post_id();
                                                                                         }
                                                                                         ?>

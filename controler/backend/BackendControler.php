@@ -204,52 +204,90 @@ class BackendControler extends SecuredControler {
     }
     
     public function deletePost() {
-        if ($this->request->existParameter('id')){
-            $postId = intval($this->request->getParameter('id'));
-            $deletedLine = $this->postManager->erasePost($postId);
-            if ($deletedLine === false) {
-                throw new \Exception('L\'article ne peut être supprimé.');
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('id')){
+                $postId = intval($this->request->getParameter('id'));
+                if ($postId > 0) {
+                    $deletedLine = $this->postManager->erasePost($postId);
+                    if ($deletedLine === false) {
+                        throw new \Exception('L\'article ne peut être supprimé.');
+                    }
+                    else {
+                        header('Location: index.php');
+                    }
+                }
+                else {
+                    throw new \Exception('Paramètre id invalide');
+                }
             }
-            else {
-                header('Location: index.php');
-            }
+        }
+        else {
+            throw new \Exception('Veuillez vous connecter avant de supprimer un article.');
         }
     }
     
     public function modifyPost() {
-        $postToModify = $this->postManager->getPostSqlDate($this->request->getParameter('id'));
-        $displayPostToModify = new View('modifyPost', 'backend');
-        $displayPostToModify->generate(array('request' => $this->request, 'postToModify' => $postToModify));
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('id')){
+                $postId = intval($this->request->getParameter('id'));
+                if ($postId > 0) {
+                    $postToModify = $this->postManager->getPostSqlDate($postId);
+                    $displayPostToModify = new View('modifyPost', 'backend');
+                    $displayPostToModify->generate(array('request' => $this->request, 'postToModify' => $postToModify));
+                }
+                else {
+                    throw new \Exception('Paramètre id invalide');
+                }
+            }
+        }
+        else {
+            throw new \Exception('Veuillez vous connecter avant de modifier un article.');
+        }
     }
     
     public function updatePost() {
-        if ($this->request->existParameter('id')) {
-            $newPostId = $this->request->getParameter('id');
-        }
-        if ($this->request->existParameter('postToModifTitle')) {
-            $newPostTitle = $this->request->getParameter('postToModifTitle');
-        }
-        if ($this->request->existParameter('postToModifContent')) {
-            $newPostContent = $this->request->getParameter('postToModifContent');
-        }
-        if ($this->request->existParameter('postToModifDate')) {
-            $newPostDate = $this->request->getParameter('postToModifDate');
-            $newPostSqlDate = preg_replace('#[T].#', ' ', $newPostDate);
-        }
-        
-        $newPost = new Post(['post_id' => $newPostId, 'post_title' => $newPostTitle, 'post_content' => $newPostContent, 'post_creation_date_fr' => $newPostSqlDate]);
-        
-        if (isset($newPost)) {
-            $affectedLines = $this->postManager->setPost($newPost);
-            
-            if ($affectedLines === false)
-            {
-                throw new \Exception('l\'article ne peut être modifié');	
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('id')) {
+                $postId = intval($this->request->getParameter('id'));
+                if ($postId > 0) {
+                    if ($this->request->existParameter('postToModifTitle') && $this->request->existParameter('postToModifContent') && $this->request->existParameter('postToModifDate')) {
+                        $newPostTitle = $this->request->getParameter('postToModifTitle');
+                        $newPostContent = $this->request->getParameter('postToModifContent');
+                        $newPostDate = $this->request->getParameter('postToModifDate');
+                        $newPostSqlDate = preg_replace('#[T]#', ' ', $newPostDate);
+
+                        $newPost = new Post(['post_id' => $postId, 'post_title' => $newPostTitle, 'post_content' => $newPostContent, 'post_creation_date_fr' => $newPostSqlDate]);
+
+                        if (isset($newPost)) {
+                            $affectedLines = $this->postManager->setPost($newPost);
+
+                            if ($affectedLines === false)
+                            {
+                                throw new \Exception('l\'article ne peut être modifié');	
+                            }
+                            else
+                            {
+                                header('Location: index.php?');
+                            }
+                        }
+                        else {
+                            throw new \Exception('Le nouveau post n\'est pas paramètré.');
+                        }
+                    }
+                    else {
+                        throw new \Exception('Vous devez remplir tous les champs.');
+                    }
+                }
+                else {
+                        throw new \Exception('Paramètre id invalide');
+                    }
             }
-            else
-            {
-                header('Location: index.php?');
+            else {
+                throw new \Exception('Paramètre id absent de la requete.');
             }
+        }
+        else {
+            throw new \Exception('Veuillez vous connecter avant de modifier un article.');
         }
     }
     
