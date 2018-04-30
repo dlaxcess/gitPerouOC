@@ -61,7 +61,7 @@ class PersonalBar {
                             </div>
                             <div class="row" id="navbarDown">
                                 <div class="col-sm-12 col-xs-8">
-                                    <div class="container-fluid backgroundWhite">
+                                    <div class="backgroundWhite">
                                         <div><span class="pull-right-sm"><a href="index.php?controler=backend&action=showModeratedComments" class="showComments"><span class="badge">' . $moderatedComments . '</span> commentaires modéré(s)</a></span></div>
                                         <div><span class="pull-right-sm"><a href="index.php?controler=backend&action=showReportedComments" class="showComments"><span class="badge">' . $reportedComments . '</span> commentaires signalé(s)</a></span></div>
                                     </div>

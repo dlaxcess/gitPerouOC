@@ -22,10 +22,36 @@
     padding-right: 14px;
 }
 
+header.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+@media (max-width: 768px) {
+    #navbarDown {
+        background-color: white;
+        border-bottom: 1px solid #CCCCCC;
+    }
+}
+
 @media (max-width: 768px) {
     #navbarDown a {
         font-size: 80%;
     }
+}
+
+footer {
+    padding-top: 10px;
+    padding-bottom: 1px;
+    font-size: 75%;
+    color: #CCCCCC;
+    background-color: #222;
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer a {
+    color: #973634;
 }
 
 .backgroundWhite {
@@ -58,6 +84,12 @@
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
 .sticky + .container {
   padding-top: 60px;
+}
+
+@media (max-width: 768px) {
+    .label {
+        font-size: 60%!important;
+    }
 }
 
 /* margin for the nav bar showComments links*/

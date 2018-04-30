@@ -19,8 +19,14 @@ foreach ( $posts as $post)
                                                     ?>>
         <div class="panel-heading">
             <h3 class="panel-title">
-                <?= $post->post_title() ?>
-                <em>le <?= $post->post_creation_date() ?></em>
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="pull-left" style="text-align: left"><?= $post->post_title() ?></span>
+                    </div>
+                    <div class="col-md-6">
+                        <em class="pull-right"><small>le <?= $post->post_creation_date() ?></small></em>
+                    </div>
+                </div>
             </h3>
         </div>
         <div class="panel-body">

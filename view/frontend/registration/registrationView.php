@@ -3,7 +3,7 @@
 
 <div class="col-sm-offset-3 col-sm-6 col-sm-offset-3">
     <form class="well center-block" id="regitrationForm" action="index.php?controler=backend&action=addMember" method="post">
-        <span class="label label-danger center-block"><?= $registrationMsg ?></span>
+        <span class="label label-danger center-block smallFont"><?= $registrationMsg ?></span>
         <legend>Inscrivez vous</legend>
         <div class="form-group" id="divName">
             <label for ="name">Entrez votre nom : </label>
