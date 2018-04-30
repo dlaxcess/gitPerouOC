@@ -59,16 +59,14 @@
             echo '<p';
             $reportedClass = '';
             if ($comment->comment_moderation() == 'reported') {
-                if ($request->existParameter('sessionMember') && $request->getParameter('sessionMember')->member_acces() == 'admin') {
-                    $reportedClass = ' class="reportedComment"';
-                }
-                if ($request->existParameter('cookieMember') && unserialize($request->getParameter('cookieMember'))->member_acces() == 'admin') {
+                if ($request->existParameter('connectedMember') && $request->getParameter('connectedMember')->member_acces() == 'admin') {
                     $reportedClass = ' class="reportedComment"';
                 }
             }
             if ($comment->comment_moderation() == 'moderated') {
                 $reportedClass = ' class="moderatedComment"';
             }
+            
             if ($reportedClass != ' class="moderatedComment"') {
                 echo $reportedClass . '><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">"Signaler"</a> ';
             }
@@ -76,15 +74,10 @@
                 echo $reportedClass . '>Ce Commentaire a été modéré';
             }
             
-            if ($request->existParameter('sessionMember') OR $request->existParameter('cookieMember')) {
-                    if ($request->existParameter('sessionMember')) {
-                        $connectedMemberName = $request->getParameter('sessionMember')->member_name();
-                        $memberAcces = $request->getParameter('sessionMember')->member_acces();
-                    }
-                    if ($request->existParameter('cookieMember')) {
-                        $connectedMemberName = unserialize($request->getParameter('cookieMember'))->member_name();
-                        $memberAcces = unserialize($request->getParameter('cookieMember'))->member_acces();
-                    }
+            if ($request->existParameter('connectedMember')) {
+                    $connectedMemberName = $request->getParameter('connectedMember')->member_name();
+                    $memberAcces = $request->getParameter('connectedMember')->member_acces();
+                    
                     if ($memberAcces == 'admin') {
                         echo '(<a href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
                         echo ' <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '&comment_id=' . $comment->comment_id() . '&oldAction=post">[ Supprimer ]</a>';
