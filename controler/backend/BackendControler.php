@@ -666,7 +666,7 @@ class BackendControler extends SecuredControler {
         if ($this->request->existParameter('connectedMember')) {
             $comments = $this->commentManager->getReportedComments();
             $reports = $this->reportManager->getReports();
-            $displayReportedComment = new View('showreportedComments', 'backend');
+            $displayReportedComment = new View('showReportedComments', 'backend');
             $displayReportedComment->generate(array('request' => $this->request, 'comments' => $comments, 'reports' => $reports));
         }
         else {
