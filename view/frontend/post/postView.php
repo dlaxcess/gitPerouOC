@@ -25,7 +25,7 @@
     </div>
 
     <div class="row">
-        <h2>Commentaires</h2>
+        <h3>Commentaires</h3>
         <?php
         if ($request->existParameter('connectedMember')) {
         ?>

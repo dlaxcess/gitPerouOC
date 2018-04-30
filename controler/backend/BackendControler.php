@@ -546,35 +546,41 @@ class BackendControler extends SecuredControler {
     }
     
     public function acceptCommentFromPost() {
-        if ($this->request->existParameter('id') && $this->request->existParameter('commentId')) {
-            $postId = intval($this->request->getParameter('id'));
-            $commentId = intval($this->request->getParameter('commentId'));
-            if ($postId > 0 && $commentId > 0) {
-                $affectedLine = $this->commentManager->setCommentModeration($commentId, 'accepted');
-                
-                if ($affectedLine === FALSE) {
-                    throw new \Exception('Le commentaire ne peut être moderé.');
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('id') && $this->request->existParameter('commentId')) {
+                $postId = intval($this->request->getParameter('id'));
+                $commentId = intval($this->request->getParameter('commentId'));
+                if ($postId > 0 && $commentId > 0) {
+                    $affectedLine = $this->commentManager->setCommentModeration($commentId, 'accepted');
+
+                    if ($affectedLine === FALSE) {
+                        throw new \Exception('Le commentaire ne peut être moderé.');
+                    }
+                    else {
+                        if ($this->reportManager->existReport($commentId) != 0) {
+                            $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
+                            if ($deletedLine === false) {
+                                throw new \Exception('Le report ne peut être supprimé.');
+                            }
+                        }
+                        header('Location: index.php?controler=frontend&action=post&id=' . $postId);
+                    }
                 }
                 else {
-                    if ($this->reportManager->existReport($commentId) != 0) {
-                        $deletedLine = $this->reportManager->deleteReport($this->reportManager->existReport($commentId));
-                        if ($deletedLine === false) {
-                            throw new \Exception('Le report ne peut être supprimé.');
-                        }
-                    }
-                    header('Location: index.php?controler=frontend&action=post&id=' . $postId);
+                    throw new \Exception('Paramètre id invalide');
                 }
             }
             else {
-                throw new \Exception('Paramètre id invalide');
+                throw new \Exception('Paramètres absents de la requete');
             }
         }
         else {
-            throw new \Exception('Paramètres absents de la requete');
-        }
+            throw new \Exception('Veuillez vous connecter avant de valider un commentaire.');
+        }    
     }
     
     public function validateSupression() {
+        
         if ($this->request->existParameter('id')) {
             $postId = intval($this->request->getParameter('id'));
             $concernedPost = $this->postManager->getPost($postId);
