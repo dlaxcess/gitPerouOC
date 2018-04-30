@@ -59,52 +59,55 @@
         ?>
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-6" id="commentDiv">
                 <h4>Commentaires</h4>
                 <?php
                 foreach ($comments AS $comment)
                 {
-                    echo '<p';
-                    $reportedClass = '';
-                    if ($comment->comment_moderation() == 'reported') {
-                        if ($request->existParameter('connectedMember') && $request->getParameter('connectedMember')->member_acces() == 'admin') {
-                            $reportedClass = ' class="reportedComment"';
-                        }
-                    }
-                    if ($comment->comment_moderation() == 'moderated') {
-                        $reportedClass = ' class="moderatedComment"';
-                    }
+                    echo '<div class="well">';
+                        echo '<a class="btn btn-warning btn-xs" href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">Signaler</a> ';
+                        if ($request->existParameter('connectedMember')) {
+                                $connectedMemberName = $request->getParameter('connectedMember')->member_name();
+                                $memberAcces = $request->getParameter('connectedMember')->member_acces();
 
-                    if ($reportedClass != ' class="moderatedComment"') {
-                        echo $reportedClass . '><strong>[' . $comment->comment_date() . '] ' . $comment->comment_author() . ' : </strong><a href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">"Signaler"</a> ';
-                    }
-                    else {
-                        echo $reportedClass . '>Ce Commentaire a été modéré';
-                    }
-
-                    if ($request->existParameter('connectedMember')) {
-                            $connectedMemberName = $request->getParameter('connectedMember')->member_name();
-                            $memberAcces = $request->getParameter('connectedMember')->member_acces();
-
-                            if ($memberAcces == 'admin') {
-                                echo '(<a href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
-                                echo ' <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '&comment_id=' . $comment->comment_id() . '&oldAction=post">[ Supprimer ]</a>';
-                                echo ' <a href="index.php?controler=backend&action=moderateCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">[ Modérer ]</a>';
-                                echo ' <a href="index.php?controler=backend&action=acceptCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">[ Valider ]</a>';
-                            }
-                            else {
-                                if($comment->comment_author() == $connectedMemberName){
-                                    echo '(<a href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
+                                if ($memberAcces == 'admin') {
+                                    echo '<a class="btn btn-info btn-xs" href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>';
+                                    echo ' <a class="btn btn-danger btn-xs" href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '&comment_id=' . $comment->comment_id() . '&oldAction=post">Supprimer</a>';
+                                    echo ' <a class="btn btn-warning btn-xs" href="index.php?controler=backend&action=moderateCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">Modérer</a>';
+                                    echo ' <a class="btn btn-success btn-xs" href="index.php?controler=backend&action=acceptCommentFromPost&id=' . $post->post_id() . '&commentId=' . $comment->comment_id() . '">Valider</a>';
                                 }
+                                else {
+                                    if($comment->comment_author() == $connectedMemberName){
+                                        echo '(<a href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
+                                    }
+                                }
+                        }
+                        echo '<p';
+                        $reportedClass = '';
+                        if ($comment->comment_moderation() == 'reported') {
+                            if ($request->existParameter('connectedMember') && $request->getParameter('connectedMember')->member_acces() == 'admin') {
+                                $reportedClass = ' class="reportedComment"';
                             }
-                    }
-                    echo '<br />';
-                    if ($reportedClass != ' class="moderatedComment"') {
-                        echo $comment->comment() . '</p>';
-                    }
-                    else {
-                        echo 'Modéré';
-                    }
+                        }
+                        if ($comment->comment_moderation() == 'moderated') {
+                            $reportedClass = ' class="moderatedComment"';
+                        }
+
+                        if ($reportedClass != ' class="moderatedComment"') {
+                            echo $reportedClass . '><strong>' . $comment->comment_author() . '</strong><small class="pull-right">' . $comment->comment_date() . '</small>';
+                        }
+                        else {
+                            echo $reportedClass . '>Ce Commentaire a été modéré';
+                        }
+
+                        echo '<br />';
+                        if ($reportedClass != ' class="moderatedComment"') {
+                            echo $comment->comment() . '</p>';
+                        }
+                        else {
+                            echo 'Modéré';
+                        }
+                    echo '</div>';
                 }
                 ?>
             </div>

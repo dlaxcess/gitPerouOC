@@ -40,6 +40,12 @@ header.row {
     }
 }
 
+@media (max-width: 768px) {
+    #commentDiv a {
+        font-size: 80%;
+    }
+}
+
 footer {
     padding-top: 10px;
     padding-bottom: 1px;
@@ -71,6 +77,8 @@ footer a {
         padding-top: 20px;
     }
 }
+
+
 
 #newPostBar {
     padding-right: 14px;
