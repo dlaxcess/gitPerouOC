@@ -2,25 +2,35 @@
 
 <a href="index.php?controler=frontend&action=post&post_id=<?= $post->post_id() ?>">Retour à l'article</a>
 
-    <div class="news">
-        <h3>
-            <?= $post->post_title() ?>
-            <em>le <?= $post->post_creation_date() ?></em>
-        </h3>
-        
-        <p>
-            <?= $post->post_content() ?>
-            <br />
-            <strong><?= $post->post_author() ?></strong> 
-        </p>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <?= $post->post_title() ?>
+                <em>le <?= $post->post_creation_date() ?></em>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <?= $post->post_content() ?>
+                </div>
+            </div>
+            <small class="pull-right"><strong><?= $post->post_author() ?></strong></small>
+        </div>
     </div>
 
-    <div>
-        <h2>Modifier le commentaires</h2>
-        <strong>Bienvenue <?= $toModifyComment->comment_author() ?></strong>
-        <p>Entrez le nouveau commentaire :</p><br />
-        <form action="index.php?controler=backend&action=modifyComment&amp;post_id=<?= $post->post_id() ?>&amp;comment_id=<?= $toModifyComment->comment_id() ?><?php if (isset($oldAction)){echo '&oldAction=' . $oldAction;} ?>" method="post">
-            <label for="new_comment">Nouveau commentaire :</label><br /><textarea name="new_comment" id="new_comment" autofocus/><?= $toModifyComment->comment() ?></textarea><br />
-            <input type="submit" value="Poster le nouveau commentaire">
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6 col-sm-offset-3">
+        <strong>Commentaire de <?= $toModifyComment->comment_author() ?></strong>
+        <form class="well center-block" action="index.php?controler=backend&action=modifyComment&amp;post_id=<?= $post->post_id() ?>&amp;comment_id=<?= $toModifyComment->comment_id() ?><?php if (isset($oldAction)){echo '&oldAction=' . $oldAction;} ?>" method="post">
+            <legend>Entrez le nouveau commentaire</legend>
+            <div class="form-group">
+                <label for="new_comment">Nouveau commentaire :</label>
+                <textarea name="new_comment" class="form-control" id="new_comment" autofocus/><?= $toModifyComment->comment() ?></textarea>
+            </div>
+            <button type="submit" class="btn btn-default center-block">Poster le nouveau commentaire</button>
         </form>
+        </div>
     </div>
+</div>

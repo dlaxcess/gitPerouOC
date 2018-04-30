@@ -90,6 +90,7 @@
         
         <script src="public/tinymce/tinymce.min.js"></script>
         <script>tinymce.init({ selector:'textarea#newPostContent' });</script>
+        <script>tinymce.init({ selector:'textarea#postToModifContent' });</script>
         
         <script>
             $(function(){
