@@ -11,7 +11,12 @@
 foreach ( $posts as $post)
 {
 ?>
-    <div class="panel panel-default">
+    <div class="panel panel-default"<?php if ($request->existParameter('connectedMember')) {
+                                                            if ($request->getParameter('connectedMember')->member_acces() == 'admin') {
+                                                                echo ' style="margin-bottom:3px"';
+                                                            }
+                                                        }
+                                                    ?>>
         <div class="panel-heading">
             <h3 class="panel-title">
                 <?= $post->post_title() ?>
@@ -37,7 +42,7 @@ foreach ( $posts as $post)
             $memberAcces = $request->getParameter('connectedMember')->member_acces();
             
             if ($memberAcces == 'admin') {
-                echo '<p><a href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">[ Modifier]</a> <a href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '">[ Supprimer ]</a></p>';
+                echo '<p style="margin-bottom:20px"><a class="btn btn-default" href="index.php?controler=backend&action=modifyPost&id=' . $post->post_id() . '">Modifier</a> <a class="btn btn-default" href="index.php?controler=backend&action=validateSupression&id=' . $post->post_id() . '">Supprimer</a></p>';
             }
         }
 }

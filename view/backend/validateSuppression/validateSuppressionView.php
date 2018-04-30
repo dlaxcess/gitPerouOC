@@ -41,25 +41,26 @@
                                                                                                                 ?></a>
 
     <div>
-        <h2>Êtes vous sur de vouloir supprimer ce<?php
+        <h3>Êtes vous sur de vouloir supprimer ce<?php
         if (isset($commentToDelete)) {
             echo ' commentaire ? :';
         }
         else {
             echo 't article ? :';
         }
-        ?></h2>
-
-        <a href="index.php?controler=backend&AMP;action=<?= $deleteAction ?>&AMP;id=<?= $concernedPost->post_id() ?><?php
+        ?></h3>
+        <div style="text-align: center">
+        <a class="btn btn-default" href="index.php?controler=backend&AMP;action=<?= $deleteAction ?>&AMP;id=<?= $concernedPost->post_id() ?><?php
                                                                                                                                                                         if(isset($commentToDelete)) {                                                                                                                                                       
                                                                                                                                                                             ?>&AMP;comment_id=<?= $commentToDelete->comment_id() ?>&AMP;oldAction=<?= $oldAction ?>
                                                                                                                                                                             <?php
                                                                                                                                                                         }
-                                                                                                                                                                            ?>">[ Supprimer ]</a>
-        <a href="index.php?controler=<?= $controler ?>&action=<?php
+                                                                                                                                                                            ?>">Supprimer</a>
+        <a class="btn btn-default" href="index.php?controler=<?= $controler ?>&action=<?php
                                                                                         echo $oldAction;
                                                                                         if ($oldAction == 'post') {
                                                                                             echo '&id=' . $concernedPost->post_id();
                                                                                         }
                                                                                         ?>
-                                                                                        "> [ Annuler ]</a>
+                                                                                        ">Annuler</a>
+        </div>
