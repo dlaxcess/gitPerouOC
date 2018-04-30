@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="Blog de Jean Forteroche contenant les parutions de son dernier livre : Billet simple pour l'alaska">
+        <meta name="author" content="Philippe Pérou">
         <link rel="icon" href="public/images/favicon/favicon.ico">
     
         <base href="<?= $racineWeb ?>">
@@ -35,9 +35,9 @@
         
     <body>
         
-        <header class="row container">
+        <header class="row">
             <div class="col-sm-12">
-                <a href="index.php" title="Jean Forteroche" id="lienHeaderColor"><h1 class="pull-left">Jean Forteroche<span id ="dashTitle" class="visible-xs"><br /></span><span class="hidden-xs"> - </span><small>Billet simple pour l'Alaska</small></h1></a>
+                <a href="index.php" title="Jean Forteroche" id="lienHeaderColor"><h1 class="pull-left" style="margin-left: 15px">Jean Forteroche<span id ="dashTitle" class="visible-xs"><br /></span><span class="hidden-xs"> - </span><small>Billet simple pour l'Alaska</small></h1></a>
             </div>
         </header>
 

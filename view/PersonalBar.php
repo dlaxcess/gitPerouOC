@@ -68,7 +68,7 @@ class PersonalBar {
                                 </div>';
                         if ($action == 'listPosts') {
                             echo '<div class="col-sm-12 col-xs-4" id="newPostBar">
-                                        <div class="container-fluid pull-right-sm"><button data-toggle="modal" href="#newPost" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-pencil"></span></button></div>
+                                        <div class="pull-right"><button data-toggle="modal" href="#newPost" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-pencil"></span></button></div>
                                     </div>';
                         }
                         echo '</div>
