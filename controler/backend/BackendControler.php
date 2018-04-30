@@ -663,16 +663,26 @@ class BackendControler extends SecuredControler {
     }
     
     public function showReportedComments() {
-        $comments = $this->commentManager->getReportedComments();
-        $reports = $this->reportManager->getReports();
-        $displayReportedComment = new View('showreportedComments', 'backend');
-        $displayReportedComment->generate(array('request' => $this->request, 'comments' => $comments, 'reports' => $reports));
+        if ($this->request->existParameter('connectedMember')) {
+            $comments = $this->commentManager->getReportedComments();
+            $reports = $this->reportManager->getReports();
+            $displayReportedComment = new View('showreportedComments', 'backend');
+            $displayReportedComment->generate(array('request' => $this->request, 'comments' => $comments, 'reports' => $reports));
+        }
+        else {
+            throw new \Exception('Veuillez vous connecter pour voir les commentaires signalés.');
+        }
     }
     
     public function showModeratedComments() {
-        $comments = $this->commentManager->getModeratedComments();
-        $reports = $this->reportManager->getReports();
-        $displayModeratedComment = new View('showModeratedComments', 'backend');
-        $displayModeratedComment->generate(array('request' => $this->request, 'comments' => $comments, 'reports' => $reports));
+        if ($this->request->existParameter('connectedMember')) {
+            $comments = $this->commentManager->getModeratedComments();
+            $reports = $this->reportManager->getReports();
+            $displayModeratedComment = new View('showModeratedComments', 'backend');
+            $displayModeratedComment->generate(array('request' => $this->request, 'comments' => $comments, 'reports' => $reports));
+        }
+        else {
+            throw new \Exception('Veuillez vous connecter pour voir les commentaires modérés.');
+        }
     }
 }
