@@ -1,4 +1,4 @@
-<?php $this->_page_title = 'Jean Forteroche - Billet simple pour l\'Alaska - parutions'; ?>
+<?php $this->_page_title = 'Jean Forteroche - Billet simple pour l\'Alaska - parutions : ' .$post->post_title(); ?>
 
 <p>parution n° : <?= $post->post_id() ?></p>
 <p><a href="index.php">Retour aux parutions</a></p>
