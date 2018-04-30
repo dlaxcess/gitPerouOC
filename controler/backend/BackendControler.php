@@ -580,66 +580,86 @@ class BackendControler extends SecuredControler {
     }
     
     public function validateSupression() {
-        
-        if ($this->request->existParameter('id')) {
-            $postId = intval($this->request->getParameter('id'));
-            $concernedPost = $this->postManager->getPost($postId);
-            if ($this->request->existParameter('comment_id')) {
-                $commentId = intval($this->request->getParameter('comment_id'));
-                $commentToDelete = $this->commentManager->getComment($commentId);
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('id')) {
+                $postId = intval($this->request->getParameter('id'));
+                $concernedPost = $this->postManager->getPost($postId);
+                if ($this->request->existParameter('comment_id')) {
+                    $commentId = intval($this->request->getParameter('comment_id'));
+                    $commentToDelete = $this->commentManager->getComment($commentId);
+                }
+            }
+            if (isset($commentToDelete)) {
+                $displaySuppressionValidation = new View('validateSuppression', 'backend');
+                $displaySuppressionValidation->generate(array('request' => $this->request, 'concernedPost' => $concernedPost,  'commentToDelete' => $commentToDelete));
+            }
+            else {
+                $displaySuppressionValidation = new View('validateSuppression', 'backend');
+                $displaySuppressionValidation->generate(array('request' => $this->request, 'concernedPost' => $concernedPost));
             }
         }
-        if (isset($commentToDelete)) {
-            $displaySuppressionValidation = new View('validateSuppression', 'backend');
-            $displaySuppressionValidation->generate(array('request' => $this->request, 'concernedPost' => $concernedPost,  'commentToDelete' => $commentToDelete));
-        }
         else {
-            $displaySuppressionValidation = new View('validateSuppression', 'backend');
-            $displaySuppressionValidation->generate(array('request' => $this->request, 'concernedPost' => $concernedPost));
-        }
+            throw new \Exception('Veuillez vous connecter avant de supprimer un commentaire ou un post.');
+        } 
     }
 
     public function deleteComment() {
-        if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
-            $commentId = intval($this->request->getParameter('comment_id'));
-            $postId = intval($this->request->getParameter('id'));
-            if ($commentId > 0 && $postId > 0) {
-                $deletedLine = $this->commentManager->eraseComment($this->request->getParameter('comment_id'));
-                
-                if ($deletedLine === false) 
-                {
-                    throw new \Exception('Le commentaire ne peut être supprimé.');
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
+                $commentId = intval($this->request->getParameter('comment_id'));
+                $postId = intval($this->request->getParameter('id'));
+                if ($commentId > 0 && $postId > 0) {
+                    $deletedLine = $this->commentManager->eraseComment($this->request->getParameter('comment_id'));
+
+                    if ($deletedLine === false) 
+                    {
+                        throw new \Exception('Le commentaire ne peut être supprimé.');
+                    }
+                    else {
+                        header('Location: index.php?controler=frontend&action=post&id=' . $this->request->getParameter('id'));
+                    }
                 }
                 else {
-                    header('Location: index.php?controler=frontend&action=post&id=' . $this->request->getParameter('id'));
+                    throw new \Exception('Paramètre id invalide');
                 }
             }
         }
+        else {
+            throw new \Exception('Veuillez vous connecter avant de supprimer un commentaire.');
+        } 
     }
     
     public function deleteCommentFromList() {
-        if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
-            $commentId = intval($this->request->getParameter('comment_id'));
-            $postId = intval($this->request->getParameter('id'));
-            if ($commentId > 0 && $postId > 0) {
-                $deletedLine = $this->commentManager->eraseComment($this->request->getParameter('comment_id'));
-                
-                if ($deletedLine === false) 
-                {
-                    throw new \Exception('Le commentaire ne peut être supprimé.');
-                }
-                else {
-                    if ($this->request->existParameter('oldAction')) {
-                        if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
-                            header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
-                        }
-                        else {
-                            header('Location: index.php?controler=frontend&action=listPost');
+        if ($this->request->existParameter('connectedMember')) {
+            if ($this->request->existParameter('comment_id') && $this->request->existParameter('id')) {
+                $commentId = intval($this->request->getParameter('comment_id'));
+                $postId = intval($this->request->getParameter('id'));
+                if ($commentId > 0 && $postId > 0) {
+                    $deletedLine = $this->commentManager->eraseComment($this->request->getParameter('comment_id'));
+
+                    if ($deletedLine === false) 
+                    {
+                        throw new \Exception('Le commentaire ne peut être supprimé.');
+                    }
+                    else {
+                        if ($this->request->existParameter('oldAction')) {
+                            if ($this->request->getParameter('oldAction') == 'showReportedComments' OR $this->request->getParameter('oldAction') == 'showModeratedComments') {
+                                header('Location: index.php?controler=backend&action=' . $this->request->getParameter('oldAction'));
+                            }
+                            else {
+                                header('Location: index.php?controler=frontend&action=listPost');
+                            }
                         }
                     }
                 }
+                else {
+                    throw new \Exception('Paramètre id invalide');
+                }
             }
         }
+        else {
+            throw new \Exception('Veuillez vous connecter avant de supprimer un commentaire.');
+        } 
     }
     
     public function showReportedComments() {
