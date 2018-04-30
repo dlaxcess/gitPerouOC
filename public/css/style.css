@@ -48,6 +48,8 @@ footer {
     background-color: #222;
     text-align: center;
     margin-top: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
 }
 
 footer a {
@@ -87,8 +89,8 @@ footer a {
 }
 
 @media (max-width: 768px) {
-    .label {
-        font-size: 60%!important;
+    span.label.label-danger {
+        font-size: 60%;
     }
 }
 

@@ -136,7 +136,7 @@ class BackendControler extends SecuredControler {
                                     }
                                 }
                                 else {
-                                    $registrationMsg = 'Cet E-mail est déjà enregistré, veuillez entrez une nouvelle adresse';
+                                    $registrationMsg = 'Cet E-mail est déjà enregistré';
                                     $displayRegistration = new View('registration');
                                     $displayRegistration->generate(array('request' => $this->request, 'registrationMsg' => $registrationMsg));
                                 }

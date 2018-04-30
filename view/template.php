@@ -44,14 +44,13 @@
         <?= $this->_personalBar ?>
         
         <div class="container">
-            
-            
-            
 
             <?= $page_content ?>
             
+            
         </div><!-- /.container -->
-        <footer>
+        
+        <footer class="container-fluid">
             <p class="center-block">Blog de Jean Forteroche - Parutions de <em>Billet simple pour l'Alaska</em></p>
             <p class="center-block"><a href="#">Conditions générales et Mentions légales</a></p>
         </footer>
