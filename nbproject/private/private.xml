@@ -5,17 +5,7 @@
         <group>
             <file>file:/C:/xampp/htdocs/gitPerouOC/view/frontend/listPosts/listPostsView.php</file>
             <file>file:/C:/xampp/htdocs/gitPerouOC/public/css/style.css</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/controler/backend/BackendControler.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/model/CommentManager.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/view/PersonalBar.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/framework/View.php</file>
             <file>file:/C:/xampp/htdocs/gitPerouOC/view/frontend/post/postView.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/entities/Comment.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/framework/SecuredControler.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/entities/Post.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/controler/frontend/FrontendControler.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/view/backend/profil/profilView.php</file>
-            <file>file:/C:/xampp/htdocs/gitPerouOC/view/template.php</file>
         </group>
     </open-files>
 </project-private>

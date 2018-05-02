@@ -78,7 +78,7 @@
                                 }
                                 else {
                                     if($comment->comment_author() == $connectedMemberName){
-                                        echo '(<a href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>)';
+                                        echo '<a class="btn btn-info btn-xs" href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $post->post_id() . '">modifier</a>';
                                     }
                                 }
                         }
