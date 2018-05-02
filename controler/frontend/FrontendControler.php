@@ -33,15 +33,26 @@ class FrontendControler extends SecuredControler
 
     public function listPosts()
     {
+        $PageNumer ='';
+        $posts ='';
         if ($this->request->existParameter('id')) {
-            $PageNumer = intval($this->request->getParameter('id'));
-            $posts= $this->_posts->getPosts($PageNumer);
+            if (intval($this->request->getParameter('id')) !=0) {
+                $PageNumer = intval($this->request->getParameter('id'));
+                $posts= $this->_posts->getPosts($PageNumer);
+            }
+            else {
+                throw new Exception('Paramètre id invalide');
+            }
         }
         else {
             $PageNumer = 1;
             $posts = $this->_posts->getPosts();
         }
-        $postsPaging = new Paging($this->_posts->countPosts(), $PageNumer);
+        /*$postsPaging = new Paging($this->_posts->countPosts(), $PageNumer);*/
+        $postAmount = intval($this->_posts->countPosts());
+        $pagesAmount = ceil(($postAmount)/5);
+        $postsPaging = new View('paging');
+        $postsPaging = $postsPaging->generateFile('view/frontend/paging/pagingView.php', array('postAmount' => $postAmount, 'pageId' => $PageNumer, 'pagesAmount' => $pagesAmount));
         $displayPosts = new View('listPosts');
         $displayPosts->generate(array('posts' => $posts, 'request' => $this->request, 'postsPaging' => $postsPaging));
     }
