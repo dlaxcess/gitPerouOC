@@ -64,7 +64,14 @@
                 <?php
                 foreach ($comments AS $comment)
                 {
-                    echo '<div class="well">';
+                    echo '<div class="well';
+                    $reportedClass = '';
+                    if ($comment->comment_moderation() == 'reported') {
+                        if ($request->existParameter('connectedMember') && $request->getParameter('connectedMember')->member_acces() == 'admin') {
+                            $reportedClass = ' reportedComment';
+                        }
+                    }
+                    echo $reportedClass .  '">';
                         echo '<a class="btn btn-warning btn-xs" href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">Signaler</a> ';
                         if ($request->existParameter('connectedMember')) {
                                 $connectedMemberName = $request->getParameter('connectedMember')->member_name();
@@ -83,12 +90,6 @@
                                 }
                         }
                         echo '<p';
-                        $reportedClass = '';
-                        if ($comment->comment_moderation() == 'reported') {
-                            if ($request->existParameter('connectedMember') && $request->getParameter('connectedMember')->member_acces() == 'admin') {
-                                $reportedClass = ' class="reportedComment"';
-                            }
-                        }
                         if ($comment->comment_moderation() == 'moderated') {
                             $reportedClass = ' class="moderatedComment"';
                         }

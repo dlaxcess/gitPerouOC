@@ -170,7 +170,7 @@ a
 
 .reportedComment
 {
-    background-color: red;
+    border: 2px solid red; 
 }
 
 p.moderatedComment
