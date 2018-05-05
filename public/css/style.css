@@ -173,18 +173,18 @@ a
     border: 2px solid red; 
 }
 
-p.moderatedComment
+.moderatedComment
 {
-    background-color: black;
-}
-
-.moderatedComment a
-{
-    color: red;
+    border: 2px solid black;
+    background-color: darkslategray;
 }
 
 p.moderatedComment::after
 {
     content: "Ce commentaire a été modéré";
-    color: white;
+}
+
+.moderatedComment p
+{
+color: white;
 }

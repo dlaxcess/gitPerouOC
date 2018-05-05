@@ -71,6 +71,9 @@
                             $reportedClass = ' reportedComment';
                         }
                     }
+                    if ($comment->comment_moderation() == 'moderated') {
+                            $reportedClass = ' moderatedComment';
+                        }
                     echo $reportedClass .  '">';
                         echo '<a class="btn btn-warning btn-xs" href="index.php?controler=backend&action=reportComment&commentId=' . $comment->comment_id() . '">Signaler</a> ';
                         if ($request->existParameter('connectedMember')) {
@@ -90,11 +93,9 @@
                                 }
                         }
                         echo '<p';
-                        if ($comment->comment_moderation() == 'moderated') {
-                            $reportedClass = ' class="moderatedComment"';
-                        }
+                        
 
-                        if ($reportedClass != ' class="moderatedComment"') {
+                        if ($reportedClass != ' moderatedComment') {
                             echo $reportedClass . '><strong>' . $comment->comment_author() . '</strong><small class="pull-right">' . $comment->comment_date() . '</small>';
                         }
                         else {
@@ -102,11 +103,11 @@
                         }
 
                         echo '<br />';
-                        if ($reportedClass != ' class="moderatedComment"') {
+                        if ($reportedClass != ' moderatedComment') {
                             echo $comment->comment() . '</p>';
                         }
                         else {
-                            echo 'Modéré';
+                            echo '';
                         }
                     echo '</div>';
                 }
