@@ -129,8 +129,7 @@ li.disabled {
     background-color: lightgray;
 }
 
-h3
-{
+h3 {
     text-align:center;
 }
 
@@ -146,45 +145,38 @@ h3
     height: 20px;
 }
 
-.news p
-{
+.news p {
     background-color:#CCCCCC;
     margin-top:0px;
 }
-.news
-{
+
+.news {
     width:70%;
     margin:auto;
 }
 
-a
-{
+a {
     text-decoration: none;
-    color: blue;
+    color: red;
 }
 
-#pagination
-{
+#pagination {
     text-align: center;
 }
 
-.reportedComment
-{
+.reportedComment {
     border: 2px solid red; 
 }
 
-.moderatedComment
-{
+.moderatedComment {
     border: 2px solid black;
     background-color: darkslategray;
 }
 
-p.moderatedComment::after
-{
+p.moderatedComment::after {
     content: "Ce commentaire a été modéré";
 }
 
-.moderatedComment p
-{
+.moderatedComment p {
 color: white;
 }

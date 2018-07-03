@@ -9,7 +9,7 @@
 <?php
 foreach ( $posts as $post)
 {
-?>
+    ?>
     <div class="panel panel-default"<?php if ($request->existParameter('connectedMember')) {
                                                             if ($request->getParameter('connectedMember')->member_acces() == 'admin') {
                                                                 echo ' style="margin-bottom:3px"';
@@ -40,6 +40,7 @@ foreach ( $posts as $post)
             <em><a href="index.php?controler=frontend&action=post&id=<?= $post->post_id() ?>">Commentaires</a></em>
         </div>
     </div>
+    
         
         
         <?php
