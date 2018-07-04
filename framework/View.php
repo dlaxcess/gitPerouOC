@@ -2,16 +2,19 @@
 
 namespace perou\blog\framework;
 
-use perou\blog\view\PersonalBar;
+/*use perou\blog\view\PersonalBar;*/
+use perou\blog\model\CommentManager;
 
 class View
 {
     private $_file;
     private $_title;
     private $_personalBar;
+    private $_action;
 
     public function __construct($action, $controler ="")
     {
+        $this->_action = $action;
         $file = "view/";
         if ($controler != "")
         {
@@ -26,8 +29,7 @@ class View
 
     public function generate($datas)
     {
-        $personalBar = $this->generatePersonalBar($datas);
-        $this->_personalBar = $personalBar->get();
+        $this->_personalBar = $this->generatePersonalBar($datas);
         
         $page_content = $this->generateFile($this->_file, $datas);
         
@@ -37,7 +39,7 @@ class View
         echo $view;
     }
 
-    private function generateFile($_file, $datas)
+    public function generateFile($_file, $datas)
     {
         if (file_exists($_file))
         {
@@ -55,20 +57,12 @@ class View
     }
     
     public function generatePersonalBar($datas) {
-        extract($datas);
-        $action = 'listPosts';
-        if (isset($request) && $request->existParameter('action')) {
-            $action = $request->getParameter('action');
-        }
-        if (isset($request) && $request->existParameter('connectedMember')) {
-            $personalBar = new PersonalBar($action, $request->getParameter('connectedMember'));
+        $commentModeration = new CommentManager();
+        $reportedComments = $commentModeration->countReportedComment();
+        $moderatedComments = $commentModeration->countModeratedComment();
+        $datas = array_merge($datas + ['reportedComments' => $reportedComments, 'moderatedComments' => $moderatedComments]);
+        $personalBar = $this->generateFile('view/frontend/personalBAr/personalBarView.php', $datas);
 
-            return $personalBar;
-        }
-        else {
-            $personalBar = new PersonalBar($action);
-
-            return $personalBar;
-        }
+        return $personalBar;
     }
 }
