@@ -3,7 +3,7 @@
 <?php
         foreach ($comments AS $comment) {
             
-            echo '<a class="btn btn-info btn-xs" href="index.php?controler=frontend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $comment->post_id() . '&oldAction=showReportedComments">modifier</a>';
+            echo '<a class="btn btn-info btn-xs" href="index.php?controler=backend&action=enterNewComment&comment_id=' . $comment->comment_id() . '&id=' . $comment->post_id() . '&oldAction=showReportedComments">modifier</a>';
             echo ' <a class="btn btn-danger btn-xs" href="index.php?controler=backend&action=validateSupression&id=' . $comment->post_id() . '&comment_id=' . $comment->comment_id() . '&oldAction=showReportedComments">Supprimer</a>';
             echo ' <a class="btn btn-warning btn-xs" href="index.php?controler=backend&action=moderateCommentFromList&commentId=' . $comment->comment_id() . '&oldAction=showReportedComments">Modérer</a>';
             echo ' <a class="btn btn-success btn-xs" href="index.php?controler=backend&action=acceptCommentFromList&commentId=' . $comment->comment_id() . '&oldAction=showReportedComments">Valider</a>';
