@@ -61,7 +61,7 @@ class View
         $reportedComments = $commentModeration->countReportedComment();
         $moderatedComments = $commentModeration->countModeratedComment();
         $datas = array_merge($datas + ['reportedComments' => $reportedComments, 'moderatedComments' => $moderatedComments]);
-        $personalBar = $this->generateFile('view/frontend/personalBAr/personalBarView.php', $datas);
+        $personalBar = $this->generateFile('view/frontend/personalBar/personalBarView.php', $datas);
 
         return $personalBar;
     }
